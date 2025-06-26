@@ -12,7 +12,6 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['react-icons'],
   },
 }

@@ -16,7 +16,7 @@
   }
   
   /* Critical performance optimizations */
-  * {
+  *:not(.agentforce-chat) {
     transform: translate3d(0, 0, 0);
   }
   

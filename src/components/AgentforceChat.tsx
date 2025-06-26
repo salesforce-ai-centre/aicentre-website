@@ -11,10 +11,10 @@ interface Message {
 }
 
 const presetMessages = [
+  "Summarize this unit",
   "What is an AgentBlazr?",
-  "Quit me!",
-  "What all can you do?",
-  "Summarize this unit"
+  "Quiz me!",
+  "What all can you do?"
 ];
 
 export default function AgentforceChat() {
@@ -75,7 +75,10 @@ export default function AgentforceChat() {
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+      <div 
+        className="agentforce-chat fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50"
+        style={{ position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}
+      >
         <button
           onClick={() => setIsOpen(true)}
           className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
@@ -182,56 +185,60 @@ export default function AgentforceChat() {
   }
 
   return (
-    <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 max-w-sm w-full mx-4">
+    <div 
+      className="agentforce-chat fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 max-w-4xl w-full mx-4"
+      style={{ position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}
+    >
       {/* Chat Bubble */}
-      <div className="bg-white rounded-lg shadow-xl border">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg shadow-xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-3 border-b bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-t-lg">
-          <div className="flex items-center space-x-2">
-            <div className="w-6 h-6 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-              <CheckCircle size={16} />
+        <div className="flex items-center justify-between p-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+              <CheckCircle size={20} fill="white" />
             </div>
-            <span className="text-sm font-medium">Hi Jacob! I&apos;m Agentforce for AI Centre, and I&apos;m here to help.</span>
+            <span className="text-white font-medium">Hi Jacob! I&apos;m Agentforce for AI Centre, and I&apos;m here to help.</span>
           </div>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="text-white hover:text-gray-200"
-          >
-            <X size={16} />
-          </button>
+          <div className="flex items-center space-x-2">
+            {/* Input Field */}
+            <form onSubmit={handleSubmit} className="flex items-center">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder=""
+                className="bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 text-sm border-0 w-80"
+              />
+              <button
+                type="submit"
+                disabled={!inputValue.trim()}
+                className="ml-2 text-white hover:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <Send size={20} />
+              </button>
+            </form>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-white hover:text-gray-200 ml-2"
+            >
+              <X size={20} />
+            </button>
+          </div>
         </div>
 
         {/* Preset Messages */}
-        <div className="p-3">
-          <div className="space-y-2 mb-3">
+        <div className="px-4 pb-4">
+          <div className="flex flex-wrap gap-2">
             {presetMessages.map((message) => (
               <button
                 key={message}
                 onClick={() => handlePresetClick(message)}
-                className="w-full text-left bg-blue-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors"
+                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-white border-opacity-30"
               >
                 {message}
               </button>
             ))}
           </div>
-          
-          {/* Input Field */}
-          <form onSubmit={handleSubmit} className="flex space-x-2">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Type your message..."
-              className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 text-sm"
-            />
-            <button
-              type="submit"
-              disabled={!inputValue.trim()}
-              className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              <Send size={16} />
-            </button>
-          </form>
         </div>
       </div>
     </div>
