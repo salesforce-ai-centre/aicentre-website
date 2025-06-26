@@ -1,0 +1,86 @@
+[
+  {
+    "id": "future-of-work-agentforce",
+    "title": "Future of Work with Agentforce",
+    "description": "Explore how AI agents are transforming workplace dynamics and empowering human potential across industries.",
+    "presenter": "AI Centre Team",
+    "presenterRole": "Senior Solution Engineers",
+    "duration": "30-45 minutes",
+    "audienceSize": "20-100 attendees",
+    "topics": ["Workforce Transformation", "Human-AI Collaboration", "Future Skills"],
+    "focusArea": "Workforce Transformation",
+    "audience": "Executives, HR Leaders"
+  },
+  {
+    "id": "data-readiness-for-ai",
+    "title": "Data Readiness for AI",
+    "description": "Strategic guidance on preparing your data infrastructure for AI success and maximizing ROI from your data investments.",
+    "presenter": "AI Centre Team",
+    "presenterRole": "Data Strategy Experts",
+    "duration": "30-45 minutes",
+    "audienceSize": "15-50 attendees",
+    "topics": ["Data Strategy", "AI Readiness", "Infrastructure Planning"],
+    "focusArea": "Data Strategy",
+    "audience": "Data Leaders, CTOs"
+  },
+  {
+    "id": "agentforce-101",
+    "title": "Agentforce 101",
+    "description": "Comprehensive introduction to the Agentforce platform, capabilities, and real-world applications across business functions.",
+    "presenter": "AI Centre Team",
+    "presenterRole": "Platform Specialists",
+    "duration": "30-60 minutes",
+    "audienceSize": "20-200 attendees",
+    "topics": ["Platform Overview", "Key Features", "Use Cases"],
+    "focusArea": "Platform Overview",
+    "audience": "All Audiences"
+  },
+  {
+    "id": "future-of-agentforce-ai",
+    "title": "Future of Agentforce & AI",
+    "description": "Forward-looking presentation on AI innovation roadmap and emerging trends that will shape the next generation of intelligent automation.",
+    "presenter": "AI Centre Team",
+    "presenterRole": "Innovation Leaders",
+    "duration": "30-45 minutes",
+    "audienceSize": "15-100 attendees",
+    "topics": ["Innovation Roadmap", "Emerging Trends", "Future Vision"],
+    "focusArea": "Innovation Roadmap",
+    "audience": "Executives, Innovators"
+  },
+  {
+    "id": "executive-ideation",
+    "title": "Executive Ideation",
+    "description": "Strategic planning session designed to help senior leaders envision and plan their organization's AI transformation journey.",
+    "presenter": "AI Centre Team",
+    "presenterRole": "Strategy Consultants",
+    "duration": "60-90 minutes",
+    "audienceSize": "8-20 attendees",
+    "topics": ["Strategic Planning", "AI Transformation", "Leadership Vision"],
+    "focusArea": "Strategic Planning",
+    "audience": "C-Suite, Senior Leaders"
+  },
+  {
+    "id": "behavioral-consumer-trends-ai",
+    "title": "Behavioral & Consumer Trends of AI",
+    "description": "Market insights on how AI is changing consumer behavior and what this means for customer experience and marketing strategies.",
+    "presenter": "AI Centre Team",
+    "presenterRole": "Market Research Analysts",
+    "duration": "30-45 minutes",
+    "audienceSize": "15-75 attendees",
+    "topics": ["Consumer Behavior", "Market Trends", "Customer Experience"],
+    "focusArea": "Market Insights",
+    "audience": "Marketing, Strategy"
+  },
+  {
+    "id": "a2a-mcp-agentforce",
+    "title": "A2A & MCP for Agentforce",
+    "description": "Technical deep-dive into Agent-to-Agent communication and Model Context Protocol for building sophisticated AI agent ecosystems.",
+    "presenter": "AI Centre Team",
+    "presenterRole": "Technical Architects",
+    "duration": "45-60 minutes",
+    "audienceSize": "10-30 attendees",
+    "topics": ["Agent Integration", "Technical Architecture", "Advanced Features"],
+    "focusArea": "Technical Integration",
+    "audience": "Technical Architects"
+  }
+]

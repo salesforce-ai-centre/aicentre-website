@@ -1,0 +1,105 @@
+[
+  {
+    "id": "exploration-zone",
+    "title": "Exploration Zone",
+    "description": "Interactive discovery space where customers can experiment with AI tools and see real-time demonstrations of Agentforce capabilities tailored to their industry.",
+    "type": "interactive",
+    "duration": "30-60 minutes",
+    "audienceSize": "Any size",
+    "tags": ["Interactive", "Demo", "Industry-specific"],
+    "category": "orange"
+  },
+  {
+    "id": "lego-city",
+    "title": "Lego City",
+    "description": "Help customers visualize their future state by building AI workflows with our hands-on Lego simulation, modeling complex business processes in a collaborative environment.",
+    "type": "interactive",
+    "duration": "45-90 minutes",
+    "audienceSize": "8-20 participants",
+    "tags": ["Hands-on", "Collaborative", "Visualization"],
+    "category": "orange",
+    "featured": true
+  },
+  {
+    "id": "research-wall",
+    "title": "Research Wall",
+    "description": "Showcase the latest AI research and innovations to customers, demonstrating how Salesforce is shaping the future of intelligent automation and business transformation.",
+    "type": "demo",
+    "duration": "15-30 minutes",
+    "audienceSize": "Any size",
+    "tags": ["Research", "Innovation", "Future Tech"],
+    "category": "green"
+  },
+  {
+    "id": "history-of-ai-wall",
+    "title": "History of AI Wall",
+    "description": "Take customers on a journey through the evolution of artificial intelligence from early concepts to today's cutting-edge Agentforce technology.",
+    "type": "demo",
+    "duration": "15-30 minutes",
+    "audienceSize": "Any size",
+    "tags": ["Education", "History", "Context"],
+    "category": "green"
+  },
+  {
+    "id": "scavenger-hunt",
+    "title": "Scavenger Hunt",
+    "description": "Gamified learning experience that challenges customer teams to discover AI solutions hidden throughout our interactive environment, fostering collaboration and discovery.",
+    "type": "interactive",
+    "duration": "30-60 minutes",
+    "audienceSize": "12-30 participants",
+    "tags": ["Gamified", "Team Building", "Discovery"],
+    "category": "orange"
+  },
+  {
+    "id": "turing-test",
+    "title": "Turing Test",
+    "description": "Engage customers with our modern interpretation of the famous Turing Test, featuring real-world business scenarios relevant to their industry and use cases.",
+    "type": "immersive",
+    "duration": "20-40 minutes",
+    "audienceSize": "6-15 participants",
+    "tags": ["Interactive", "AI Testing", "Business Scenarios"],
+    "category": "red"
+  },
+  {
+    "id": "sustainability-game",
+    "title": "Sustainability Game - Crank it Up!",
+    "description": "Watts the prompt? Help customers solve sustainability challenges using AI while learning about responsible technology implementation and ESG benefits.",
+    "type": "immersive",
+    "duration": "30-45 minutes",
+    "audienceSize": "8-16 participants",
+    "tags": ["Sustainability", "ESG", "Problem Solving"],
+    "category": "red",
+    "featured": true
+  },
+  {
+    "id": "f1-simulators",
+    "title": "F1 Simulators",
+    "description": "Give customers the thrill of high-speed decision making while demonstrating how AI agents can optimize performance and decision-making in real-time business scenarios.",
+    "type": "immersive",
+    "duration": "15-30 minutes",
+    "audienceSize": "1-4 participants",
+    "tags": ["High-speed", "Decision Making", "Real-time AI"],
+    "category": "red",
+    "featured": true
+  },
+  {
+    "id": "hub-kiosks",
+    "title": "Hub Kiosks",
+    "description": "Self-service learning stations where customers can dive deep into specific Agentforce features and use cases at their own pace, with account team guidance available.",
+    "type": "interactive",
+    "duration": "15-60 minutes",
+    "audienceSize": "1-3 participants",
+    "tags": ["Self-service", "Deep Dive", "Features"],
+    "category": "orange"
+  },
+  {
+    "id": "centre-pass-app",
+    "title": "Centre Pass (Mobile App)",
+    "description": "Customers' personal AI companion throughout the experience, providing contextual insights and extending learning beyond the visit to drive continued engagement.",
+    "type": "demo",
+    "duration": "Ongoing",
+    "audienceSize": "Individual",
+    "tags": ["Mobile App", "Companion", "Extended Learning"],
+    "category": "red"
+  }
+]

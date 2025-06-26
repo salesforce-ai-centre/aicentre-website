@@ -1,0 +1,76 @@
+[
+  {
+    "id": "agent-challenge-day",
+    "title": "Agent Challenge Day",
+    "description": "Intensive hands-on challenge where your customers build and deploy their first AI agent. Perfect for technical teams ready to dive deep into Agentforce capabilities.",
+    "tags": ["Hands-on", "Technical Users", "Ideation"],
+    "audienceSize": "12-25 participants",
+    "duration": "Full day",
+    "category": "hands-on",
+    "featured": true
+  },
+  {
+    "id": "agentforce-hands-on-workshop",
+    "title": "Agentforce Hands-on Workshop",
+    "description": "Comprehensive workshop for customer teams covering agent design, implementation, and deployment strategies with real-world use cases.",
+    "tags": ["Hands-on", "Technical Users"],
+    "audienceSize": "15-30 participants",
+    "duration": "Half day",
+    "category": "hands-on"
+  },
+  {
+    "id": "agentforce-ideation",
+    "title": "Agentforce Ideation",
+    "description": "Future-focused workshop using proven ideation frameworks to help customers envision their AI-powered business transformation.",
+    "tags": ["Ideation", "Business Users", "Executives"],
+    "audienceSize": "10-20 participants",
+    "duration": "Half day",
+    "category": "ideation",
+    "featured": true
+  },
+  {
+    "id": "agentforce-lab",
+    "title": "Agentforce Lab",
+    "description": "Experimental environment for customer teams to test advanced AI scenarios and push the boundaries of what's possible with their data.",
+    "tags": ["Hands-on", "Technical Users"],
+    "audienceSize": "8-15 participants",
+    "duration": "Half day",
+    "category": "technical"
+  },
+  {
+    "id": "agentforce-now",
+    "title": "Agentforce Now",
+    "description": "Quick-start program to help customers get their first agent up and running in record time with immediate business impact.",
+    "tags": ["Business Users", "Hands-on"],
+    "audienceSize": "20-35 participants",
+    "duration": "2 hours",
+    "category": "business"
+  },
+  {
+    "id": "data-cloud-ideation",
+    "title": "Data Cloud Ideation",
+    "description": "Help customers explore how to leverage their data assets to power intelligent AI experiences across their organization.",
+    "tags": ["Ideation", "Business Users"],
+    "audienceSize": "15-25 participants",
+    "duration": "Half day",
+    "category": "ideation"
+  },
+  {
+    "id": "data-cloud-hands-on",
+    "title": "Data Cloud Hands-on Workshop",
+    "description": "Technical deep-dive for customer teams into data preparation, integration, and optimization for AI and agent deployments.",
+    "tags": ["Hands-on", "Technical Users"],
+    "audienceSize": "12-20 participants",
+    "duration": "Full day",
+    "category": "technical"
+  },
+  {
+    "id": "prompt-builder-workshop",
+    "title": "Prompt Builder Workshop",
+    "description": "Help customers master the art and science of prompt engineering to create more effective and reliable AI interactions.",
+    "tags": ["Hands-on", "Technical Users"],
+    "audienceSize": "18-30 participants",
+    "duration": "Half day",
+    "category": "technical"
+  }
+]

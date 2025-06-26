@@ -1,0 +1,20 @@
+{
+  "siteName": "Salesforce AI Centre",
+  "siteDescription": "Engagement Portal - Comprehensive AI experiences for Salesforce account teams",
+  "contactInfo": {
+    "slackChannel": "#ai-centre-uk",
+    "slackDescription": "Book customer engagements via Slack",
+    "supportDescription": "Account team support • Customer experience planning"
+  },
+  "navigation": [
+    { "name": "Offerings", "href": "#offerings" },
+    { "name": "Experiences", "href": "#experiences" },
+    { "name": "Keynotes", "href": "#keynotes" },
+    { "name": "Testimonials", "href": "#testimonials" },
+    { "name": "FAQ", "href": "#faq" }
+  ],
+  "agentforceBadge": "Powered by Agentforce",
+  "analytics": {
+    "googleAnalyticsId": null
+  }
+}

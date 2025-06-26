@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-white min-h-screen;
+    background: linear-gradient(135deg, #1B1B3A 0%, #2D1B69 60%, #6366F1 100%);
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Critical performance optimizations */
+  * {
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* Improve scroll performance */
+  .scroll-optimized {
+    contain: layout style paint;
+    will-change: transform;
+  }
+  
+  /* Optimize font loading */
+  @font-display: swap;
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white bg-opacity-10 border border-white border-opacity-20 rounded-2xl;
+    backdrop-filter: blur(4px);
+    min-height: 200px;
+    contain: layout style;
+    transform: translateZ(0);
+  }
+  
+  .btn-primary {
+    @apply bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply border border-white border-opacity-30 hover:border-opacity-50 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-white hover:bg-opacity-10;
+  }
+  
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .floating {
+    @apply animate-floating;
+  }
+  
+  .fade-in {
+    @apply opacity-100 translate-y-0 transition-all duration-500;
+  }
+  
+  .fade-in.visible {
+    @apply opacity-100 translate-y-0;
+  }
+}

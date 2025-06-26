@@ -1,0 +1,50 @@
+[
+  {
+    "id": "sarah-chen-techcorp",
+    "quote": "Our account team brought us to the Agent Challenge Day and it completely transformed how we think about AI automation. We built our first agent in just one day and it's already saving us 20 hours per week!",
+    "author": "Sarah Chen",
+    "company": "TechCorp Solutions",
+    "role": "Head of Operations",
+    "rating": 5
+  },
+  {
+    "id": "marcus-rodriguez-financeflow",
+    "quote": "The Agentforce Ideation workshop our Salesforce team arranged opened our eyes to possibilities we never considered. The facilitation was excellent and the frameworks are incredibly practical.",
+    "author": "Marcus Rodriguez",
+    "company": "FinanceFlow Ltd",
+    "role": "CTO",
+    "rating": 5
+  },
+  {
+    "id": "priya-patel-global-manufacturing",
+    "quote": "F1 simulators teaching AI decision-making? Brilliant concept! It made complex concepts tangible for our team. My entire leadership team is now excited about our AI strategy.",
+    "author": "Dr. Priya Patel",
+    "company": "Global Manufacturing",
+    "role": "VP Innovation",
+    "rating": 5
+  },
+  {
+    "id": "james-thompson-retailnext",
+    "quote": "The Data Cloud workshop our Salesforce partners organized gave us the foundation we needed. Within two weeks of attending, we had our data pipeline optimized for AI workloads.",
+    "author": "James Thompson",
+    "company": "RetailNext",
+    "role": "Data Architect",
+    "rating": 5
+  },
+  {
+    "id": "lisa-wang-edutech",
+    "quote": "Lego City was genius! Building AI workflows with Lego made abstract concepts concrete for our executive team. The collaboration and understanding we gained was invaluable.",
+    "author": "Lisa Wang",
+    "company": "EduTech Innovations",
+    "role": "Product Manager",
+    "rating": 5
+  },
+  {
+    "id": "ahmed-hassan-cloudfirst",
+    "quote": "The prompt engineering workshop was a game-changer for our technical team. Our AI interactions are now 3x more accurate and our customer satisfaction has soared.",
+    "author": "Ahmed Hassan",
+    "company": "CloudFirst",
+    "role": "Solutions Engineer",
+    "rating": 5
+  }
+]

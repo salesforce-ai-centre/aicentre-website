@@ -1,0 +1,32 @@
+[
+  {
+    "id": "how-to-book",
+    "question": "How do I book a customer engagement?",
+    "answer": "Reach out to us via our Slack channel #ai-centre-uk. Our team will help you plan the perfect customer engagement, select appropriate offerings, and coordinate with your account strategy.",
+    "category": "booking"
+  },
+  {
+    "id": "whats-included",
+    "question": "What's included in each customer engagement?",
+    "answer": "Every customer engagement includes one standard offering (workshop/keynote) plus one immersive experience. This combination ensures both deep learning and hands-on engagement for maximum customer impact and deal progression.",
+    "category": "offerings"
+  },
+  {
+    "id": "customization",
+    "question": "Can we customize content for specific customer industries?",
+    "answer": "Absolutely! We work with account teams to tailor examples, use cases, and scenarios to be relevant to your customer's specific industry, business challenges, and strategic priorities.",
+    "category": "customization"
+  },
+  {
+    "id": "technical-level",
+    "question": "What technical level is required for customer participants?",
+    "answer": "Our offerings range from executive-level strategic sessions (no technical background needed) to hands-on technical workshops. Check the tags on each offering to match the right experience to your customer's team composition.",
+    "category": "requirements"
+  },
+  {
+    "id": "deal-progression",
+    "question": "How do these engagements support deal progression?",
+    "answer": "These experiences are designed to accelerate customer understanding, build stakeholder consensus, and demonstrate tangible value. Many customers leave with concrete implementation plans and expanded project scope.",
+    "category": "business-value"
+  }
+]
