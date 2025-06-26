@@ -7,7 +7,7 @@ import Navigation from '@/components/Navigation';
 import type { Experience } from '@/types/content';
 
 interface ExperienceDetailPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export default function ExperienceDetailPage({ params }: ExperienceDetailPageProps) {
@@ -15,16 +15,21 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
   const router = useRouter();
 
   useEffect(() => {
-    const experiences = getExperiences();
-    const foundExperience = experiences.find(e => e.id === params.slug);
+    const loadExperience = async () => {
+      const resolvedParams = await params;
+      const experiences = getExperiences();
+      const foundExperience = experiences.find(e => e.id === resolvedParams.slug);
+      
+      if (foundExperience) {
+        setExperience(foundExperience);
+      } else {
+        // Redirect to home if experience not found
+        router.push('/');
+      }
+    };
     
-    if (foundExperience) {
-      setExperience(foundExperience);
-    } else {
-      // Redirect to home if experience not found
-      router.push('/');
-    }
-  }, [params.slug, router]);
+    loadExperience();
+  }, [params, router]);
 
   if (!experience) {
     return (

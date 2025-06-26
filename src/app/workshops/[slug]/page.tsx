@@ -7,7 +7,7 @@ import Navigation from '@/components/Navigation';
 import type { Workshop } from '@/types/content';
 
 interface WorkshopDetailPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) {
@@ -15,16 +15,21 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
   const router = useRouter();
 
   useEffect(() => {
-    const workshops = getWorkshops();
-    const foundWorkshop = workshops.find(w => w.id === params.slug);
+    const loadWorkshop = async () => {
+      const resolvedParams = await params;
+      const workshops = getWorkshops();
+      const foundWorkshop = workshops.find(w => w.id === resolvedParams.slug);
+      
+      if (foundWorkshop) {
+        setWorkshop(foundWorkshop);
+      } else {
+        // Redirect to home if workshop not found
+        router.push('/');
+      }
+    };
     
-    if (foundWorkshop) {
-      setWorkshop(foundWorkshop);
-    } else {
-      // Redirect to home if workshop not found
-      router.push('/');
-    }
-  }, [params.slug, router]);
+    loadWorkshop();
+  }, [params, router]);
 
   if (!workshop) {
     return (
@@ -76,7 +81,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
 
                 {/* Detailed Content */}
                 <div className="prose prose-invert max-w-none">
-                  <h2 className="text-2xl font-bold text-white mb-4">What You'll Learn</h2>
+                  <h2 className="text-2xl font-bold text-white mb-4">What You&apos;ll Learn</h2>
                   <div className="space-y-4 text-white text-opacity-90">
                     {workshop.category === 'hands-on' && (
                       <ul className="space-y-2">

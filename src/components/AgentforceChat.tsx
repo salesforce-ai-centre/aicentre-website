@@ -97,7 +97,7 @@ export default function AgentforceChat() {
               <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                 <CheckCircle size={20} />
               </div>
-              <h3 className="text-lg font-semibold">Hi Jacob! I'm Agentforce for AI Centre, and I'm here to help.</h3>
+              <h3 className="text-lg font-semibold">Hi Jacob! I&apos;m Agentforce for AI Centre, and I&apos;m here to help.</h3>
             </div>
             <button
               onClick={() => setIsFullScreen(false)}
@@ -191,7 +191,7 @@ export default function AgentforceChat() {
             <div className="w-6 h-6 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
               <CheckCircle size={16} />
             </div>
-            <span className="text-sm font-medium">Hi Jacob! I'm Agentforce for AI Centre, and I'm here to help.</span>
+            <span className="text-sm font-medium">Hi Jacob! I&apos;m Agentforce for AI Centre, and I&apos;m here to help.</span>
           </div>
           <button
             onClick={() => setIsOpen(false)}
