@@ -1,4 +1,6 @@
 {
-  "/workshops/[slug]/page": "app/workshops/[slug]/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/agent/session/route": "app/api/agent/session/route.js",
+  "/api/agent/message-sync/route": "app/api/agent/message-sync/route.js",
   "/page": "app/page.js"
 }

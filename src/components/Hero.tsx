@@ -1,5 +1,6 @@
 import { getHeroContent } from '@/lib/content';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Hero() {
   const heroContent = getHeroContent();
@@ -17,8 +18,7 @@ export default function Hero() {
           quality={60}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
           style={{
-            transform: 'translate3d(0, 0, 0)',
-            willChange: 'transform'
+            objectFit: 'cover'
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900 bg-opacity-50 to-blue-900 bg-opacity-70"></div>
@@ -35,6 +35,7 @@ export default function Hero() {
           loading="eager"
           quality={80}
           sizes="(max-width: 768px) 150px, 200px"
+          style={{ width: 'auto', height: 'auto' }}
         />
       </div>
       
@@ -49,6 +50,7 @@ export default function Hero() {
           loading="lazy"
           quality={80}
           sizes="(max-width: 768px) 200px, 300px"
+          style={{ width: 'auto', height: 'auto' }}
         />
       </div>
 
@@ -62,9 +64,9 @@ export default function Hero() {
           </p>
           
           <div className="mb-16">
-            <button className="bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-purple-500">
+            <Link href={heroContent.primaryCTA.href} className="inline-block bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-purple-500">
               {heroContent.primaryCTA.text}
-            </button>
+            </Link>
           </div>
         </div>
       </div>

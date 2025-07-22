@@ -23,15 +23,6 @@ export interface Experience {
   featured?: boolean;
 }
 
-export interface Testimonial {
-  id: string;
-  quote: string;
-  author: string;
-  company: string;
-  role: string;
-  image?: string;
-  rating?: number;
-}
 
 export interface Keynote {
   id: string;
@@ -45,6 +36,8 @@ export interface Keynote {
   focusArea: string;
   audience: string;
   image?: string;
+  hasSlides?: boolean;
+  slug?: string;
 }
 
 export interface FAQ {

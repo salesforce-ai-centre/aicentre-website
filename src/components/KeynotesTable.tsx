@@ -1,7 +1,13 @@
 import { getKeynotes } from '@/lib/content';
+import { useRouter } from 'next/navigation';
 
 export default function KeynotesTable() {
   const keynotes = getKeynotes();
+  const router = useRouter();
+
+  const handleKeynoteClick = (keynoteId: string) => {
+    router.push(`/keynotes/${keynoteId}`);
+  };
 
   return (
     <div className="glass-card overflow-hidden border border-white border-opacity-20 rounded-2xl my-10">
@@ -23,7 +29,8 @@ export default function KeynotesTable() {
           {keynotes.map((keynote, index) => (
             <tr 
               key={keynote.id} 
-              className="hover:bg-white bg-opacity-5 transition-colors border-b border-white border-opacity-10 last:border-b-0"
+              className="hover:bg-purple-500 hover:bg-opacity-20 transition-colors border-b border-white border-opacity-10 last:border-b-0 cursor-pointer"
+              onClick={() => handleKeynoteClick(keynote.id)}
             >
               <td className="px-6 py-5 text-white">
                 <div className="font-semibold">{keynote.title}</div>

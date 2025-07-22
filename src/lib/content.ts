@@ -2,14 +2,13 @@
 import heroContent from '../../content/hero.json';
 import workshopsContent from '../../content/workshops.json';
 import experiencesContent from '../../content/experiences.json';
-import testimonialsContent from '../../content/testimonials.json';
 import keynotesContent from '../../content/keynotes.json';
 import faqsContent from '../../content/faqs.json';
 import siteConfigContent from '../../content/site-config.json';
 import { 
   Workshop, 
   Experience, 
-  Testimonial, 
+ 
   Keynote, 
   FAQ, 
   HeroContent, 
@@ -28,9 +27,6 @@ export function getExperiences(): Experience[] {
   return experiencesContent as Experience[];
 }
 
-export function getTestimonials(): Testimonial[] {
-  return testimonialsContent as Testimonial[];
-}
 
 export function getKeynotes(): Keynote[] {
   return keynotesContent as Keynote[];

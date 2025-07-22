@@ -4,47 +4,38 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Remove smooth scrolling for better performance */
   }
   
   body {
     @apply text-white min-h-screen;
     background: linear-gradient(135deg, #1B1B3A 0%, #2D1B69 60%, #6366F1 100%);
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-  }
-  
-  /* Critical performance optimizations */
-  *:not(.agentforce-chat) {
-    transform: translate3d(0, 0, 0);
-  }
-  
-  /* Improve scroll performance */
-  .scroll-optimized {
-    contain: layout style paint;
-    will-change: transform;
+    /* Remove background-attachment: fixed - major performance killer */
   }
   
   /* Optimize font loading */
   @font-display: swap;
+  
+  /* GPU acceleration only where needed */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
 }
 
 @layer components {
   .glass-card {
     @apply bg-white bg-opacity-10 border border-white border-opacity-20 rounded-2xl;
-    backdrop-filter: blur(4px);
-    min-height: 200px;
-    contain: layout style;
-    transform: translateZ(0);
+    /* Remove backdrop-filter completely - major performance killer on scroll */
   }
   
   .btn-primary {
-    @apply bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg;
+    @apply bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200;
+    /* Simplified transitions for better performance */
   }
   
   .btn-secondary {
-    @apply border border-white border-opacity-30 hover:border-opacity-50 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-white hover:bg-opacity-10;
+    @apply border border-white border-opacity-30 hover:border-opacity-50 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 hover:bg-white hover:bg-opacity-10;
   }
   
   .section-padding {
@@ -55,15 +46,37 @@
     @apply max-w-7xl mx-auto;
   }
   
-  .floating {
-    @apply animate-floating;
-  }
-  
+  /* Remove fade-in animations completely for maximum performance */
   .fade-in {
-    @apply opacity-100 translate-y-0 transition-all duration-500;
+    @apply opacity-100;
   }
   
   .fade-in.visible {
-    @apply opacity-100 translate-y-0;
+    @apply opacity-100;
+  }
+  
+  /* Performance-optimized animations */
+  .smooth-hover {
+    transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  }
+  
+  /* Optimize chat component */
+  .agentforce-chat {
+    contain: layout style paint;
+  }
+  
+  /* Text truncation utilities for consistent card heights */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

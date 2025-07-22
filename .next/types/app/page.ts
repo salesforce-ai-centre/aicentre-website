@@ -1,4 +1,4 @@
-// File: /Users/jacob.berry/aicentre-offerings-site/src/app/page.tsx
+// File: /Users/christopher.webb/Documents/aicentre/aicentre-website/src/app/page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
