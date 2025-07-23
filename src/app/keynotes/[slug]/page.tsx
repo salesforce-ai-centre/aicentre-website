@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const keynotes = getKeynotes();
+  const keynotes = await getKeynotes(true);
   const keynote = keynotes.find((k) => k.id === slug);
 
   if (!keynote) {
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function KeynotePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const keynotes = getKeynotes();
+  const keynotes = await getKeynotes(true);
   const keynote = keynotes.find((k) => k.id === slug);
   const siteConfig = getSiteConfig();
 

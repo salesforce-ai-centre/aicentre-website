@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Hero from '@/components/Hero'
 import Navigation from '@/components/Navigation'
@@ -13,22 +13,36 @@ import FAQ from '@/components/FAQ'
 import { getWorkshops, getExperiences, getSiteConfig } from '@/lib/content'
 import { useFadeIn } from '@/hooks/useFadeIn'
 import FadeInWrapper from '@/components/FadeInWrapper'
+import { Experience, Workshop } from '@/types/content';
 
 
 export default function Home() {
   // Memoize content to prevent re-computation
-  const workshops = useMemo(() => getWorkshops(), []);
-  const experiences = useMemo(() => {
-    const allExperiences = getExperiences();
-    // Sort by readiness: green (ready) first, orange (nearly ready) second, red (not ready) last
-    return allExperiences.sort((a, b) => {
-      const order = { 'green': 0, 'orange': 1, 'red': 2 };
-      return (order[a.category as keyof typeof order] || 1) - (order[b.category as keyof typeof order] || 1);
-    });
-  }, []);
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const siteConfig = useMemo(() => getSiteConfig(), []);
   
-  const [filteredWorkshops, setFilteredWorkshops] = useState(workshops);
+  const [filteredWorkshops, setFilteredWorkshops] = useState<Workshop[]>([]);
+
+  useEffect(() => {
+    getAllWorkshops();
+    getAllExperiences();
+  }, [])
+
+  const getAllWorkshops = async () => {
+    const allWorkshops = await getWorkshops();
+    setWorkshops(allWorkshops);
+    setFilteredWorkshops(allWorkshops);
+  }
+
+  const getAllExperiences = async () => {
+    const allExperiences = await getExperiences();
+    // Sort by readiness: green (ready) first, orange (nearly ready) second, red (not ready) last
+    setExperiences(allExperiences.sort((a, b) => {
+      const order = { 'green': 0, 'orange': 1, 'red': 2 };
+      return (order[a.category as keyof typeof order] || 1) - (order[b.category as keyof typeof order] || 1);
+    }));
+  }
 
   // Fade-in animation refs
   const offeringsHeaderRef = useFadeIn();

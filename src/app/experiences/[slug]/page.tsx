@@ -18,7 +18,7 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
   useEffect(() => {
     const loadExperience = async () => {
       const resolvedParams = await params;
-      const experiences = getExperiences();
+      const experiences = await getExperiences();
       const foundExperience = experiences.find(e => e.id === resolvedParams.slug);
       
       if (foundExperience) {

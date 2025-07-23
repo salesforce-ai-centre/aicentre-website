@@ -18,7 +18,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
   useEffect(() => {
     const loadWorkshop = async () => {
       const resolvedParams = await params;
-      const workshops = getWorkshops();
+      const workshops = await getWorkshops();
       const foundWorkshop = workshops.find(w => w.id === resolvedParams.slug);
       
       if (foundWorkshop) {

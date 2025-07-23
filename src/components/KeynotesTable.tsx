@@ -1,8 +1,20 @@
+import { useState, useEffect } from 'react';
 import { getKeynotes } from '@/lib/content';
 import { useRouter } from 'next/navigation';
+import { Keynote } from '@/types/content';
 
 export default function KeynotesTable() {
-  const keynotes = getKeynotes();
+  const [keynotes, setKeynotes] = useState<Keynote[]>([]);
+
+  useEffect(() => {
+    getAllKeynotes();
+  }, [])
+
+  const getAllKeynotes = async () => {
+    const allKeynotes = await getKeynotes();
+    setKeynotes(allKeynotes);
+  }
+
   const router = useRouter();
 
   const handleKeynoteClick = (keynoteId: string) => {

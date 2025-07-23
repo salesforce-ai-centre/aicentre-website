@@ -1,12 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import type { FAQ as FaqType } from '@/types/content';
+import { useEffect, useState } from 'react';
 import { getFAQs } from '@/lib/content';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 
 export default function FAQ() {
   const [openItems, setOpenItems] = useState<string[]>([]);
-  const faqData = getFAQs();
+  const [faqData, setFaqData] = useState<FaqType[]>([]);
+
+  useEffect(() => {
+    getAllFaqs();
+  }, []);
+
+  const getAllFaqs = async () => {
+    const faqs = await getFAQs();
+    setFaqData(faqs);
+  }
 
   const toggleItem = (id: string) => {
     setOpenItems(prev =>
