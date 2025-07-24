@@ -12,7 +12,7 @@ const transformKeynote = (object: Record<string, any>): Keynote => ({
   audienceSize: object["Audience_Size__c"],
   topics: object["Topics__c"].split(";"),
   focusArea: object["Focus_Area__c"],
-  audience: object["Audience__c"]
+  audience: object["Audience__c"].replace(";", ", ")
 });
 
 export async function GET() {

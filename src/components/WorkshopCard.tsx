@@ -42,7 +42,7 @@ export default function WorkshopCard({ workshop }: WorkshopCardProps) {
           {workshop.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 bg-purple-500 bg-opacity-30 border border-purple-500 border-opacity-50 rounded-full text-xs font-medium text-white"
+              className="px-3 py-1 bg-purple-500 bg-opacity-30 border border-purple-500 border-opacity-50 rounded-full text-xs font-medium text-white flex items-center"
             >
               {tag}
             </span>
