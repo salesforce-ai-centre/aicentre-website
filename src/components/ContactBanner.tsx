@@ -32,9 +32,14 @@ export default function ContactBanner() {
               height={24}
             />
             <span>{siteConfig.contactInfo.slackDescription}:</span>
-            <span className="bg-white bg-opacity-20 px-3 py-1 rounded-full font-mono text-sm">
+            <a 
+              href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded-full font-mono text-sm transition-all duration-200 cursor-pointer"
+            >
               {siteConfig.contactInfo.slackChannel}
-            </span>
+            </a>
           </div>
           <div className="text-sm opacity-80 mt-1">
             {siteConfig.contactInfo.supportDescription}

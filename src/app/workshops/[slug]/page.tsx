@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { getWorkshops } from '@/lib/content';
 import Navigation from '@/components/Navigation';
 import type { Workshop } from '@/types/content';
@@ -17,7 +18,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
   useEffect(() => {
     const loadWorkshop = async () => {
       const resolvedParams = await params;
-      const workshops = getWorkshops();
+      const workshops = await getWorkshops();
       const foundWorkshop = workshops.find(w => w.id === resolvedParams.slug);
       
       if (foundWorkshop) {
@@ -46,15 +47,14 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
       {/* Hero Section */}
       <section className="pt-32 pb-16 section-padding">
         <div className="container-max">
-          <button
-            onClick={() => router.push('/')}
-            className="mb-8 flex items-center text-white text-opacity-80 hover:text-white transition-colors"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to Offerings
-          </button>
+          {/* Breadcrumb */}
+          <nav className="flex items-center space-x-2 text-sm text-white text-opacity-60 mb-8">
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span>/</span>
+            <Link href="/#offerings" className="hover:text-white transition-colors">Standard Offerings</Link>
+            <span>/</span>
+            <span className="text-white">{workshop.title}</span>
+          </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Main Content */}
@@ -144,15 +144,23 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                   Partner with the AI Centre team to deliver this impactful workshop experience.
                 </p>
                 
-                <button className="w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl mb-4">
+                <Link 
+                  href="/plan-engagement"
+                  className="block w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl mb-4 text-center"
+                >
                   Plan Customer Engagement
-                </button>
+                </Link>
                 
                 <div className="text-center">
                   <p className="text-sm text-white text-opacity-60 mb-2">Contact us via Slack:</p>
-                  <div className="bg-white bg-opacity-20 px-3 py-2 rounded-full font-mono text-sm text-white">
+                  <a 
+                    href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-full font-mono text-sm text-white transition-all duration-200 cursor-pointer"
+                  >
                     #ai-centre-uk
-                  </div>
+                  </a>
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-white border-opacity-20">
