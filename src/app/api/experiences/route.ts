@@ -15,7 +15,7 @@ const transformExperience = (object: Record<string, any>): Experience => ({
 
 export async function GET() {
   try {
-    const objects = await getAllRecords("Immersive_Experience__c");
+    const objects = await getAllRecords("Immersive_Experience__c", 20, true);
     if (!objects) {
       return NextResponse.json(
         { error: 'No objects found' },

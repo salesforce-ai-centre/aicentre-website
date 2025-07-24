@@ -17,7 +17,7 @@ const transformKeynote = (object: Record<string, any>): Keynote => ({
 
 export async function GET() {
   try {
-    const objects = await getAllRecords("Executive_Keynote__c");
+    const objects = await getAllRecords("Executive_Keynote__c", 20, true);
     if (!objects) {
       return NextResponse.json(
         { error: 'No objects found' },
