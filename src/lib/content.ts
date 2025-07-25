@@ -5,13 +5,15 @@ import experiencesContent from '../../content/experiences.json';
 import keynotesContent from '../../content/keynotes.json';
 import faqsContent from '../../content/faqs.json';
 import siteConfigContent from '../../content/site-config.json';
+import teamMembersContent from '../../content/team-members.json';
 import { 
   Workshop, 
   Experience, 
   Keynote, 
   FAQ, 
   HeroContent, 
-  SiteConfig 
+  SiteConfig, 
+  TeamMember
 } from '@/types/content';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
@@ -54,6 +56,10 @@ export async function getFAQs(): Promise<FAQ[]> {
 
 export function getSiteConfig(): SiteConfig {
   return siteConfigContent as SiteConfig;
+}
+
+export function getTeamMembers(): TeamMember[] {
+  return teamMembersContent as TeamMember[];
 }
 
 export async function getWorkshopsByCategory(category: Workshop['category']): Promise<Workshop[]> {

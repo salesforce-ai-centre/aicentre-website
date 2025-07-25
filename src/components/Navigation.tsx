@@ -63,7 +63,6 @@ export default function Navigation() {
               width={36} 
               height={36}
               className="rounded-lg flex-shrink-0"
-              style={{ width: 'auto', height: 'auto' }}
             />
             <h1 className="text-sm sm:text-lg md:text-xl font-bold text-white whitespace-nowrap">
               <span className="hidden sm:inline">{siteConfig.siteName}</span>

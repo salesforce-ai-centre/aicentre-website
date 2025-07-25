@@ -8,18 +8,20 @@ import ContactBanner from '@/components/ContactBanner'
 import WorkshopFilter from '@/components/WorkshopFilter'
 import WorkshopCard from '@/components/WorkshopCard'
 import ExperienceCard from '@/components/ExperienceCard'
+import TeamMemberCard from '@/components/TeamMemberCard'
 import KeynotesTable from '@/components/KeynotesTable'
 import FAQ from '@/components/FAQ'
-import { getWorkshops, getExperiences, getSiteConfig } from '@/lib/content'
+import { getWorkshops, getExperiences, getSiteConfig, getTeamMembers } from '@/lib/content'
 import { useFadeIn } from '@/hooks/useFadeIn'
 import FadeInWrapper from '@/components/FadeInWrapper'
-import { Experience, Workshop } from '@/types/content';
+import { Experience, Workshop, TeamMember } from '@/types/content';
 
 
 export default function Home() {
   // Memoize content to prevent re-computation
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const siteConfig = useMemo(() => getSiteConfig(), []);
   
   const [filteredWorkshops, setFilteredWorkshops] = useState<Workshop[]>([]);
@@ -27,6 +29,7 @@ export default function Home() {
   useEffect(() => {
     getAllWorkshops();
     getAllExperiences();
+    getAllTeamMembers();
   }, [])
 
   const getAllWorkshops = async () => {
@@ -44,10 +47,16 @@ export default function Home() {
     }));
   }
 
+  const getAllTeamMembers = async () => {
+    const allTeamMembers = getTeamMembers();
+    setTeamMembers(allTeamMembers);
+  }
+
   // Fade-in animation refs
   const offeringsHeaderRef = useFadeIn();
   const experiencesHeaderRef = useFadeIn();
   const keynotesHeaderRef = useFadeIn();
+  const teamMembersHeaderRef = useFadeIn();
 
   const handleFilterChange = useMemo(() => (filter: string) => {
     if (filter === 'all') {
@@ -121,6 +130,25 @@ export default function Home() {
           </div>
           
           <KeynotesTable />
+        </div>
+      </section>
+
+      {/* Meet the Team Section */}
+      <section id="meet-the-team" className="py-20 section-padding">
+        <div className="container-max">
+          <div ref={teamMembersHeaderRef} className="text-center mb-16 fade-in">
+            <h2 className="text-3xl md:text-5xl font-black mb-6 text-white">
+              Meet the Team
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.map((teamMember) => (
+              <FadeInWrapper key={teamMember.id}>
+                <TeamMemberCard teamMember={teamMember} />
+              </FadeInWrapper>
+            ))}
+          </div>
         </div>
       </section>
 

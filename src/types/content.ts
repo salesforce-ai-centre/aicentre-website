@@ -84,3 +84,11 @@ export interface SiteConfig {
     googleAnalyticsId?: string | null;
   };
 }
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  description: string;
+  imageUrl: string;
+}
