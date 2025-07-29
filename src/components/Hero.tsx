@@ -35,7 +35,6 @@ export default function Hero() {
           loading="eager"
           quality={80}
           sizes="(max-width: 768px) 150px, 200px"
-          style={{ width: 'auto', height: 'auto' }}
         />
       </div>
       
@@ -50,7 +49,6 @@ export default function Hero() {
           loading="lazy"
           quality={80}
           sizes="(max-width: 768px) 200px, 300px"
-          style={{ width: 'auto', height: 'auto' }}
         />
       </div>
 

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "jeremy-pritchard",
+    "name": "Jeremy Pritchard",
+    "role": "UK AI Centre Leader",
+    "imageUrl": "https://ca.slack-edge.com/E7T5PNK3P-U01GM4RS2BT-d851bdb9c90f-512"
+  },
+  {
+    "id": "jacob-berry",
+    "name": "Jacob Berry",
+    "role": "Innovation Engineer",
+    "imageUrl": "https://ca.slack-edge.com/E7T5PNK3P-U029PF6U69M-0752b967aad8-512"
+  },
+  {
+    "id": "chris-offler",
+    "name": "Chris Offler",
+    "role": "Principal Data Architect",
+    "imageUrl": "https://ca.slack-edge.com/E7T5PNK3P-U02FA61N8P7-ee82eb92453f-512"
+  },
+  {
+    "id": "erica-george",
+    "name": "Erica George",
+    "role": "Experience Strategist",
+    "imageUrl": "https://ca.slack-edge.com/E7T5PNK3P-U03SMC55J73-6de31ade8129-512"
+  },
+  {
+    "id": "nathan-jones",
+    "name": "Nathan Jones",
+    "role": "Distinguished Engagement Designer",
+    "imageUrl": "https://ca.slack-edge.com/E7T5PNK3P-WJFNJF1TP-0e6f9414a78a-512"
+  },
+  {
+    "id": "sterre-van-der-laken",
+    "name": "Sterre van der Laken",
+    "role": "Programs & Strategy Lead",
+    "imageUrl": "https://ca.slack-edge.com/E7T5PNK3P-U01GF14PQMA-b7e754ae7304-512"
+  },
+  {
+    "id": "dev-sharma",
+    "name": "Dev Sharma",
+    "role": "Principal AI SE",
+    "imageUrl": "https://ca.slack-edge.com/E7T5PNK3P-U01GLPK4VDX-f4f840e23c6a-512"
+  },
+  {
+    "id": "chris-webb",
+    "name": "Chris Webb",
+    "role": "Senior Innovation Engineer",
+    "imageUrl": "https://ca.slack-edge.com/E7T5PNK3P-U094DU1TACS-382340605926-512"
+  }
+]
