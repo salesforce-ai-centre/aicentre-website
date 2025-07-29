@@ -9,7 +9,8 @@
   "navigation": [
     { "name": "Offerings", "href": "#offerings" },
     { "name": "Experiences", "href": "#experiences" },
-    { "name": "Plan Engagement", "href": "/plan-engagement" }
+    { "name": "Plan Engagement", "href": "/plan-engagement" },
+    { "name": "Agenda Builder", "href": "/agenda-builder" }
   ],
   "agentforceBadge": "Powered by Agentforce",
   "analytics": {

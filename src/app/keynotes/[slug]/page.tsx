@@ -156,13 +156,22 @@ export default async function KeynotePage({ params }: { params: Promise<{ slug: 
                 <p className="text-white text-opacity-90 mb-6">
                   Start with our planning guide to ensure a successful customer engagement
                 </p>
-                <Link
-                  href="/plan-engagement"
-                  className="inline-flex items-center space-x-2 bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-                >
-                  <span>Plan Customer Engagement</span>
-                  <span>→</span>
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    href="/plan-engagement"
+                    className="inline-flex items-center justify-center space-x-2 bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                  >
+                    <span>Plan Customer Engagement</span>
+                    <span>→</span>
+                  </Link>
+                  <Link
+                    href="/agenda-builder"
+                    className="inline-flex items-center justify-center space-x-2 bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700 transition-colors"
+                  >
+                    <span>Build Custom Agenda</span>
+                    <span>→</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

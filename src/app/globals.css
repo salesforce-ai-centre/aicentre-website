@@ -79,4 +79,26 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  
+  /* Glass card variations */
+  .glass-card-dark {
+    @apply bg-black bg-opacity-40 border border-white border-opacity-10 rounded-2xl;
+  }
+  
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-white bg-opacity-5 rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-white bg-opacity-30 rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-white bg-opacity-40;
+  }
 }
