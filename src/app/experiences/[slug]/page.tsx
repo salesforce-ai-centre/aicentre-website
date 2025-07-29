@@ -196,6 +196,13 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
                   Plan Customer Engagement
                 </Link>
                 
+                <Link 
+                  href="/agenda-builder"
+                  className="block w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl mb-4 text-center"
+                >
+                  Build Custom Agenda
+                </Link>
+                
                 <div className="text-center">
                   <p className="text-sm text-white text-opacity-60 mb-2">Contact us via Slack:</p>
                   <a 
