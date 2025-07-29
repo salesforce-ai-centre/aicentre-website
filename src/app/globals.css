@@ -101,4 +101,13 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     @apply bg-white bg-opacity-40;
   }
+  
+  /* Custom select styles */
+  select option {
+    @apply bg-black text-white;
+  }
+  
+  select optgroup {
+    @apply font-bold text-purple-300;
+  }
 }
