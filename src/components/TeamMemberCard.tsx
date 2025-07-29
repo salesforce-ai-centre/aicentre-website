@@ -10,7 +10,7 @@ export default function TeamMemberCard({ teamMember }: TeamMemberCardProps) {
   return (
     <div 
       className="glass-card p-8 relative overflow-hidden group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 flex flex-col"
-      style={{ transition: 'border-color 0.2s ease', minHeight: '300px' }}
+      style={{ transition: 'border-color 0.2s ease' }}
     >
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500"></div>
       <div className="flex flex-col flex-1 items-start text-left">
