@@ -51,7 +51,7 @@ export default function Home() {
   }
 
   const getAllTeamMembers = async () => {
-    const allTeamMembers = getTeamMembers();
+    const allTeamMembers = await getTeamMembers();
     setTeamMembers(allTeamMembers);
   }
 
