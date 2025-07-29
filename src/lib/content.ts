@@ -68,8 +68,12 @@ export function getTeamMembers(): Promise<TeamMember[]> {
   );
 }
 
-export function getSpaces(): Space[] {
-  return spacesContent as Space[];
+export function getSpaces(): Promise<Space[]> {
+  return fetchWithFallback<Space[]>(
+    `/api/spaces`,
+    spacesContent as Space[],
+    (data): data is Space[] => Array.isArray(data)
+  );
 }
 
 export async function getWorkshopsByCategory(category: Workshop['category']): Promise<Workshop[]> {

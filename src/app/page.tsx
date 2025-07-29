@@ -56,7 +56,7 @@ export default function Home() {
   }
 
   const getAllSpaces = async () => {
-    const allSpaces = getSpaces();
+    const allSpaces = await getSpaces();
     setSpaces(allSpaces);
   }
 
@@ -129,23 +129,25 @@ export default function Home() {
       </section>
 
       {/* Spaces Section */}
-      <section id="spaces" className="py-20 section-padding">
-        <div className="container-max">
-          <div ref={spacesHeaderRef} className="text-center mb-16 fade-in">
-            <h2 className="text-3xl md:text-5xl font-black mb-6 text-white">
-              Spaces
-            </h2>
-          </div>
+      {spaces && spaces.length > 0 &&(
+        <section id="spaces" className="py-20 section-padding">
+          <div className="container-max">
+            <div ref={spacesHeaderRef} className="text-center mb-16 fade-in">
+              <h2 className="text-3xl md:text-5xl font-black mb-6 text-white">
+                Spaces
+              </h2>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {spaces.map((space) => (
-              <FadeInWrapper key={space.id}>
-                <SpaceCard space={space} />
-              </FadeInWrapper>
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {spaces.map((space) => (
+                <FadeInWrapper key={space.id}>
+                  <SpaceCard space={space} />
+                </FadeInWrapper>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Keynotes Section */}
       <section id="keynotes" className="py-20 section-padding">
