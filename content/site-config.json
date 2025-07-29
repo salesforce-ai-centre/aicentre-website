@@ -7,6 +7,7 @@
     "supportDescription": "Account team support • Customer experience planning"
   },
   "navigation": [
+    { "name": "Meet the Team", "href": "#meet-the-team" },
     { "name": "Offerings", "href": "#offerings" },
     { "name": "Experiences", "href": "#experiences" },
     { "name": "Plan Engagement", "href": "/plan-engagement" }
