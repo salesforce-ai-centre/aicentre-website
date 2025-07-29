@@ -89,6 +89,14 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  description: string;
+  description?: string;
+  imageUrl: string;
+}
+
+export interface Space {
+  id: string;
+  name: string;
+  capacity: string;
+  description?: string;
   imageUrl: string;
 }

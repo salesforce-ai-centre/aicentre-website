@@ -6,6 +6,7 @@ import keynotesContent from '../../content/keynotes.json';
 import faqsContent from '../../content/faqs.json';
 import siteConfigContent from '../../content/site-config.json';
 import teamMembersContent from '../../content/team-members.json';
+import spacesContent from '../../content/spaces.json';
 import { 
   Workshop, 
   Experience, 
@@ -13,7 +14,8 @@ import {
   FAQ, 
   HeroContent, 
   SiteConfig, 
-  TeamMember
+  TeamMember,
+  Space
 } from '@/types/content';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
@@ -60,6 +62,10 @@ export function getSiteConfig(): SiteConfig {
 
 export function getTeamMembers(): TeamMember[] {
   return teamMembersContent as TeamMember[];
+}
+
+export function getSpaces(): Space[] {
+  return spacesContent as Space[];
 }
 
 export async function getWorkshopsByCategory(category: Workshop['category']): Promise<Workshop[]> {
