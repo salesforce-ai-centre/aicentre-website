@@ -6,6 +6,7 @@ import keynotesContent from '../../content/keynotes.json';
 import faqsContent from '../../content/faqs.json';
 import siteConfigContent from '../../content/site-config.json';
 import teamMembersContent from '../../content/team-members.json';
+import spacesContent from '../../content/spaces.json';
 import { 
   Workshop, 
   Experience, 
@@ -13,7 +14,8 @@ import {
   FAQ, 
   HeroContent, 
   SiteConfig, 
-  TeamMember
+  TeamMember,
+  Space
 } from '@/types/content';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
@@ -58,8 +60,20 @@ export function getSiteConfig(): SiteConfig {
   return siteConfigContent as SiteConfig;
 }
 
-export function getTeamMembers(): TeamMember[] {
-  return teamMembersContent as TeamMember[];
+export function getTeamMembers(): Promise<TeamMember[]> {
+  return fetchWithFallback<TeamMember[]>(
+    `/api/team_members`,
+    teamMembersContent as TeamMember[],
+    (data): data is TeamMember[] => Array.isArray(data)
+  );
+}
+
+export function getSpaces(): Promise<Space[]> {
+  return fetchWithFallback<Space[]>(
+    `/api/spaces`,
+    spacesContent as Space[],
+    (data): data is Space[] => Array.isArray(data)
+  );
 }
 
 export async function getWorkshopsByCategory(category: Workshop['category']): Promise<Workshop[]> {

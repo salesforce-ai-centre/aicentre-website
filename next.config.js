@@ -14,6 +14,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'ca.slack-edge.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'ai-centre-uk.file.force.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'files.slack.com',
+      },
     ],
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year
@@ -27,6 +35,7 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['react-icons', 'lucide-react'],
   },
+  trailingSlash: false,
   turbopack: {
     rules: {
       '*.svg': {

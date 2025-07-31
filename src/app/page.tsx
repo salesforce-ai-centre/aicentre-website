@@ -9,12 +9,13 @@ import WorkshopFilter from '@/components/WorkshopFilter'
 import WorkshopCard from '@/components/WorkshopCard'
 import ExperienceCard from '@/components/ExperienceCard'
 import TeamMemberCard from '@/components/TeamMemberCard'
+import SpaceCard from '@/components/SpaceCard'
 import KeynotesTable from '@/components/KeynotesTable'
 import FAQ from '@/components/FAQ'
-import { getWorkshops, getExperiences, getSiteConfig, getTeamMembers } from '@/lib/content'
+import { getWorkshops, getExperiences, getSiteConfig, getTeamMembers, getSpaces } from '@/lib/content'
 import { useFadeIn } from '@/hooks/useFadeIn'
 import FadeInWrapper from '@/components/FadeInWrapper'
-import { Experience, Workshop, TeamMember } from '@/types/content';
+import { Experience, Workshop, TeamMember, Space } from '@/types/content';
 
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [spaces, setSpaces] = useState<Space[]>([]);
   const siteConfig = useMemo(() => getSiteConfig(), []);
   
   const [filteredWorkshops, setFilteredWorkshops] = useState<Workshop[]>([]);
@@ -30,6 +32,7 @@ export default function Home() {
     getAllWorkshops();
     getAllExperiences();
     getAllTeamMembers();
+    getAllSpaces();
   }, [])
 
   const getAllWorkshops = async () => {
@@ -48,8 +51,13 @@ export default function Home() {
   }
 
   const getAllTeamMembers = async () => {
-    const allTeamMembers = getTeamMembers();
+    const allTeamMembers = await getTeamMembers();
     setTeamMembers(allTeamMembers);
+  }
+
+  const getAllSpaces = async () => {
+    const allSpaces = await getSpaces();
+    setSpaces(allSpaces);
   }
 
   // Fade-in animation refs
@@ -57,6 +65,7 @@ export default function Home() {
   const experiencesHeaderRef = useFadeIn();
   const keynotesHeaderRef = useFadeIn();
   const teamMembersHeaderRef = useFadeIn();
+  const spacesHeaderRef = useFadeIn();
 
   const handleFilterChange = useMemo(() => (filter: string) => {
     if (filter === 'all') {
@@ -119,6 +128,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Spaces Section */}
+      {spaces && spaces.length > 0 &&(
+        <section id="spaces" className="py-20 section-padding">
+          <div className="container-max">
+            <div ref={spacesHeaderRef} className="text-center mb-16 fade-in">
+              <h2 className="text-3xl md:text-5xl font-black mb-6 text-white">
+                Spaces
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {spaces.map((space) => (
+                <FadeInWrapper key={space.id}>
+                  <SpaceCard space={space} />
+                </FadeInWrapper>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Keynotes Section */}
       <section id="keynotes" className="py-20 section-padding">
