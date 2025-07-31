@@ -1,6 +1,6 @@
 import type { Space } from '@/types/content';
 import { NextResponse } from 'next/server';
-import { getAllRecords } from '@/lib/salesforce-request';
+import { getSortedRecords } from '@/lib/salesforce-request';
 
 const transformSpace = (object: Record<string, any>): Space => ({
   id: object["Id"],
@@ -12,7 +12,7 @@ const transformSpace = (object: Record<string, any>): Space => ({
 
 export async function GET() {
   try {
-    const objects = await getAllRecords("Space__c", 20, false);
+    const objects = await getSortedRecords("Space__c", 20, false, "ORDER+BY+CreatedDate+ASC");
     if (!objects) {
       return NextResponse.json(
         { error: 'No objects found' },

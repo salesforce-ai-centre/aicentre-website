@@ -1,5 +1,4 @@
 import { Space } from '@/types/content';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image'
 
 interface SpaceCardProps {
@@ -9,7 +8,7 @@ interface SpaceCardProps {
 export default function SpaceCaard({ space }: SpaceCardProps) {
   return (
     <div 
-      className="glass-card relative overflow-hidden group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 flex flex-col"
+      className="glass-card relative overflow-hidden group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 flex flex-col h-full"
       style={{ transition: 'border-color 0.2s ease' }}
     >
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500"></div>
@@ -39,9 +38,11 @@ export default function SpaceCaard({ space }: SpaceCardProps) {
           {space.name}
         </h3>
 
-        <div className="text-lg text-purple-300 mb-4">
-          Capacity: {space.capacity}
-        </div>
+        {space.capacity && (
+          <div className="text-lg text-purple-300 mb-4">
+            Capacity: {space.capacity}
+          </div>
+        )}
 
         {space.description && (
           <p className="text-white text-opacity-90 leading-relaxed">
