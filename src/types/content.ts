@@ -8,6 +8,7 @@ export interface Workshop {
   category: 'hands-on' | 'ideation' | 'business' | 'technical';
   image?: string;
   featured?: boolean;
+  whatYoullLearn?: string[];
 }
 
 export interface Experience {
