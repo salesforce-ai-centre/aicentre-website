@@ -16,13 +16,13 @@ export default function PlanEngagementPage() {
     {
       title: "Customer Engagement Request Workflow",
       description: "Submit an engagement request",
-      href: "#", // You may want to update this with the actual URL
+      href: "https://salesforce.enterprise.slack.com/archives/C080TP9HENQ",
       icon: <FileText className="w-6 h-6 text-purple-400" />
     },
     {
       title: "Log a REWS ticket",
       description: "Secure space in the AI Centre",
-      href: "#", // You may want to update this with the actual URL
+      href: "https://rews.my.site.com/REWS/requestform",
       icon: <ExternalLink className="w-6 h-6 text-purple-400" />
     }
   ];

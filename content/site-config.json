@@ -10,7 +10,7 @@
     { "name": "Meet the Team", "href": "#meet-the-team" },
     { "name": "Offerings", "href": "#offerings" },
     { "name": "Experiences", "href": "#experiences" },
-    { "name": "Plan Engagement", "href": "/plan-engagement" },
+    { "name": "Get Started", "href": "/plan-engagement" },
     { "name": "Agenda Builder", "href": "/agenda-builder" }
   ],
   "agentforceBadge": "Powered by Agentforce",
