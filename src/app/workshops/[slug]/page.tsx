@@ -83,41 +83,51 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                 <div className="prose prose-invert max-w-none">
                   <h2 className="text-2xl font-bold text-white mb-4">What You&apos;ll Learn</h2>
                   <div className="space-y-4 text-white text-opacity-90">
-                    {workshop.category === 'hands-on' && (
+                    {workshop.whatYoullLearn ? (
                       <ul className="space-y-2">
-                        <li>• Hands-on experience building and deploying AI agents</li>
-                        <li>• Best practices for agent design and implementation</li>
-                        <li>• Real-world use cases and practical applications</li>
-                        <li>• Technical deep-dive into Agentforce capabilities</li>
-                        <li>• Troubleshooting and optimization techniques</li>
+                        {workshop.whatYoullLearn.map((item) => (
+                          <li key={item}>• {item}</li>
+                        ))}
                       </ul>
-                    )}
-                    {workshop.category === 'ideation' && (
-                      <ul className="space-y-2">
-                        <li>• Strategic frameworks for AI transformation</li>
-                        <li>• Identifying high-impact AI use cases</li>
-                        <li>• Building consensus around AI initiatives</li>
-                        <li>• Roadmap development and prioritization</li>
-                        <li>• Change management for AI adoption</li>
-                      </ul>
-                    )}
-                    {workshop.category === 'technical' && (
-                      <ul className="space-y-2">
-                        <li>• Technical architecture and integration patterns</li>
-                        <li>• Advanced configuration and customization</li>
-                        <li>• Performance optimization and scalability</li>
-                        <li>• Security and compliance considerations</li>
-                        <li>• API development and automation</li>
-                      </ul>
-                    )}
-                    {workshop.category === 'business' && (
-                      <ul className="space-y-2">
-                        <li>• Business value and ROI demonstration</li>
-                        <li>• Executive-level strategic planning</li>
-                        <li>• Risk assessment and mitigation</li>
-                        <li>• Team alignment and stakeholder buy-in</li>
-                        <li>• Success metrics and measurement</li>
-                      </ul>
+                    ) : (
+                      <>
+                        {workshop.category === 'hands-on' && (
+                          <ul className="space-y-2">
+                            <li>• Hands-on experience building and deploying AI agents</li>
+                            <li>• Best practices for agent design and implementation</li>
+                            <li>• Real-world use cases and practical applications</li>
+                            <li>• Technical deep-dive into Agentforce capabilities</li>
+                            <li>• Troubleshooting and optimization techniques</li>
+                          </ul>
+                        )}
+                        {workshop.category === 'ideation' && (
+                          <ul className="space-y-2">
+                            <li>• Strategic frameworks for AI transformation</li>
+                            <li>• Identifying high-impact AI use cases</li>
+                            <li>• Building consensus around AI initiatives</li>
+                            <li>• Roadmap development and prioritization</li>
+                            <li>• Change management for AI adoption</li>
+                          </ul>
+                        )}
+                        {workshop.category === 'technical' && (
+                          <ul className="space-y-2">
+                            <li>• Technical architecture and integration patterns</li>
+                            <li>• Advanced configuration and customization</li>
+                            <li>• Performance optimization and scalability</li>
+                            <li>• Security and compliance considerations</li>
+                            <li>• API development and automation</li>
+                          </ul>
+                        )}
+                        {workshop.category === 'business' && (
+                          <ul className="space-y-2">
+                            <li>• Business value and ROI demonstration</li>
+                            <li>• Executive-level strategic planning</li>
+                            <li>• Risk assessment and mitigation</li>
+                            <li>• Team alignment and stakeholder buy-in</li>
+                            <li>• Success metrics and measurement</li>
+                          </ul>
+                        )}
+                      </>
                     )}
                   </div>
 
