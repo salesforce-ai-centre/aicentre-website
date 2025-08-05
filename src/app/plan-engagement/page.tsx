@@ -2,7 +2,7 @@ import { getSiteConfig } from '@/lib/content';
 import Navigation from '@/components/Navigation';
 import ContactBanner from '@/components/ContactBanner';
 import Timeline, { engagementTimelineSteps } from '@/components/Timeline';
-import { MessageSquare, Clock, Users, Target, CheckCircle, HelpCircle } from 'lucide-react';
+import { MessageSquare, Clock, Users, Target, CheckCircle, HelpCircle, ExternalLink, FileText } from 'lucide-react';
 
 export const metadata = {
   title: 'Plan Customer Engagement | AI Centre',
@@ -12,63 +12,130 @@ export const metadata = {
 export default function PlanEngagementPage() {
   const siteConfig = getSiteConfig();
 
-  const quickFacts = [
+  const getStartedLinks = [
+    {
+      title: "Customer Engagement Request Workflow",
+      description: "Submit an engagement request",
+      href: "https://salesforce.enterprise.slack.com/archives/C080TP9HENQ",
+      icon: <FileText className="w-6 h-6 text-purple-400" />
+    },
+    {
+      title: "Log a REWS ticket",
+      description: "Secure space in the AI Centre",
+      href: "https://rews.my.site.com/REWS/requestform",
+      icon: <ExternalLink className="w-6 h-6 text-purple-400" />
+    }
+  ];
+
+  const aiCentreTeamFacts = [
     {
       icon: <Clock className="w-6 h-6 text-purple-400" />,
       title: "4 weeks minimum",
-      description: "Book team-led engagements at least 4 weeks in advance"
+      description: "Book AI Centre Team led engagements at least 4 weeks in advance"
     },
     {
       icon: <Users className="w-6 h-6 text-purple-400" />,
-      title: "15-25 attendees",
+      title: "10-25 attendees",
       description: "Optimal group size for maximum engagement impact"
     },
     {
       icon: <Target className="w-6 h-6 text-purple-400" />,
       title: "1-2 day format",
-      description: "Workshop + immersive experience combination"
+      description: "All engagements include one standard offering and one immersive experience"
     }
   ];
 
   const processSteps = [
     {
       step: "1",
-      title: "Start in Slack",
-      description: "Join #ai-centre-uk and share your customer details",
-      action: "Post in channel"
+      title: "Submit an engagement request",
+      description: "Submit an engagement request",
+      action: "Start the process"
     },
     {
       step: "2", 
-      title: "Get Matched",
-      description: "We'll assign an Experience Strategist to your engagement",
-      action: "Wait for assignment"
+      title: "Submit a REWS ticket",
+      description: "Log a REWS ticket to secure the space in the AI Centre",
+      action: "Secure venue"
     },
     {
       step: "3",
       title: "Plan Together", 
-      description: "Design the perfect agenda for your customer's needs",
+      description: "Design the perfect engagement for your customers with the AI Centre Team and REWS",
       action: "Collaborate on design"
     },
     {
       step: "4",
-      title: "Deliver & Follow-up",
-      description: "Execute the engagement and maintain momentum",
+      title: "Deliver & Follow Up",
+      description: "Execute the engagement and plan the next steps for the account",
       action: "Focus on outcomes"
     }
   ];
 
-  const faqs = [
+  const timelineSteps = [
     {
-      question: "What if I need an engagement in less than 4 weeks?",
-      answer: "Consider an account team-led engagement where you provide content and we provide the venue."
+      id: "request-submissions",
+      title: "Request Submissions",
+      description: "Put in the initial requests for your customer engagement at the AI Centre.",
+      duration: "Week 1",
+      icon: <FileText className="w-6 h-6" />,
+      status: "completed" as const,
+      details: [
+        "Submit an engagement request - Submit an engagement request via the AI Centre Customer Engagement request workflow.",
+        "Submit a REWS ticket - When the engagement and availability is confirmed with the AI Centre Team, log a REWS ticket to secure the space in the AI Centre"
+      ]
     },
     {
-      question: "Can I customize the workshop content?",
-      answer: "Yes! We work with you to tailor content to your customer's specific industry and use cases."
+      id: "initial-consultation",
+      title: "Initial Consultation and Discovery",
+      description: "Connect with the AI Centre Team and outline the objectives of the engagement.",
+      duration: "Week 1-2",
+      icon: <MessageSquare className="w-6 h-6" />,
+      status: "current" as const,
+      details: [
+        "Customer background: Account Team shares details about the customer including open opportunities, AI strategy, current Salesforce footprint",
+        "Engagement objectives: Engagement Account team shares the objectives of the engagement, the expected attendees (inc. number of attendees) and next steps for the customers",
+        "Engagement selection: Based on the requirements of the session, an engagement (1 standard offering and 1 experience) will be recommended to the account team and the next steps of the process"
+      ]
     },
     {
-      question: "What's included in every engagement?",
-      answer: "One core workshop + one immersive experience (like F1 simulators or Lego City) + lunch and logistics support."
+      id: "engagement-planning",
+      title: "Engagement Planning",
+      description: "Work with an Experience Strategist to design a memorable engagement for your customers",
+      duration: "Week 2-3",
+      icon: <Target className="w-6 h-6" />,
+      status: "upcoming" as const,
+      details: [
+        "Content: The Experience Strategist will share the planning document, the slide deck template of the chosen standard offering and walk through the structure of the experience activity. The account team and Experience Strategist will work together plan out the delivery of the content.",
+        "Resource support: The account team and Experience Strategist will source SE and/or TA volunteers to provide technical expertise during the engagement",
+        "Communication: Slack channel will be created to coordinate the engagement planning, SE volunteers will have a briefing call to walk through the roles and responsibilities on the day, Check in calls with the account team, Experience Strategist and REWS event lead"
+      ]
+    },
+    {
+      id: "logistics-coordination",
+      title: "Logistics and Coordination",
+      description: "Collaborate with a REWS event lead to create a day of top-tier customer hospitality at the AI Centre",
+      duration: "Week 3-4",
+      icon: <Users className="w-6 h-6" />,
+      status: "upcoming" as const,
+      details: [
+        "Venue space and technology: Support is provided to select a space in the AI Centre that fits the expected attendee count and engagement objectives. AV requirements will also be coordinated to ensure the space is appropriately equipped.",
+        "Guest list management: The event lead will assist with managing the guest list and registering attendees, including both internal employees and external guests.",
+        "Catering: Catering can be selected and ordered on the behalf of the account team, with menu options tailored to fit the budget you provide.",
+        "Additional supplies: Materials such as monitors, stationery, and whiteboards can be arranged as needed to support the engagement."
+      ]
+    },
+    {
+      id: "engagement-delivery",
+      title: "Engagement Delivery and Follow up",
+      description: "Execute the planned engagement and post engagement follow up",
+      duration: "1-2 Days",
+      icon: <Clock className="w-6 h-6" />,
+      status: "upcoming" as const,
+      details: [
+        "Day of engagement: AI Centre Team facilitates the main sessions of the day with support from the account team and SE volunteers",
+        "Post engagement: AI Centre Team will share customer feedback with the account team and identify next steps and future engagements for the account"
+      ]
     }
   ];
 
@@ -81,27 +148,71 @@ export default function PlanEngagementPage() {
         <div className="container-max">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-black mb-6 text-white">
-              Plan Your Customer Engagement
+              Get Started
             </h1>
-            <p className="text-xl text-white text-opacity-90 mb-8 max-w-2xl mx-auto">
-              A simple process to deliver impactful AI Centre experiences that accelerate deals and build customer trust
-            </p>
             
-            {/* Primary CTA */}
-            <a
-              href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-0.5 mb-12"
-            >
-              <MessageSquare className="w-6 h-6" />
-              <span>Get Started: {siteConfig.contactInfo.slackChannel}</span>
-              <span>→</span>
-            </a>
+            {/* Get Started Links */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+              {getStartedLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  className="glass-card p-6 text-center hover:bg-white/10 transition-colors group"
+                >
+                  <div className="flex justify-center mb-3">{link.icon}</div>
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-purple-300">{link.title}</h3>
+                  <p className="text-white/70 text-sm">{link.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
+      {/* Engagement Types */}
+      <section className="py-12 section-padding bg-white/5">
+        <div className="container-max">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-white text-center mb-8">
+              The AI Centre can be used for two types of engagements:
+            </h2>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <div className="glass-card p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Self-managed Engagements</h3>
+                <p className="text-white/80">
+                  These are engagements managed and led by the account team or organising team that initiated the request.
+                </p>
+              </div>
+              
+              <div className="glass-card p-6">
+                <h3 className="text-xl font-bold text-white mb-4">AI Centre Team led Engagements</h3>
+                <p className="text-white/80">
+                  These are engagements managed and led by the AI Centre Team.
+                </p>
+              </div>
+            </div>
+
+            {/* Self-managed bubble */}
+            <div className="glass-card p-6 bg-gradient-to-r from-purple-600/20 to-indigo-600/20">
+              <h3 className="text-xl font-bold text-white mb-4">For self-managed engagements:</h3>
+              <p className="text-white/90">
+                For account teams or organising teams who want to host their own custom engagements, please log a REWS ticket and a REWS event lead will be in touch with next steps and support with logistic needs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Centre Team Led Engagements */}
+      <section className="py-12 section-padding">
+        <div className="container-max">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-white text-center mb-12">AI Centre Team led Engagements</h2>
+            
             {/* Quick Facts */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-              {quickFacts.map((fact, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              {aiCentreTeamFacts.map((fact, index) => (
                 <div key={index} className="glass-card p-6 text-center">
                   <div className="flex justify-center mb-3">{fact.icon}</div>
                   <h3 className="text-white font-semibold mb-2">{fact.title}</h3>
@@ -113,11 +224,11 @@ export default function PlanEngagementPage() {
         </div>
       </section>
 
-      {/* Simple Process Overview */}
+      {/* How It Works */}
       <section className="py-12 section-padding bg-white/5">
         <div className="container-max">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-white text-center mb-12">How It Works</h2>
+            <h2 className="text-3xl font-bold text-white text-center mb-12">How it works:</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {processSteps.map((step, index) => (
@@ -142,7 +253,7 @@ export default function PlanEngagementPage() {
         <div className="container-max">
           <div className="max-w-6xl mx-auto">
             <Timeline 
-              steps={engagementTimelineSteps}
+              steps={timelineSteps}
               title="Detailed Timeline"
               description="Click any step to see what happens and when"
             />
@@ -150,32 +261,24 @@ export default function PlanEngagementPage() {
         </div>
       </section>
 
-      {/* Key Information */}
+      {/* Important Details */}
       <section className="py-12 section-padding bg-white/5">
         <div className="container-max">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-white text-center mb-12">Important Details</h2>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Location & Team */}
+              {/* About the AI Centre */}
               <div className="glass-card p-6">
-                <h3 className="text-xl font-bold text-white mb-4">About the AI Centre</h3>
+                <h3 className="text-xl font-bold text-white mb-4">About the AI Centre:</h3>
                 <ul className="space-y-3 text-white/80">
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>Located 10 minutes from Salesforce Tower near Blackfriars Bridge</span>
+                    <span>Location: Bluefin Building, 110 Southwark Street, London, SE1 0SU (10 minutes drive from Salesforce Tower near Blackfriars Bridge)</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>SE resources pulled from volunteer pool based on expertise needed</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>Experience Strategist helps design the perfect engagement</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>Operations Lead handles all logistics and coordination</span>
+                    <span>Multiple spaces to cater to your audience size and needs</span>
                   </li>
                 </ul>
               </div>
@@ -186,66 +289,19 @@ export default function PlanEngagementPage() {
                 <ul className="space-y-3 text-white/80">
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>One core workshop (Agentforce Lab, Agent Challenge, Executive Keynote, etc.)</span>
+                    <span>Engagements includes one core workshop (e.g. Agent Challenge) and one immersive experience (e.g. F1 simulators, Lego City)</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>One immersive experience (F1 simulators, Lego City, demos)</span>
+                    <span>Facilitation led by the AI Centre Team and event management led by REWS</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>Venue space, guest passes, and lunch coordination</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>Expert SE facilitation and post-engagement follow-up</span>
+                    <span>Event space, guest passes, workshop supplies and lunch coordination</span>
                   </li>
                 </ul>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-12 section-padding">
-        <div className="container-max">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-white text-center mb-12">Common Questions</h2>
-            
-            <div className="space-y-6">
-              {faqs.map((faq, index) => (
-                <div key={index} className="glass-card p-6">
-                  <h3 className="text-white font-semibold mb-3 flex items-start">
-                    <HelpCircle className="w-5 h-5 text-purple-400 mt-0.5 mr-3 flex-shrink-0" />
-                    {faq.question}
-                  </h3>
-                  <p className="text-white/80 ml-8">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-12 section-padding bg-gradient-to-r from-purple-600/20 to-indigo-600/20">
-        <div className="container-max">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
-            <p className="text-white/90 mb-8">
-              Join our Slack channel to begin planning your next AI Centre customer experience.
-            </p>
-            <a
-              href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-3 bg-white text-purple-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors"
-            >
-              <MessageSquare className="w-6 h-6" />
-              <span>Join {siteConfig.contactInfo.slackChannel}</span>
-              <span>→</span>
-            </a>
           </div>
         </div>
       </section>
