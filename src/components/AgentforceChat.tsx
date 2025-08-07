@@ -21,6 +21,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useChat } from '@/contexts/ChatContext';
 import { X, Maximize2, Minimize2, Send, Sparkles, ArrowLeft, ArrowRight, PanelRightOpen, PanelLeftOpen } from 'lucide-react';
 import Image from 'next/image';
+import FormattedText from './FormattedText';
 
 // Type definition for chat messages
 interface Message {
@@ -491,8 +492,12 @@ export default function AgentforceChat() {
                       : 'bg-gray-700 border border-gray-600 text-white'
                   }`}
                 >
-                  <p className="leading-relaxed">{message.text}</p>
-                  <p className={`text-xs mt-1 ${message.isUser ? 'text-white/70' : 'text-white/50'}`}>
+                  {message.isUser ? (
+                    <p className="leading-relaxed">{message.text}</p>
+                  ) : (
+                    <FormattedText text={message.text} />
+                  )}
+                  <p className={`text-xs mt-2 ${message.isUser ? 'text-white/70' : 'text-white/50'}`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
@@ -667,7 +672,11 @@ export default function AgentforceChat() {
                       : 'bg-gray-700 border border-gray-600 text-white'
                   }`}
                 >
-                  <p className="leading-relaxed">{message.text}</p>
+                  {message.isUser ? (
+                    <p className="leading-relaxed">{message.text}</p>
+                  ) : (
+                    <FormattedText text={message.text} />
+                  )}
                   <p className={`text-xs mt-2 ${message.isUser ? 'text-white/70' : 'text-white/50'}`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>

@@ -16,7 +16,7 @@ const transformWorkshop = (object: Record<string, any>): Workshop => ({
 export async function GET() {
   try {
     const objects = await getAllRecords("Engagement_Tools__c", 20, true);
-    console.log(objects[0]);
+
     if (!objects) {
       return NextResponse.json(
         { error: 'No objects found' },
