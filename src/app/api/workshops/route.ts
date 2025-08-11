@@ -10,13 +10,14 @@ const transformWorkshop = (object: Record<string, any>): Workshop => ({
   audienceSize: object["Audience_Size__c"],
   duration: object["Duration__c"],
   category: object["Category__c"],
-  whatYoullLearn: object["What_Youll_Learn__c"]?.split("\n")
+  whatYoullLearn: object["What_Youll_Learn__c"]?.split("\n"),
+  agendaId: object["Agenda__c"]
 });
 
 export async function GET() {
   try {
     const objects = await getAllRecords("Engagement_Tools__c", 20, true);
-
+console.log(objects[0]);
     if (!objects) {
       return NextResponse.json(
         { error: 'No objects found' },

@@ -3,20 +3,11 @@
 import { useState, useEffect } from 'react';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, closestCenter } from '@dnd-kit/core';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
-import { Keynote, Experience, Workshop } from '@/types/content';
+import { Keynote, Experience, Workshop, AgendaItem } from '@/types/content';
 import Navigation from '@/components/Navigation';
 import ContactBanner from '@/components/ContactBanner';
 import { ChevronDown, X, ExternalLink, Copy, Check } from 'lucide-react';
 import Link from 'next/link';
-
-interface AgendaItem {
-  id: string;
-  time: string;
-  title: string;
-  type: 'fixed' | 'keynote-slot' | 'experience-slot' | 'open-slot';
-  filled?: Keynote | Experience;
-  filledType?: 'keynote' | 'experience';
-}
 
 interface DraggableItemProps {
   item: Keynote | Experience;
@@ -100,20 +91,20 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
     data: { slotType: slot.type },
   });
 
-  const canDrop = slot.type === 'keynote-slot' || slot.type === 'experience-slot' || slot.type === 'open-slot';
+  const canDrop = slot.type === 'Keynote' || slot.type === 'Experience' || slot.type === 'Open Slot';
   
   return (
     <div
       ref={setNodeRef}
       className={`relative overflow-hidden rounded-xl transition-all duration-300 ${
-        slot.type === 'fixed' 
+        slot.type === 'Session' 
           ? 'glass-card-dark' 
           : slot.filled
             ? 'glass-card'
             : 'glass-card-dark border-2 border-dashed ' + 
-              (slot.type === 'keynote-slot' 
+              (slot.type === 'Keynote' 
                 ? 'border-blue-500/50' 
-                : slot.type === 'experience-slot' 
+                : slot.type === 'Experience' 
                   ? 'border-green-500/50' 
                   : 'border-purple-500/50')
       } ${isOver && canDrop ? 'ring-2 ring-white scale-[1.02]' : ''}`}
@@ -123,13 +114,13 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-2">
               <p className="text-sm text-white/60 font-medium">{slot.time}</p>
-              {slot.type === 'keynote-slot' && !slot.filled && (
+              {slot.type === 'Keynote' && !slot.filled && (
                 <span className="px-2 py-1 bg-blue-500/20 rounded-full text-xs text-blue-300">Keynote Slot</span>
               )}
-              {slot.type === 'experience-slot' && !slot.filled && (
+              {slot.type === 'Experience' && !slot.filled && (
                 <span className="px-2 py-1 bg-green-500/20 rounded-full text-xs text-green-300">Experience Slot</span>
               )}
-              {slot.type === 'open-slot' && !slot.filled && (
+              {slot.type === 'Open Slot' && !slot.filled && (
                 <span className="px-2 py-1 bg-purple-500/20 rounded-full text-xs text-purple-300">Keynote or Experience</span>
               )}
             </div>
@@ -179,9 +170,9 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
                 {canDrop && (
                   <p className="text-xs text-white/50 mt-1">
                     Drag a {
-                      slot.type === 'keynote-slot' 
+                      slot.type === 'Keynote' 
                         ? 'keynote' 
-                        : slot.type === 'experience-slot' 
+                        : slot.type === 'Experience' 
                           ? 'experience' 
                           : 'keynote or experience'
                     } here
@@ -213,18 +204,20 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
   );
 }
 
+const defaultAgenda:AgendaItem[] = [
+  { id: '1', time: '9:00 AM', title: 'Welcome & Registration', type: 'Session' },
+  { id: '2', time: '9:30 AM', title: 'Introduction', type: 'Session' },
+  { id: '3', time: '10:00 AM', title: 'Keynote Slot', type: 'Keynote' },
+  { id: '4', time: '11:00 AM', title: 'Ideation Workshop', type: 'Session' },
+  { id: '5', time: '12:00 PM', title: 'Lunch Break', type: 'Session' },
+  { id: '6', time: '1:00 PM', title: 'Flexible Slot', type: 'Open Slot' },
+  { id: '7', time: '2:00 PM', title: 'Hands-on Build Session', type: 'Session' },
+  { id: '8', time: '2:30 PM', title: 'Presentation & Demo', type: 'Session' },
+  { id: '9', time: '3:00 PM', title: 'Closing Remarks', type: 'Session' },
+]
+
 export default function AgendaBuilderPage() {
-  const [agenda, setAgenda] = useState<AgendaItem[]>([
-    { id: '1', time: '9:00 AM', title: 'Welcome & Registration', type: 'fixed' },
-    { id: '2', time: '9:30 AM', title: 'Introduction', type: 'fixed' },
-    { id: '3', time: '10:00 AM', title: 'Keynote Slot', type: 'keynote-slot' },
-    { id: '4', time: '11:00 AM', title: 'Ideation Workshop', type: 'fixed' },
-    { id: '5', time: '12:00 PM', title: 'Lunch Break', type: 'fixed' },
-    { id: '6', time: '1:00 PM', title: 'Flexible Slot', type: 'open-slot' },
-    { id: '7', time: '2:00 PM', title: 'Hands-on Build Session', type: 'fixed' },
-    { id: '8', time: '2:30 PM', title: 'Presentation & Demo', type: 'fixed' },
-    { id: '9', time: '3:00 PM', title: 'Closing Remarks', type: 'fixed' },
-  ]);
+  const [agenda, setAgenda] = useState<AgendaItem[]>([]);
 
   const [keynotes, setKeynotes] = useState<Keynote[]>([]);
   const [experiences, setExperiences] = useState<Experience[]>([]);
@@ -301,8 +294,8 @@ export default function AgendaBuilderPage() {
 
     // Check if the item type matches the slot type
     if (
-      (draggedType === 'keynote' && (slotType === 'keynote-slot' || slotType === 'open-slot')) ||
-      (draggedType === 'experience' && (slotType === 'experience-slot' || slotType === 'open-slot'))
+      (draggedType === 'keynote' && (slotType === 'Keynote' || slotType === 'Open Slot')) ||
+      (draggedType === 'experience' && (slotType === 'Experience' || slotType === 'Open Slot'))
     ) {
       setAgenda(prev => prev.map(slot => {
         if (slot.id === over.id) {
@@ -366,9 +359,9 @@ export default function AgendaBuilderPage() {
     
     agenda.forEach(slot => {
       const timeEmoji = '⏰';
-      const slotEmoji = slot.type === 'fixed' ? '📌' : 
-                       slot.type === 'keynote-slot' ? '🎤' : 
-                       slot.type === 'experience-slot' ? '🎮' : '✨';
+      const slotEmoji = slot.type === 'Session' ? '📌' : 
+                       slot.type === 'Keynote' ? '🎤' : 
+                       slot.type === 'Experience' ? '🎮' : '✨';
       
       slackText += `${timeEmoji} ${slot.time} ${slotEmoji}\n`;
       
@@ -388,9 +381,9 @@ export default function AgendaBuilderPage() {
             slackText += `   _Tags: ${experience.tags.slice(0, 3).join(', ')}_\n`;
           }
         }
-      } else if (slot.type !== 'fixed') {
-        const emptySlotType = slot.type === 'keynote-slot' ? 'Keynote Slot' : 
-                             slot.type === 'experience-slot' ? 'Experience Slot' : 'Open Slot';
+      } else if (slot.type !== 'Session') {
+        const emptySlotType = slot.type === 'Keynote' ? 'Keynote Slot' : 
+                             slot.type === 'Experience' ? 'Experience Slot' : 'Open Slot';
         slackText += `   ${slot.title}\n`;
         slackText += `   _${emptySlotType} - Available for booking_\n`;
       } else {
@@ -401,7 +394,7 @@ export default function AgendaBuilderPage() {
 
     // Add summary
     const filledSlots = agenda.filter(slot => slot.filled);
-    const emptySlots = agenda.filter(slot => !slot.filled && slot.type !== 'fixed');
+    const emptySlots = agenda.filter(slot => !slot.filled && slot.type !== 'Session');
     const keynoteCount = filledSlots.filter(slot => slot.filledType === 'keynote').length;
     const experienceCount = filledSlots.filter(slot => slot.filledType === 'experience').length;
 
@@ -440,6 +433,37 @@ export default function AgendaBuilderPage() {
       }, 2000);
     }
   };
+
+  const getAgenda = async (id: string) => {
+    try {
+      if (!id)
+        return defaultAgenda;
+
+      const response = await fetch(`/api/agendas?id=${id}`);
+      if (!response.ok) {
+        console.error(`Failed to fetch from agendas: `, response.statusText);
+        return defaultAgenda;
+      }
+      const json = await response.json();
+      return json.data;
+    } catch {
+      return defaultAgenda;
+    }
+  }
+
+  const handleOfferingChange = async (e:any) => {
+    const id = e.target.value;
+    const selected = workshops.find(w => w.id === id);
+    setSelectedOffering(selected ? { id: selected.id, title: selected.title, type: 'workshop' } : null);
+    if (selected) {
+      const newAgenda = await getAgenda(selected.agendaId || "");
+      setSelectedOffering({ id: selected.id, title: selected.title, type: 'workshop' });
+      setAgenda(newAgenda);
+    } else {
+      setSelectedOffering(null);
+      setAgenda(defaultAgenda);
+    }
+  }
 
   return (
     <main className="min-h-screen">
@@ -488,11 +512,7 @@ export default function AgendaBuilderPage() {
                       <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 flex-shrink-0"></span>
                       <select
                         value={selectedOffering?.id || ''}
-                        onChange={(e) => {
-                          const id = e.target.value;
-                          const selected = workshops.find(w => w.id === id);
-                          setSelectedOffering(selected ? { id: selected.id, title: selected.title, type: 'workshop' } : null);
-                        }}
+                        onChange={async (e) => await handleOfferingChange(e)}
                         className="flex-1 text-2xl font-bold text-white bg-transparent appearance-none cursor-pointer focus:outline-none hover:text-white/90 transition-colors pr-10 min-w-0"
                         style={{ paddingLeft: '0', fontSize: '1.5rem', lineHeight: '2rem' }}
                       >
