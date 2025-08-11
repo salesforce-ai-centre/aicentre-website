@@ -1,4 +1,5 @@
 import { getSalesforceAccessToken, getSalesforceDomainUrl } from '@/lib/salesforce-auth';
+import { StringLiteral } from 'typescript';
 
 interface QueryOptions {
   kind: string;
@@ -6,6 +7,8 @@ interface QueryOptions {
   hasOfferingStatus?: boolean;
   order?: string;
   additionalWhere?: string;
+  parentId?: string;
+  parentField?: string;
 }
 
 async function fetchSalesforceRecords(url: string): Promise<any[]> {
@@ -32,7 +35,9 @@ function buildQueryUrl({
   limit = 20, 
   hasOfferingStatus = false, 
   order = "", 
-  additionalWhere = "" 
+  additionalWhere = "",
+  parentId = "",
+  parentField = "" 
 }: QueryOptions): string {
   const baseUrl = `${getSalesforceDomainUrl()}/services/data/v64.0/queryAll?q=`;
   const fields = "SELECT+FIELDS(ALL)";
@@ -44,6 +49,9 @@ function buildQueryUrl({
   }
   if (additionalWhere) {
     whereConditions.push(additionalWhere);
+  }
+  if (parentId && parentField) {
+    whereConditions.push(`${parentField}+=+'${parentId}'`);
   }
   
   const whereClause = whereConditions.length 
@@ -68,5 +76,24 @@ export async function getSortedRecords(
   order: string = ""
 ): Promise<any[]> {
   const url = buildQueryUrl({ kind, limit, hasOfferingStatus, order });
+  return fetchSalesforceRecords(url);
+}
+
+export async function getChildRecords(
+  kind: string,
+  parentId: string,
+  parentField: string,
+  limit: number = 20,
+  hasOfferingStatus: boolean = false,
+  order: string
+): Promise<any[]> {
+  const url = buildQueryUrl({ 
+    kind, 
+    limit, 
+    hasOfferingStatus, 
+    parentId,
+    parentField,
+    order
+  });
   return fetchSalesforceRecords(url);
 }

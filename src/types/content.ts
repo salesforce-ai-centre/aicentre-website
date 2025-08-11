@@ -9,6 +9,7 @@ export interface Workshop {
   image?: string;
   featured?: boolean;
   whatYoullLearn?: string[];
+  agendaId?: string;
 }
 
 export interface Experience {
@@ -100,4 +101,13 @@ export interface Space {
   capacity?: string;
   description?: string;
   imageUrl: string;
+}
+
+export interface AgendaItem {
+  id: string;
+  time: string;
+  title: string;
+  type: 'Session' | 'Keynote' | 'Experience' | 'Open Slot';
+  filled?: Keynote | Experience;
+  filledType?: 'keynote' | 'experience';
 }
