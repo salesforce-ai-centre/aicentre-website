@@ -6,7 +6,7 @@ import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { Keynote, Experience, Workshop } from '@/types/content';
 import Navigation from '@/components/Navigation';
 import ContactBanner from '@/components/ContactBanner';
-import { ChevronDown, X, ExternalLink } from 'lucide-react';
+import { ChevronDown, X, ExternalLink, Copy, Check } from 'lucide-react';
 import Link from 'next/link';
 
 interface AgendaItem {
@@ -233,6 +233,7 @@ export default function AgendaBuilderPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'keynotes' | 'experiences'>('keynotes');
   const [selectedOffering, setSelectedOffering] = useState<{ id: string; title: string; type: string } | null>(null);
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     // Fetch keynotes using the same method as the rest of the site
@@ -359,6 +360,87 @@ export default function AgendaBuilderPage() {
     return null;
   };
 
+  const formatSlackExport = () => {
+    const offeringTitle = selectedOffering ? selectedOffering.title : 'AI Centre Experience';
+    let slackText = `🎯 ${offeringTitle} - Agenda\n\n`;
+    
+    agenda.forEach(slot => {
+      const timeEmoji = '⏰';
+      const slotEmoji = slot.type === 'fixed' ? '📌' : 
+                       slot.type === 'keynote-slot' ? '🎤' : 
+                       slot.type === 'experience-slot' ? '🎮' : '✨';
+      
+      slackText += `${timeEmoji} ${slot.time} ${slotEmoji}\n`;
+      
+      if (slot.filled) {
+        slackText += `   ${slot.filled.title}\n`;
+        
+        if (slot.filledType === 'keynote') {
+          const keynote = slot.filled as Keynote;
+          slackText += `   _Presenter: ${keynote.presenter}_\n`;
+          if (keynote.topics && keynote.topics.length > 0) {
+            slackText += `   _Topics: ${keynote.topics.slice(0, 3).join(', ')}_\n`;
+          }
+        } else if (slot.filledType === 'experience') {
+          const experience = slot.filled as Experience;
+          slackText += `   _${experience.type.charAt(0).toUpperCase() + experience.type.slice(1)} Experience_\n`;
+          if (experience.tags && experience.tags.length > 0) {
+            slackText += `   _Tags: ${experience.tags.slice(0, 3).join(', ')}_\n`;
+          }
+        }
+      } else if (slot.type !== 'fixed') {
+        const emptySlotType = slot.type === 'keynote-slot' ? 'Keynote Slot' : 
+                             slot.type === 'experience-slot' ? 'Experience Slot' : 'Open Slot';
+        slackText += `   ${slot.title}\n`;
+        slackText += `   _${emptySlotType} - Available for booking_\n`;
+      } else {
+        slackText += `   ${slot.title}\n`;
+      }
+      slackText += '\n';
+    });
+
+    // Add summary
+    const filledSlots = agenda.filter(slot => slot.filled);
+    const emptySlots = agenda.filter(slot => !slot.filled && slot.type !== 'fixed');
+    const keynoteCount = filledSlots.filter(slot => slot.filledType === 'keynote').length;
+    const experienceCount = filledSlots.filter(slot => slot.filledType === 'experience').length;
+
+    slackText += '📊 Summary\n';
+    slackText += `• ${keynoteCount} Keynote${keynoteCount !== 1 ? 's' : ''} scheduled\n`;
+    slackText += `• ${experienceCount} Experience${experienceCount !== 1 ? 's' : ''} scheduled\n`;
+    if (emptySlots.length > 0) {
+      slackText += `• ${emptySlots.length} Open slot${emptySlots.length !== 1 ? 's' : ''} remaining\n`;
+    }
+
+    return slackText;
+  };
+
+  const handleCopyToClipboard = async () => {
+    try {
+      const exportText = formatSlackExport();
+      await navigator.clipboard.writeText(exportText);
+      setIsCopied(true);
+      
+      // Reset the copied state after 2 seconds
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy to clipboard:', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = formatSlackExport();
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    }
+  };
+
   return (
     <main className="min-h-screen">
       <Navigation />
@@ -375,9 +457,25 @@ export default function AgendaBuilderPage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
                 Agenda Builder
               </h1>
-              <p className="text-xl text-white/80 max-w-2xl mx-auto">
+              <p className="text-xl text-white/80 max-w-2xl mx-auto mb-6">
                 Customize your AI Centre experience by dragging keynotes and experiences into flexible time slots
               </p>
+              <button
+                onClick={handleCopyToClipboard}
+                className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+              >
+                {isCopied ? (
+                  <>
+                    <Check className="w-4 h-4 mr-2" />
+                    Copied to Clipboard!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 mr-2" />
+                    Export for Slack
+                  </>
+                )}
+              </button>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 overflow-visible">
