@@ -506,38 +506,39 @@ export default function AgendaBuilderPage() {
               {/* Agenda Timeline */}
               <div className="lg:col-span-2">
                 <div className="glass-card p-6 lg:p-8">
-                  <div className="mb-6">
-                    {/* Title as Dropdown */}
-                    <div className="relative flex items-center">
-                      <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 flex-shrink-0"></span>
-                      <select
-                        value={selectedOffering?.id || ''}
-                        onChange={async (e) => await handleOfferingChange(e)}
-                        className="flex-1 text-2xl font-bold text-white bg-transparent appearance-none cursor-pointer focus:outline-none hover:text-white/90 transition-colors pr-10 min-w-0"
-                        style={{ paddingLeft: '0', fontSize: '1.5rem', lineHeight: '2rem' }}
-                      >
-                        <option value="">Select a Standard Offering</option>
-                        {workshops.map(workshop => (
-                          <option key={workshop.id} value={workshop.id}>
-                            {workshop.title}
-                          </option>
-                        ))}
-                      </select>
-                      <div className="absolute right-0 flex items-center pointer-events-none">
-                        <ChevronDown className="w-6 h-6 text-white/60" />
-                      </div>
+
+                  {/* Title as Dropdown */}
+                  <div className="relative flex items-center">
+                    <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 flex-shrink-0"></span>
+                    <select
+                      value={selectedOffering?.id || ''}
+                      onChange={async (e) => await handleOfferingChange(e)}
+                      className="flex-1 text-2xl font-bold text-white bg-transparent appearance-none cursor-pointer focus:outline-none hover:text-white/90 transition-colors pr-10 min-w-0"
+                      style={{ paddingLeft: '0', fontSize: '1.5rem', lineHeight: '2rem' }}
+                    >
+                      <option value="">Select a Standard Offering</option>
+                      {workshops.map(workshop => (
+                        <option key={workshop.id} value={workshop.id}>
+                          {workshop.title}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute right-0 flex items-center pointer-events-none">
+                      <ChevronDown className="w-6 h-6 text-white/60" />
                     </div>
                   </div>
-                  
-                  <div className="space-y-4">
-                    {agenda.map(slot => (
-                      <DroppableSlot 
-                        key={slot.id} 
-                        slot={slot} 
-                        onRemove={handleRemove}
-                      />
-                    ))}
-                  </div>
+
+                  {agenda.length > 0 && (
+                    <div className="space-y-4 mt-6">
+                      {agenda.map(slot => (
+                        <DroppableSlot 
+                          key={slot.id} 
+                          slot={slot} 
+                          onRemove={handleRemove}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
