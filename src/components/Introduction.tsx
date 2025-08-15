@@ -35,8 +35,8 @@ export default function Introduction() {
             <div className="glass-card p-8 group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 smooth-hover h-full flex flex-col">
               <h3 className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors mb-4">You Lead, We Support</h3>
               <p className="text-white text-opacity-80 leading-relaxed">
-                You lead the customer experience—we're here to support with content, coordination, and best practices. 
-                You choose the sessions that fit. We'll help you deliver and curate them so you can focus on what 
+                You lead the customer experience - we&apos;re here to support with content, coordination, and best practices. 
+                You choose the sessions that fit. We&apos;ll help you deliver and curate them so you can focus on what 
                 matters most: your customers.
               </p>
             </div>
