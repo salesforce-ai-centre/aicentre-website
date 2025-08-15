@@ -110,4 +110,9 @@
   select optgroup {
     @apply font-bold text-purple-300;
   }
+
+  /* Lighter background for Get Started page */
+  .page-lighter {
+    background: linear-gradient(135deg, #2A2A4A 0%, #3D2B79 60%, #7C7CF1 100%);
+  }
 }

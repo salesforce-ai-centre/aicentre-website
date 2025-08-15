@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Hero from '@/components/Hero'
+import Introduction from '@/components/Introduction'
 import Navigation from '@/components/Navigation'
 import ContactBanner from '@/components/ContactBanner'
 import WorkshopFilter from '@/components/WorkshopFilter'
@@ -83,6 +84,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Navigation />
       <Hero />
+      <Introduction />
       <ContactBanner />
       
       {/* Standard Offerings Section */}

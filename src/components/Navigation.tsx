@@ -109,7 +109,9 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-white border-opacity-20">
-              {siteConfig.navigation.map((item) => (
+              {siteConfig.navigation
+                .filter((item) => item.name !== "Agenda Builder")
+                .map((item) => (
                 <Link
                   key={item.name}
                   href={getNavigationHref(item.href)}

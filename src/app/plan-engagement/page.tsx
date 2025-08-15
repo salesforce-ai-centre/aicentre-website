@@ -31,7 +31,7 @@ export default function PlanEngagementPage() {
     {
       icon: <Clock className="w-6 h-6 text-purple-400" />,
       title: "4 weeks minimum",
-      description: "Book AI Centre Team led engagements at least 4 weeks in advance"
+      description: "Book an engagement at least 4 weeks in advance"
     },
     {
       icon: <Users className="w-6 h-6 text-purple-400" />,
@@ -140,7 +140,7 @@ export default function PlanEngagementPage() {
   ];
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen page-lighter">
       <Navigation />
       
       {/* Hero Section */}
@@ -173,44 +173,14 @@ export default function PlanEngagementPage() {
       <section className="py-12 section-padding bg-white/5">
         <div className="container-max">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-white text-center mb-8">
-              The AI Centre can be used for two types of engagements:
-            </h2>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-              <div className="glass-card p-6">
-                <h3 className="text-xl font-bold text-white mb-4">Self-managed Engagements</h3>
-                <p className="text-white/80">
-                  These are engagements managed and led by the account team or organising team that initiated the request.
-                </p>
-              </div>
-              
-              <div className="glass-card p-6">
-                <h3 className="text-xl font-bold text-white mb-4">AI Centre Team led Engagements</h3>
-                <p className="text-white/80">
-                  These are engagements managed and led by the AI Centre Team.
-                </p>
-              </div>
-            </div>
-
-            {/* Self-managed bubble */}
-            <div className="glass-card p-6 bg-gradient-to-r from-purple-600/20 to-indigo-600/20">
-              <h3 className="text-xl font-bold text-white mb-4">For self-managed engagements:</h3>
+            <div className="glass-card p-6 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 mb-12">
               <p className="text-white/90">
-                For account teams or organising teams who want to host their own custom engagements, please log a REWS ticket and a REWS event lead will be in touch with next steps and support with logistic needs.
+                AI Centre engagements are managed by the account team with support from the AI Centre Team to bring the engagements to life for your customers.
+                <br/><br/>
+                Our team focuses on scalable programmes, so for custom engagements, account teams can work with REWS directly to book a space in the AI Centre.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* AI Centre Team Led Engagements */}
-      <section className="py-12 section-padding">
-        <div className="container-max">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-white text-center mb-12">AI Centre Team led Engagements</h2>
-            
-            {/* Quick Facts */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               {aiCentreTeamFacts.map((fact, index) => (
                 <div key={index} className="glass-card p-6 text-center">
@@ -221,12 +191,7 @@ export default function PlanEngagementPage() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* How It Works */}
-      <section className="py-12 section-padding bg-white/5">
-        <div className="container-max">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-white text-center mb-12">How it works:</h2>
             
@@ -293,7 +258,7 @@ export default function PlanEngagementPage() {
                   </li>
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>Facilitation led by the AI Centre Team and event management led by REWS</span>
+                    <span>Engagement support by AI Centre Team and event management by REWS</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />

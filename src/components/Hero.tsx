@@ -53,16 +53,19 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 container-max section-padding text-center">
-        <div className="animate-fade-in">
-          <h1 className="text-4xl md:text-6xl font-black mb-5 text-white floating" style={{textShadow: '0 0 30px rgba(139, 92, 246, 0.3)'}}>
+        <div className="animate-fade-in max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-6 text-white floating" style={{textShadow: '0 0 30px rgba(139, 92, 246, 0.3)'}}>
             {heroContent.title}
           </h1>
-          <p className="text-xl md:text-2xl text-white text-opacity-90 mb-10 max-w-2xl mx-auto leading-relaxed">
-            {heroContent.description}
-          </p>
           
-          <div className="mb-16">
-            <Link href={heroContent.primaryCTA.href} className="inline-block bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-purple-500">
+          {heroContent.subtitle && (
+            <p className="text-lg sm:text-xl lg:text-2xl text-purple-200 mb-12 font-medium">
+              {heroContent.subtitle}
+            </p>
+          )}
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <Link href={heroContent.primaryCTA.href} className="inline-block bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-purple-500 w-full sm:w-auto text-center">
               {heroContent.primaryCTA.text}
             </Link>
           </div>

@@ -51,8 +51,10 @@ export interface FAQ {
 
 export interface HeroContent {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   description: string;
+  secondaryDescription?: string;
+  callToAction?: string;
   primaryCTA: {
     text: string;
     href: string;
