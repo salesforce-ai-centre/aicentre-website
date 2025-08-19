@@ -23,7 +23,17 @@ export async function middleware(request: NextRequest) {
   const realIp = request.headers.get('x-real-ip');
   const clientIp = forwardedFor ? forwardedFor.split(',')[0].trim() : 
                    realIp ||
-                   '127.0.0.1';
+                   '127.0.0.1'; // fallback for local development
+
+  console.log(forwardedFor);
+  console.log(realIp);
+  console.log(clientIp)
+  
+  console.log('📍 Headers:', {
+    'x-forwarded-for': forwardedFor,
+    'x-real-ip': realIp,
+    'detected clientIp': clientIp
+  });
 
   if (!clientIp || clientIp === '127.0.0.1' || clientIp === '::1') {
     console.log('⚠️ Local development detected, allowing access');
@@ -35,7 +45,7 @@ export async function middleware(request: NextRequest) {
 
   if (!isAllowed) {
     console.log(`Access denied for IP: ${clientIp}`);
-    return NextResponse.redirect(new URL('/access-denied', request.url));
+    // return NextResponse.redirect(new URL('/access-denied', request.url));
   }
 
   return NextResponse.next();
