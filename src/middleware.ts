@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const IP_RANGES = [
-  process.env.ALLOWED_IP_ADDRESS
+  process.env.ALLOWED_IP_ADDRESS || ""
 ];
 
 function isIpInCidr(ip: string, cidr: string): boolean {
