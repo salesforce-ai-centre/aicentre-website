@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const ZSCALER_IP_RANGES = [
-  '123.0.0.0/24',    // Replace with your actual Zscaler IP range 1
-  '123.0.0.0/28',  // Replace with your actual Zscaler IP range 2
+const IP_RANGES = [
+  process.env.ALLOWED_IP_ADDRESS
 ];
 
 function isIpInCidr(ip: string, cidr: string): boolean {
@@ -24,29 +23,19 @@ export async function middleware(request: NextRequest) {
   const realIp = request.headers.get('x-real-ip');
   const clientIp = forwardedFor ? forwardedFor.split(',')[0].trim() : 
                    realIp ||
-                   '127.0.0.1'; // fallback for local development
-
-  console.log(forwardedFor);
-  console.log(realIp);
-  console.log(clientIp)
-  
-  console.log('📍 Headers:', {
-    'x-forwarded-for': forwardedFor,
-    'x-real-ip': realIp,
-    'detected clientIp': clientIp
-  });
+                   '127.0.0.1';
 
   if (!clientIp || clientIp === '127.0.0.1' || clientIp === '::1') {
     console.log('⚠️ Local development detected, allowing access');
     return NextResponse.next();
   }
 
-  const isAllowed = ZSCALER_IP_RANGES.some(range => isIpInCidr(clientIp, range));
-  console.log('🔐 IP check result:', { clientIp, isAllowed, ranges: ZSCALER_IP_RANGES });
+  const isAllowed = IP_RANGES.some(range => isIpInCidr(clientIp, range));
+  console.log('🔐 IP check result:', { clientIp, isAllowed, ranges: IP_RANGES });
 
   if (!isAllowed) {
     console.log(`Access denied for IP: ${clientIp}`);
-    // return NextResponse.redirect(new URL('/access-denied', request.url));
+    return NextResponse.redirect(new URL('/access-denied', request.url));
   }
 
   return NextResponse.next();
