@@ -79,7 +79,26 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
   };
   
   const formatLinks = (text: string, key: string) => {
-    // First handle URLs
+    // First handle custom pattern: "quoted text" (URL)
+    const customLinkRegex = /"([^"]+)"\s*\((https?:\/\/[^\s<>"{}|\\^`[\]]+)\)/gi;
+    
+    // Process custom links first and replace them with placeholders
+    const customLinkMatches: { match: RegExpExecArray; replacement: string }[] = [];
+    let customMatch;
+    let customIndex = 0;
+    
+    // Reset regex to start from beginning
+    customLinkRegex.lastIndex = 0;
+    
+    let processedText = text;
+    while ((customMatch = customLinkRegex.exec(text)) !== null) {
+      const placeholder = `__CUSTOM_LINK_${customIndex}__`;
+      customLinkMatches.push({ match: customMatch, replacement: placeholder });
+      processedText = processedText.replace(customMatch[0], placeholder);
+      customIndex++;
+    }
+
+    // Now handle regular URLs on the processed text
     let result: React.ReactNode[] = [];
     let lastIndex = 0;
     let match;
@@ -88,15 +107,15 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
     // Reset regex to start from beginning
     urlRegex.lastIndex = 0;
     
-    while ((match = urlRegex.exec(text)) !== null) {
-      const beforeUrl = text.substring(lastIndex, match.index);
+    while ((match = urlRegex.exec(processedText)) !== null) {
+      const beforeUrl = processedText.substring(lastIndex, match.index);
       const rawUrl = match[0];
       const cleanedUrl = cleanUrl(rawUrl);
       const urlLength = cleanedUrl.length;
       
-      // Add text before URL (handle emails in this text)
+      // Add text before URL (handle emails and custom link placeholders in this text)
       if (beforeUrl) {
-        result.push(...formatEmails(beforeUrl, `${key}-before-${urlIndex}`));
+        result.push(...processTextWithPlaceholders(beforeUrl, customLinkMatches, `${key}-before-${urlIndex}`));
       }
       
       // Add the URL as a link (replacing only the cleaned URL portion)
@@ -123,12 +142,54 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
     }
     
     // Handle remaining text after last URL
-    const remainingText = text.substring(lastIndex);
+    const remainingText = processedText.substring(lastIndex);
     if (remainingText) {
-      result.push(...formatEmails(remainingText, `${key}-after`));
+      result.push(...processTextWithPlaceholders(remainingText, customLinkMatches, `${key}-after`));
     }
     
     return result;
+  };
+
+  const processTextWithPlaceholders = (text: string, customLinkMatches: { match: RegExpExecArray; replacement: string }[], key: string) => {
+    let processedText = text;
+    
+    // Replace placeholders with actual custom links one by one
+    for (const linkData of customLinkMatches) {
+      if (processedText.includes(linkData.replacement)) {
+        const [, linkText, url] = linkData.match;
+        const parts = processedText.split(linkData.replacement);
+        
+        if (parts.length > 1) {
+          // Found the placeholder, build result with custom link
+          let result: React.ReactNode[] = [];
+          
+          parts.forEach((part, partIndex) => {
+            if (partIndex > 0) {
+              // Add the custom link between parts
+              result.push(
+                <a 
+                  key={`${key}-custom-${linkData.replacement}`}
+                  href={cleanUrl(url)} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 underline decoration-blue-400/50 hover:decoration-blue-300 transition-colors duration-200"
+                >
+                  {linkText}
+                </a>
+              );
+            }
+            if (part) {
+              result.push(...formatEmails(part, `${key}-part-${partIndex}`));
+            }
+          });
+          
+          return result;
+        }
+      }
+    }
+    
+    // If no placeholders were found, just format emails
+    return formatEmails(processedText, key);
   };
 
   const formatEmails = (text: string, key: string) => {

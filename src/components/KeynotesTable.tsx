@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { getKeynotes } from '@/lib/content';
-import { useRouter } from 'next/navigation';
 import { Keynote } from '@/types/content';
 
 export default function KeynotesTable() {
@@ -14,12 +13,6 @@ export default function KeynotesTable() {
     const allKeynotes = await getKeynotes();
     setKeynotes(allKeynotes);
   }
-
-  const router = useRouter();
-
-  const handleKeynoteClick = (keynoteId: string) => {
-    router.push(`/keynotes/${keynoteId}`);
-  };
 
   return (
     <div className="glass-card overflow-hidden border border-white border-opacity-20 rounded-2xl my-10">
@@ -35,14 +28,16 @@ export default function KeynotesTable() {
             <th className="px-6 py-5 text-left font-bold text-white border-b border-white border-opacity-10">
               Audience
             </th>
+            <th className="px-6 py-5 text-left font-bold text-white border-b border-white border-opacity-10">
+              Duration
+            </th>
           </tr>
         </thead>
         <tbody>
           {keynotes.map((keynote, index) => (
             <tr 
               key={keynote.id} 
-              className="hover:bg-purple-500 hover:bg-opacity-20 transition-colors border-b border-white border-opacity-10 last:border-b-0 cursor-pointer"
-              onClick={() => handleKeynoteClick(keynote.id)}
+              className="hover:bg-purple-500 hover:bg-opacity-20 transition-colors border-b border-white border-opacity-10 last:border-b-0"
             >
               <td className="px-6 py-5 text-white">
                 <div className="font-semibold">{keynote.title}</div>
@@ -52,6 +47,9 @@ export default function KeynotesTable() {
               </td>
               <td className="px-6 py-5 text-white text-opacity-80">
                 {keynote.audience}
+              </td>
+              <td className="px-6 py-5 text-white text-opacity-80">
+                {keynote.duration}
               </td>
             </tr>
           ))}

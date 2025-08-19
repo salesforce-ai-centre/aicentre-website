@@ -216,6 +216,8 @@ const defaultAgenda:AgendaItem[] = [
   { id: '9', time: '3:00 PM', title: 'Closing Remarks', type: 'Session' },
 ]
 
+const STORAGE_KEY = 'agenda-builder-state';
+
 export default function AgendaBuilderPage() {
   const [agenda, setAgenda] = useState<AgendaItem[]>([]);
 
@@ -227,8 +229,54 @@ export default function AgendaBuilderPage() {
   const [activeTab, setActiveTab] = useState<'keynotes' | 'experiences'>('keynotes');
   const [selectedOffering, setSelectedOffering] = useState<{ id: string; title: string; type: string } | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const saveStateToStorage = (state: {
+    agenda: AgendaItem[];
+    usedItems: string[];
+    activeTab: 'keynotes' | 'experiences';
+    selectedOffering: { id: string; title: string; type: string } | null;
+  }) => {
+    try {
+      console.log('Saving state to storage:', state);
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (error) {
+      console.error('Failed to save state to sessionStorage:', error);
+    }
+  };
+
+  const loadStateFromStorage = () => {
+    try {
+      const stored = sessionStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsedState = JSON.parse(stored);
+        console.log('Loaded state from storage:', parsedState);
+        return parsedState;
+      }
+    } catch (error) {
+      console.error('Failed to load state from sessionStorage:', error);
+    }
+    return null;
+  };
 
   useEffect(() => {
+    // Load saved state first
+    const savedState = loadStateFromStorage();
+    if (savedState) {
+      console.log('Restoring state from storage');
+      if (savedState.agenda && Array.isArray(savedState.agenda) && savedState.agenda.length > 0) {
+        setAgenda(savedState.agenda);
+      } else {
+        setAgenda(defaultAgenda);
+      }
+      setUsedItems(new Set(savedState.usedItems || []));
+      setActiveTab(savedState.activeTab || 'keynotes');
+      setSelectedOffering(savedState.selectedOffering || null);
+    } else {
+      console.log('No saved state found, using default agenda');
+      setAgenda(defaultAgenda);
+    }
+
     // Fetch keynotes using the same method as the rest of the site
     const fetchKeynotes = async () => {
       try {
@@ -271,7 +319,26 @@ export default function AgendaBuilderPage() {
     fetchKeynotes();
     fetchExperiences();
     fetchWorkshops();
+    
+    // Mark as initialized after state restoration
+    setIsInitialized(true);
   }, []);
+
+  // Only save state after initial load is complete
+  useEffect(() => {
+    if (!isInitialized) {
+      console.log('Skipping save - not yet initialized');
+      return;
+    }
+    
+    console.log('Auto-saving state after change');
+    saveStateToStorage({
+      agenda,
+      usedItems: Array.from(usedItems),
+      activeTab,
+      selectedOffering,
+    });
+  }, [agenda, usedItems, activeTab, selectedOffering, isInitialized]);
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveId(event.active.id as string);
@@ -527,9 +594,9 @@ export default function AgendaBuilderPage() {
                       <ChevronDown className="w-6 h-6 text-white/60" />
                     </div>
                   </div>
-
                   {agenda.length > 0 && (
                     <div className="space-y-4 mt-6">
+                      <span>Use this agenda as a starting point and we look forward to collaborating with you to finalise it.</span>
                       {agenda.map(slot => (
                         <DroppableSlot 
                           key={slot.id} 

@@ -1,16 +1,10 @@
 import { Experience } from '@/types/content';
-import { useRouter } from 'next/navigation';
 
 interface ExperienceCardProps {
   experience: Experience;
 }
 
 export default function ExperienceCard({ experience }: ExperienceCardProps) {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push(`/experiences/${experience.id}`);
-  };
   /**
    * Maps experience category colors to readiness status
    * Red = Not Ready, Orange = Nearly Ready, Green = Ready
@@ -38,8 +32,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
 
   return (
     <div 
-      className="glass-card p-8 relative overflow-hidden group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 cursor-pointer h-full flex flex-col"
-      onClick={handleClick}
+      className="glass-card p-8 relative overflow-hidden group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 h-full flex flex-col"
       style={{ transition: 'border-color 0.2s ease', minHeight: '320px' }}
     >
       {/* Top gradient border */}
@@ -71,7 +64,12 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
 
         {/* Footer section - empty to maintain consistent spacing */}
         <div className="mt-auto" style={{ minHeight: '40px' }}>
-          {/* Empty footer to match workshop card structure */}
+          <div className="bg-purple-500 bg-opacity-20 border border-purple-500 border-opacity-30 px-3 py-1.5 rounded-xl text-sm font-medium text-white inline-block mr-2">
+            👥 {experience.audienceSize}
+          </div>
+          <div className="bg-purple-500 bg-opacity-20 border border-purple-500 border-opacity-30 px-3 py-1.5 rounded-xl text-sm font-medium text-white inline-block">
+            ⏰ {experience.duration}
+          </div>
         </div>
       </div>
     </div>

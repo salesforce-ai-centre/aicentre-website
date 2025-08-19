@@ -91,7 +91,7 @@ export default function PlanEngagementPage() {
       description: "Connect with the AI Centre Team and outline the objectives of the engagement.",
       duration: "Week 1-2",
       icon: <MessageSquare className="w-6 h-6" />,
-      status: "current" as const,
+      status: "upcoming" as const,
       details: [
         "Customer background: Account Team shares details about the customer including open opportunities, AI strategy, current Salesforce footprint",
         "Engagement objectives: Engagement Account team shares the objectives of the engagement, the expected attendees (inc. number of attendees) and next steps for the customers",

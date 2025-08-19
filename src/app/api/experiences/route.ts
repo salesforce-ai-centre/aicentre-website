@@ -1,6 +1,6 @@
 import type { Experience } from '@/types/content';
 import { NextResponse } from 'next/server';
-import { getAllRecords } from '@/lib/salesforce-request';
+import { getSortedRecords } from '@/lib/salesforce-request';
 
 const transformExperience = (object: Record<string, any>): Experience => ({
   id: object["Name"],
@@ -15,7 +15,7 @@ const transformExperience = (object: Record<string, any>): Experience => ({
 
 export async function GET() {
   try {
-    const objects = await getAllRecords("Immersive_Experience__c", 20, true);
+    const objects = await getSortedRecords("Immersive_Experience__c", 20, true, "ORDER+BY+Status__c+ASC");
     if (!objects) {
       return NextResponse.json(
         { error: 'No objects found' },

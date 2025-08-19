@@ -43,12 +43,6 @@ export default function SpaceCaard({ space }: SpaceCardProps) {
             Capacity: {space.capacity}
           </div>
         )}
-
-        {space.description && (
-          <p className="text-white text-opacity-90 leading-relaxed">
-            {space.description}
-          </p>
-        )}
       </div>
     </div>
   );

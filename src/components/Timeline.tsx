@@ -238,30 +238,6 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
           })}
         </div>
       </div>
-
-      {/* Progress indicator */}
-      <div className="mt-12 bg-gray-800/50 rounded-xl p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-white font-semibold">Process Progress</h3>
-          <span className="text-white/70 text-sm">
-            {steps.filter(s => s.status === 'completed').length} / {steps.length} steps
-          </span>
-        </div>
-        
-        <div className="w-full bg-gray-700 rounded-full h-3">
-          <div 
-            className="bg-gradient-to-r from-green-500 to-purple-500 h-3 rounded-full transition-all duration-500 ease-out"
-            style={{ 
-              width: `${(steps.filter(s => s.status === 'completed').length / steps.length) * 100}%` 
-            }}
-          ></div>
-        </div>
-        
-        <div className="flex justify-between mt-3 text-xs text-white/60">
-          <span>Start</span>
-          <span>Complete</span>
-        </div>
-      </div>
     </div>
   );
 }
@@ -295,7 +271,7 @@ export const engagementTimelineSteps: TimelineStep[] = [
     description: 'Work with Experience Strategist to design the perfect engagement for your customer.',
     duration: 'Week 2',
     icon: <Target className="w-6 h-6" />,
-    status: 'current',
+    status: 'upcoming',
     details: [
       'Assigned Experience Strategist consultation call',
       'Select appropriate workshop format and content',

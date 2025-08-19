@@ -1,5 +1,5 @@
 {
-  "siteName": "Salesforce AI Centre",
+  "siteName": "AI Centre",
   "siteDescription": "Engagement Portal - Comprehensive AI experiences for Salesforce account teams",
   "contactInfo": {
     "slackChannel": "#ai-centre-uk",
@@ -7,11 +7,11 @@
     "supportDescription": "Account team support • Customer experience planning"
   },
   "navigation": [
-    { "name": "Meet the Team", "href": "#meet-the-team" },
+    { "name": "Get Started", "href": "/plan-engagement" },
     { "name": "Offerings", "href": "#offerings" },
     { "name": "Experiences", "href": "#experiences" },
-    { "name": "Get Started", "href": "/plan-engagement" },
-    { "name": "Agenda Builder", "href": "/agenda-builder" }
+    { "name": "Agenda Builder", "href": "/agenda-builder" },
+    { "name": "Meet the Team", "href": "#meet-the-team" }
   ],
   "agentforceBadge": "Powered by Agentforce",
   "analytics": {
