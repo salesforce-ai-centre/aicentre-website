@@ -88,7 +88,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                       <div className="space-y-4 text-white text-opacity-90 mb-8">
                         <ul className="space-y-2">
                           {workshop.sampleAgenda.split("\n").map((item: string, index: number) => (
-                            <li id={`agenda_item_${index}`}>{item}</li>
+                            <li key={`agenda_item_${index}`}>{item}</li>
                           ))}
                         </ul>
                       </div>
