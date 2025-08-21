@@ -37,12 +37,6 @@ export default function SpaceCaard({ space }: SpaceCardProps) {
         <h3 className="text-2xl font-bold text-white group-hover:text-purple-200 transition-colors">
           {space.name}
         </h3>
-
-        {space.capacity && (
-          <div className="text-lg text-purple-300 mb-4">
-            Capacity: {space.capacity}
-          </div>
-        )}
       </div>
     </div>
   );

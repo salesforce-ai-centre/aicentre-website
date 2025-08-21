@@ -14,6 +14,7 @@ interface WorkshopDetailPageProps {
 export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) {
   const [workshop, setWorkshop] = useState<Workshop | null>(null);
   const router = useRouter();
+  const defaultAudienceSize = "10-25";
 
   useEffect(() => {
     const loadWorkshop = async () => {
@@ -75,62 +76,36 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                   {workshop.title}
                 </h1>
 
-                <p className="text-xl text-white text-opacity-90 leading-relaxed mb-8">
-                  {workshop.description}
+                <p className="text-l text-white text-opacity-90 leading-relaxed mb-8">
+                  {workshop.longDescription || workshop.description}
                 </p>
 
                 {/* Detailed Content */}
                 <div className="prose prose-invert max-w-none">
-                  <h2 className="text-2xl font-bold text-white mb-4">What You&apos;ll Learn</h2>
-                  <div className="space-y-4 text-white text-opacity-90">
-                    {workshop.whatYoullLearn ? (
-                      <ul className="space-y-2">
-                        {workshop.whatYoullLearn.map((item) => (
-                          <li key={item}>• {item}</li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <>
-                        {workshop.category === 'hands-on' && (
-                          <ul className="space-y-2">
-                            <li>• Hands-on experience building and deploying AI agents</li>
-                            <li>• Best practices for agent design and implementation</li>
-                            <li>• Real-world use cases and practical applications</li>
-                            <li>• Technical deep-dive into Agentforce capabilities</li>
-                            <li>• Troubleshooting and optimization techniques</li>
-                          </ul>
-                        )}
-                        {workshop.category === 'ideation' && (
-                          <ul className="space-y-2">
-                            <li>• Strategic frameworks for AI transformation</li>
-                            <li>• Identifying high-impact AI use cases</li>
-                            <li>• Building consensus around AI initiatives</li>
-                            <li>• Roadmap development and prioritization</li>
-                            <li>• Change management for AI adoption</li>
-                          </ul>
-                        )}
-                        {workshop.category === 'technical' && (
-                          <ul className="space-y-2">
-                            <li>• Technical architecture and integration patterns</li>
-                            <li>• Advanced configuration and customization</li>
-                            <li>• Performance optimization and scalability</li>
-                            <li>• Security and compliance considerations</li>
-                            <li>• API development and automation</li>
-                          </ul>
-                        )}
-                        {workshop.category === 'business' && (
-                          <ul className="space-y-2">
-                            <li>• Business value and ROI demonstration</li>
-                            <li>• Executive-level strategic planning</li>
-                            <li>• Risk assessment and mitigation</li>
-                            <li>• Team alignment and stakeholder buy-in</li>
-                            <li>• Success metrics and measurement</li>
-                          </ul>
-                        )}
-                      </>
-                    )}
-                  </div>
+                  {workshop?.sampleAgenda && (
+                    <>
+                      <h2 className="text-2xl font-bold text-white mb-4">Sample Agenda</h2>
+                      <div className="space-y-4 text-white text-opacity-90 mb-8">
+                        <ul className="space-y-2">
+                          {workshop.sampleAgenda.split("\n").map((item: string, index: number) => (
+                            <li id={`agenda_item_${index}`}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </>
+                  )}
 
+                  {workshop?.engagementExpectations && (
+                    <>
+                      <h2 className="text-2xl font-bold text-white mb-4">Engagement Expectations</h2>
+                      <div className="space-y-4 text-white text-opacity-90">
+                        <p className="text-l text-white text-opacity-90 leading-relaxed mb-8">
+                          {workshop.engagementExpectations}
+                        </p>
+                      </div>
+                    </>
+                  )}
+                  
                   <h2 className="text-2xl font-bold text-white mb-4 mt-8">Workshop Format</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
@@ -139,7 +114,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                     </div>
                     <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
                       <h3 className="font-semibold text-white mb-2">Audience Size</h3>
-                      <p className="text-white text-opacity-80">{workshop.audienceSize}</p>
+                      <p className="text-white text-opacity-80">{workshop.audienceSize || defaultAudienceSize}</p>
                     </div>
                   </div>
                 </div>
@@ -185,7 +160,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                   <div className="space-y-2 text-sm text-white text-opacity-80">
                     <div>Category: <span className="capitalize text-white">{workshop.category}</span></div>
                     <div>Duration: <span className="text-white">{workshop.duration}</span></div>
-                    <div>Participants: <span className="text-white">{workshop.audienceSize}</span></div>
+                    <div>Participants: <span className="text-white">{workshop.audienceSize || defaultAudienceSize}</span></div>
                   </div>
                 </div>
               </div>

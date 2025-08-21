@@ -2,6 +2,7 @@ export interface Workshop {
   id: string;
   title: string;
   description: string;
+  longDescription?: string;
   tags: string[];
   audienceSize: string;
   duration: string;
@@ -10,6 +11,8 @@ export interface Workshop {
   featured?: boolean;
   whatYoullLearn?: string[];
   agendaId?: string;
+  sampleAgenda?: string;
+  engagementExpectations?: string;
 }
 
 export interface Experience {
