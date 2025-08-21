@@ -113,7 +113,9 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-2">
-              <p className="text-sm text-white/60 font-medium">{slot.time}</p>
+              {slot.time.length > 0 && (
+                <p className="text-sm text-white/60 font-medium">{slot.time}</p>
+              )}
               {slot.type === 'Keynote' && !slot.filled && (
                 <span className="px-2 py-1 bg-blue-500/20 rounded-full text-xs text-blue-300">Keynote Slot</span>
               )}
