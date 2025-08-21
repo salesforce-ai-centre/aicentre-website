@@ -32,7 +32,7 @@ export default function WorkshopCard({ workshop }: WorkshopCardProps) {
         
         {/* Description section - flexible height but clamped */}
         <div className="mb-5 flex-1">
-          <p className="text-white text-opacity-90 leading-relaxed line-clamp-3">
+          <p className="text-white text-opacity-90 leading-relaxed">
             {workshop.description}
           </p>
         </div>
