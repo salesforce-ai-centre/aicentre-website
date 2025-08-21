@@ -50,7 +50,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
         
         {/* Description section - flexible height but clamped to match workshop cards */}
         <div className="mb-5 flex-1">
-          <p className="text-white text-opacity-90 leading-relaxed line-clamp-3">
+          <p className="text-white text-opacity-90 leading-relaxed">
             {experience.description}
           </p>
         </div>
