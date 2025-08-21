@@ -4,6 +4,7 @@ import './globals.css'
 import AgentforceChat from '@/components/AgentforceChat'
 import { ChatProvider } from '@/contexts/ChatContext'
 import SidebarAwareLayout from '@/components/SidebarAwareLayout'
+import Script from 'next/script'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -56,6 +57,22 @@ export default function RootLayout({
         <meta httpEquiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; img-src 'self' data: https:;" />
       </head>
       <body className={inter.className} suppressHydrationWarning={true}>
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <Script
+              src="https://www.googletagmanager.com/gtag/js?id=G-7G39LQYB9L"
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-7G39LQYB9L');
+              `}
+            </Script>
+          </>
+        )}
         <ChatProvider>
           <SidebarAwareLayout>
             {children}
