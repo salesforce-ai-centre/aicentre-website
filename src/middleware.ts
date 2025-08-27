@@ -1,53 +1,56 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { hmacAuth } from './lib/hmac-auth';
 
-const IP_RANGES = [
-  process.env.ALLOWED_IP_ADDRESS || ""
-];
-
-function isIpInCidr(ip: string, cidr: string): boolean {
-  // A helper function to check if an IP is in a CIDR range.
-  const [range, bits = '32'] = cidr.split('/');
-  // ... (insert full isIpInCidr function from original long response here)
-  const mask = ~(2**(32 - parseInt(bits, 10)) - 1);
-  const ipNum = ip.split('.').reduce((acc, octet) => (acc << 8) | parseInt(octet, 10), 0) >>> 0;
-  const rangeNum = range.split('.').reduce((acc, octet) => (acc << 8) | parseInt(octet, 10), 0) >>> 0;
-  return (ipNum & mask) === (rangeNum & mask);
-}
-
+// 	https://ai-centre-uk.my.salesforce-sites.com/services/apexrest/generateOfferingsLink/workshop
 console.log('🚀 Middleware file loaded');
 
 export async function middleware(request: NextRequest) {
   console.log('🔍 Middleware running for:', request.nextUrl.pathname);
   
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  const realIp = request.headers.get('x-real-ip');
-  const clientIp = forwardedFor ? forwardedFor.split(',')[0].trim() : 
-                   realIp ||
-                   '127.0.0.1'; // fallback for local development
-
-  console.log(forwardedFor);
-  console.log(realIp);
-  console.log(clientIp)
-  
-  console.log('📍 Headers:', {
-    'x-forwarded-for': forwardedFor,
-    'x-real-ip': realIp,
-    'detected clientIp': clientIp
-  });
-
-  if (!clientIp || clientIp === '127.0.0.1' || clientIp === '::1') {
-    console.log('⚠️ Local development detected, allowing access');
+  // Check for existing auth session first
+  const authCookie = request.cookies.get('aicentre-auth');
+  if (authCookie) {
+    console.log('✅ Valid session found, allowing access');
     return NextResponse.next();
   }
 
-  const isAllowed = IP_RANGES.some(range => isIpInCidr(clientIp, range));
-  console.log('🔐 IP check result:', { clientIp, isAllowed, ranges: IP_RANGES });
-
-  if (!isAllowed) {
-    console.log(`Access denied for IP: ${clientIp}`);
-    // return NextResponse.redirect(new URL('/access-denied', request.url));
+  // Check for signed URL authentication
+  const url = request.nextUrl;
+  const timestamp = url.searchParams.get('ts');
+  const signature = url.searchParams.get('sig');
+  
+  if (timestamp && signature) {
+    console.log('🔐 HMAC signature verification requested');
+    
+    // Extract the path (remove leading slash for consistency with the example)
+    const path = url.pathname.substring(1);
+    
+    const verification = await hmacAuth.verifySignature(path, timestamp, signature);
+    
+    if (verification.valid) {
+      console.log('✅ HMAC signature verified, setting session cookie');
+      
+      // Set auth cookie for 24 hours
+      const response = NextResponse.next();
+      response.cookies.set('aicentre-auth', 'authenticated', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        path: '/'
+      });
+      
+      return response;
+    } else {
+      console.log('❌ HMAC signature verification failed:', verification.error);
+      return NextResponse.next();
+      // return NextResponse.redirect(new URL('/access-denied', request.url));
+    }
   }
 
+  // If no valid authentication, deny access
+  console.log('❌ No valid authentication found');
+  // return NextResponse.redirect(new URL('/access-denied', request.url));
   return NextResponse.next();
 }
 
