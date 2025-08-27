@@ -11,18 +11,23 @@ export async function middleware(request: NextRequest) {
     console.log('🔧 Development environment detected, skipping auth');
     return NextResponse.next();
   }
-  // Check for existing auth session first
-  const authCookie = request.cookies.get('aicentre-auth');
-  if (authCookie) {
-    console.log('✅ Valid session found, allowing access');
-    return NextResponse.next();
-  }
 
   // Check for signed URL authentication
   const url = request.nextUrl;
   const timestamp = url.searchParams.get('ts');
   const signature = url.searchParams.get('sig');
   
+  // Check for existing auth session first
+  const authCookie = request.cookies.get('aicentre-auth');
+  if (authCookie) {
+    console.log('✅ Valid session found, allowing access');
+    if (timestamp || signature)
+      return NextResponse.redirect(new URL('/', request.url));
+    
+    return NextResponse.next();
+  }
+
+
   if (timestamp && signature) {
     console.log('🔐 HMAC signature verification requested');
     
