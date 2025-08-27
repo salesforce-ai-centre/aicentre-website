@@ -268,8 +268,6 @@ export default function AgendaBuilderPage() {
       console.log('Restoring state from storage');
       if (savedState.agenda && Array.isArray(savedState.agenda) && savedState.agenda.length > 0) {
         setAgenda(savedState.agenda);
-      } else {
-        setAgenda(defaultAgenda);
       }
       setUsedItems(new Set(savedState.usedItems || []));
       setActiveTab(savedState.activeTab || 'keynotes');
