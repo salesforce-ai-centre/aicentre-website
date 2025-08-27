@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     // Use provided baseUrl or infer from request
     const effectiveBaseUrl = baseUrl || `${request.nextUrl.protocol}//${request.nextUrl.host}`;
     
-    const signedUrl = hmacAuth.generateSignedUrl(path, effectiveBaseUrl);
+    const signedUrl = await hmacAuth.generateSignedUrl(path, effectiveBaseUrl);
 
     return NextResponse.json({ 
       signedUrl,
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const baseUrl = searchParams.get('baseUrl') || `${request.nextUrl.protocol}//${request.nextUrl.host}`;
-    const signedUrl = hmacAuth.generateSignedUrl(path, baseUrl);
+    const signedUrl = await hmacAuth.generateSignedUrl(path, baseUrl);
 
     return NextResponse.json({ 
       signedUrl,
