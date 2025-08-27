@@ -34,7 +34,7 @@ export default function FAQ() {
         return (
           <a
             key={index}
-            href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
+            href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-300 hover:text-blue-200 underline underline-offset-2 decoration-blue-300/50 hover:decoration-blue-200 transition-colors font-semibold"
@@ -102,7 +102,7 @@ export default function FAQ() {
         <div className="inline-flex items-center space-x-2 bg-white bg-opacity-10 rounded-full px-6 py-3 border border-white border-opacity-20">
           <span className="text-white text-opacity-80">Still have questions?</span>
           <a
-            href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
+            href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-300 hover:text-blue-200 font-semibold transition-colors"

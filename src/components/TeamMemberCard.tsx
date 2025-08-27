@@ -41,13 +41,6 @@ export default function TeamMemberCard({ teamMember }: TeamMemberCardProps) {
         <div className="text-lg text-purple-300 mb-4">
           {teamMember.role}
         </div>
-        
-        {/* Description */}
-        {teamMember.description && (
-          <p className="text-white text-opacity-90 leading-relaxed">
-            {teamMember.description}
-          </p>
-        )}
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ export default function WorkshopFilter({ onFilterChange }: WorkshopFilterProps) 
     { id: 'all', label: 'All Offerings' },
     { id: 'hands-on', label: 'Hands-on' },
     { id: 'ideation', label: 'Ideation' },
-    { id: 'executives', label: 'Executives' },
+    { id: 'executive', label: 'Executives' },
     { id: 'technical', label: 'Technical' },
   ];
 

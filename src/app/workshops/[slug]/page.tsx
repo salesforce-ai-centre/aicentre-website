@@ -146,7 +146,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                 <div className="text-center">
                   <p className="text-sm text-white text-opacity-60 mb-2">Contact us via Slack:</p>
                   <a 
-                    href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
+                    href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-full font-mono text-sm text-white transition-all duration-200 cursor-pointer"

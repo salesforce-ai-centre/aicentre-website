@@ -16,7 +16,7 @@ export default function PlanEngagementPage() {
     {
       title: "Customer Engagement Request Workflow",
       description: "Submit an engagement request",
-      href: "https://salesforce.enterprise.slack.com/archives/C080TP9HENQ",
+      href: "https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU",
       icon: <FileText className="w-6 h-6 text-purple-400" />
     },
     {

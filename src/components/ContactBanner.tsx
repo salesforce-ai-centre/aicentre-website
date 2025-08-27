@@ -33,7 +33,7 @@ export default function ContactBanner() {
             />
             <span>{siteConfig.contactInfo.slackDescription}:</span>
             <a 
-              href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
+              href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded-full font-mono text-sm transition-all duration-200 cursor-pointer"
