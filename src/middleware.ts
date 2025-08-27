@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
       console.log('✅ HMAC signature verified, setting session cookie');
       
       // Set auth cookie for 24 hours
-      const response = NextResponse.next();
+      const response = NextResponse.redirect(new URL('/', request.url));
       response.cookies.set('aicentre-auth', 'authenticated', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -43,15 +43,13 @@ export async function middleware(request: NextRequest) {
       return response;
     } else {
       console.log('❌ HMAC signature verification failed:', verification.error);
-      return NextResponse.next();
-      // return NextResponse.redirect(new URL('/access-denied', request.url));
+      return NextResponse.redirect(new URL('/access-denied', request.url));
     }
   }
 
   // If no valid authentication, deny access
   console.log('❌ No valid authentication found');
-  // return NextResponse.redirect(new URL('/access-denied', request.url));
-  return NextResponse.next();
+  return NextResponse.redirect(new URL('/access-denied', request.url));
 }
 
 export const config = {
