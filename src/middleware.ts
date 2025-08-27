@@ -6,7 +6,11 @@ console.log('🚀 Middleware file loaded');
 
 export async function middleware(request: NextRequest) {
   console.log('🔍 Middleware running for:', request.nextUrl.pathname);
-  
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('🔧 Development environment detected, skipping auth');
+    return NextResponse.next();
+  }
   // Check for existing auth session first
   const authCookie = request.cookies.get('aicentre-auth');
   if (authCookie) {
