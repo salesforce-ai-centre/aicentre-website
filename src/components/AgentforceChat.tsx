@@ -22,6 +22,7 @@ import { useChat } from '@/contexts/ChatContext';
 import { X, Maximize2, Minimize2, Send, Sparkles, ArrowLeft, ArrowRight, PanelRightOpen, PanelLeftOpen } from 'lucide-react';
 import Image from 'next/image';
 import FormattedText from './FormattedText';
+import { usePathname } from 'next/navigation';
 
 // Type definition for chat messages
 interface Message {
@@ -43,6 +44,12 @@ export default function AgentforceChat() {
   // ==================== CHAT CONTEXT INTEGRATION ====================
   
   const { isOpen, setIsOpen, initialMessage, clearInitialMessage, setIsSidebarOpen, sidebarSide, setSidebarSide } = useChat();
+  const pathname = usePathname();
+  
+  // Don't render the chat on the access-denied page
+  if (pathname === '/access-denied') {
+    return null;
+  }
   
   // ==================== STATE MANAGEMENT ====================
   
