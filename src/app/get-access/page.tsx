@@ -68,7 +68,13 @@ const AccessDenied = () => {
             </p>
             <p className="text-lg text-white">
               If you are a Salesforce employee, please visit the<br/>
-              <span className="text-blue-400 font-bold">#ai-centre-uk</span>{' '}
+                <a 
+                  href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-blue-400 font-bold">#ai-centre-uk</span>{' '}
+                </a>
               Slack channel to obtain your personalised link.
             </p>
           </div>
