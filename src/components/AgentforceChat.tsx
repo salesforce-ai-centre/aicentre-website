@@ -77,11 +77,6 @@ export default function AgentforceChat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const floatingButtonRef = useRef<HTMLButtonElement>(null);
-  
-  // Don't render the chat on the access-denied page
-  if (pathname === '/access-denied') {
-    return null;
-  }
 
   // ==================== UTILITY FUNCTIONS ====================
   
@@ -307,6 +302,11 @@ export default function AgentforceChat() {
     setSequenceId(1);
     initializeSession();
   }, [initializeSession]);
+
+  // Don't render the chat on the access-denied page
+  if (pathname === '/access-denied') {
+    return null;
+  }
 
   /**
    * Handles clicking on preset message buttons
