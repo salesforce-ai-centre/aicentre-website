@@ -46,11 +46,6 @@ export default function AgentforceChat() {
   const { isOpen, setIsOpen, initialMessage, clearInitialMessage, setIsSidebarOpen, sidebarSide, setSidebarSide } = useChat();
   const pathname = usePathname();
   
-  // Don't render the chat on the access-denied page
-  if (pathname === '/access-denied') {
-    return null;
-  }
-  
   // ==================== STATE MANAGEMENT ====================
   
   // Controls fullscreen modal display
@@ -82,6 +77,11 @@ export default function AgentforceChat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const floatingButtonRef = useRef<HTMLButtonElement>(null);
+  
+  // Don't render the chat on the access-denied page
+  if (pathname === '/access-denied') {
+    return null;
+  }
 
   // ==================== UTILITY FUNCTIONS ====================
   
