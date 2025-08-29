@@ -49,15 +49,15 @@ export async function middleware(request: NextRequest) {
       return response;
     } else {
       console.log('❌ HMAC signature verification failed:', verification.error);
-      return NextResponse.redirect(new URL('/access-denied', request.url));
+      return NextResponse.redirect(new URL('/get-access', request.url));
     }
   }
 
   // If no valid authentication, deny access
   console.log('❌ No valid authentication found');
-  return NextResponse.redirect(new URL('/access-denied', request.url));
+  return NextResponse.redirect(new URL('/get-access', request.url));
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|access-denied).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|get-access).*)'],
 };

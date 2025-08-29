@@ -304,7 +304,7 @@ export default function AgentforceChat() {
   }, [initializeSession]);
 
   // Don't render the chat on the access-denied page
-  if (pathname === '/access-denied') {
+  if (pathname === '/get-access') {
     return null;
   }
 

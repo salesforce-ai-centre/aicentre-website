@@ -2,6 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
+import AgentAstroFlying from '../../../public/images/AgentAstroFlying.png';
+import AgentAstro from '../../../public/images/AgentAstro.webp';
 
 const AccessDenied = () => {
   return (
@@ -12,21 +14,23 @@ const AccessDenied = () => {
       {/* Floating Agent Astro character - top right */}
       <div className="absolute top-20 right-10 md:right-20 opacity-30">
         <Image 
-          src="/images/AgentAstroFlying.png" 
+          src={AgentAstroFlying} 
           alt="Agent Astro" 
           width={150} 
           height={150}
           className="animate-pulse"
+          priority
         />
       </div>
       
       {/* Bottom right Agent Astro character */}
       <div className="absolute bottom-10 left-10 md:left-20 opacity-20 pointer-events-none">
         <Image 
-          src="/images/AgentAstro.webp" 
+          src={AgentAstro} 
           alt="Agent Astro" 
           width={200} 
           height={200}
+          priority
         />
       </div>
       
