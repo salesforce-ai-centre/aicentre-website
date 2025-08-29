@@ -14,13 +14,12 @@ const transformWorkshop = (object: Record<string, any>): Workshop => ({
   whatYoullLearn: object["What_Youll_Learn__c"]?.split("\n"),
   agendaId: object["Agenda__c"],
   sampleAgenda: object["Sample_Agenda__c"],
-  engagementExpectations: object["Engagement_Expectations__c"]
+  engagementExpectations: object["Engagement_Expectations__c"]?.split("\n")
 });
 
 export async function GET() {
   try {
     const objects = await getSortedRecords("Engagement_Tools__c", 20, true, "ORDER+BY+CreatedDate+ASC");
-
     if (!objects) {
       return NextResponse.json(
         { error: 'No objects found' },

@@ -100,7 +100,12 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                       <h2 className="text-2xl font-bold text-white mb-4">Engagement Expectations</h2>
                       <div className="space-y-4 text-white text-opacity-90">
                         <p className="text-l text-white text-opacity-90 leading-relaxed mb-8">
-                          {workshop.engagementExpectations}
+                          {workshop.engagementExpectations.map((item, index) => (
+                            <span key={index}>
+                              {item}
+                              <br></br>
+                            </span>
+                          ))}
                         </p>
                       </div>
                     </>

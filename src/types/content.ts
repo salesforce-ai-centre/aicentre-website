@@ -12,7 +12,7 @@ export interface Workshop {
   whatYoullLearn?: string[];
   agendaId?: string;
   sampleAgenda?: string;
-  engagementExpectations?: string;
+  engagementExpectations?: string[];
 }
 
 export interface Experience {
