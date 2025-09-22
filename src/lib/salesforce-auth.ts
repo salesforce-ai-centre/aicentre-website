@@ -1,3 +1,5 @@
+import { LRUCache } from 'lru-cache';
+
 interface TokenResponse {
   access_token: string;
   instance_url: string;
@@ -12,11 +14,40 @@ interface CachedToken {
   expiresAt: number;
 }
 
-let tokenCache: CachedToken | null = null;
+// LRU Cache for production - persists across requests in production
+const lruCache = new LRUCache<string, CachedToken>({
+  max: 100, // Maximum number of items
+  ttl: 120 * 60 * 1000, // 25 minutes TTL
+  updateAgeOnGet: false,
+  updateAgeOnHas: false,
+});
+
+// Global cache for development - persists during dev server runtime
+declare global {
+  var salesforceTokenCache: CachedToken | null;
+}
+
+// Initialize global cache in development
+if (process.env.NODE_ENV === 'development') {
+  global.salesforceTokenCache = global.salesforceTokenCache || null;
+}
 
 export async function getSalesforceAccessToken(): Promise<string> {
-  if (tokenCache && Date.now() < tokenCache.expiresAt) {
-    return tokenCache.token;
+  const cacheKey = 'salesforce-token';
+  
+  // Check development cache first (if in development mode)
+  if (process.env.NODE_ENV === 'development') {
+    if (global.salesforceTokenCache && Date.now() < global.salesforceTokenCache.expiresAt) {
+      console.log('Using cached token from global cache (dev)');
+      return global.salesforceTokenCache.token;
+    }
+  }
+  
+  // Check LRU cache for production
+  const cachedToken = lruCache.get(cacheKey);
+  if (cachedToken && Date.now() < cachedToken.expiresAt) {
+    console.log('Using cached token from LRU cache');
+    return cachedToken.token;
   }
 
   const clientId = process.env.SALESFORCE_CLIENT_ID;
@@ -51,11 +82,19 @@ export async function getSalesforceAccessToken(): Promise<string> {
 
     const tokenData: TokenResponse = await response.json();
     
-    tokenCache = {
+    const newCachedToken: CachedToken = {
       token: tokenData.access_token,
       expiresAt: Date.now() + (25 * 60 * 1000), // 25 minutes (tokens expire at 30min)
     };
-
+    
+    // Store in both caches
+    lruCache.set(cacheKey, newCachedToken);
+    
+    if (process.env.NODE_ENV === 'development') {
+      global.salesforceTokenCache = newCachedToken;
+    }
+    
+    console.log('New token fetched and cached');
     return tokenData.access_token;
   } catch (error) {
     console.error('Error getting Salesforce access token:', error);
