@@ -7,7 +7,8 @@ const transformSpace = (object: Record<string, any>): Space => ({
   name: object["Name"],
   description: object["Description__c"],
   imageUrl: object["Image_URL__c"],
-  capacity: object["Capacity__c"]
+  capacity: object["Capacity__c"],
+  status: object["Status__c"]
 });
 
 export async function GET() {
@@ -22,7 +23,7 @@ export async function GET() {
     const transforedSpaces: Space[] = objects.map(transformSpace);
     return NextResponse.json({
       success: true,
-      data: transforedSpaces,
+      data: transforedSpaces.filter(space => space.status === 'Active'),
     });
   } catch (error: any) {
     console.error('Error creating agent session:', error);

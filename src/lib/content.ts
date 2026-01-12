@@ -60,12 +60,8 @@ export function getSiteConfig(): SiteConfig {
   return siteConfigContent as SiteConfig;
 }
 
-export function getTeamMembers(): Promise<TeamMember[]> {
-  return fetchWithFallback<TeamMember[]>(
-    `/api/team_members`,
-    teamMembersContent as TeamMember[],
-    (data): data is TeamMember[] => Array.isArray(data)
-  );
+export function getTeamMembers(): TeamMember[] {
+  return teamMembersContent as TeamMember[];
 }
 
 export function getSpaces(): Promise<Space[]> {

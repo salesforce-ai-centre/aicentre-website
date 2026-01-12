@@ -106,6 +106,7 @@ export interface Space {
   capacity?: string;
   description?: string;
   imageUrl: string;
+  status?: 'Active' | 'Planned' | 'Temporarily Unavailable' | 'Retired';
 }
 
 export interface AgendaItem {

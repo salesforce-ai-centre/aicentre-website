@@ -12,8 +12,9 @@ const transformTeamMember = (object: Record<string, any>): TeamMember => ({
 
 export async function GET() {
   try {
-    const objects = await getSortedRecords("AI_Team_Member__c", 20, false, "ORDER+BY+Priority__c+ASC");
-    if (!objects) {
+    // const objects = await getSortedRecords("AI_Team_Member__c", 20, false, "ORDER+BY+Priority__c+ASC");
+    const objects: TeamMember[] = [];
+    if (!objects || objects.length === 0) {
       return NextResponse.json(
         { error: 'No objects found' },
         { status: 500 }

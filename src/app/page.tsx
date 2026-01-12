@@ -52,7 +52,7 @@ export default function Home() {
   }
 
   const getAllTeamMembers = async () => {
-    const allTeamMembers = await getTeamMembers();
+    const allTeamMembers = getTeamMembers();
     setTeamMembers(allTeamMembers);
   }
 
@@ -130,6 +130,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Keynotes Section */}
+      <section id="keynotes" className="py-20 section-padding">
+        <div className="container-max">
+          <div ref={keynotesHeaderRef} className="text-center mb-16 fade-in">
+            <h2 className="text-3xl md:text-5xl font-black mb-6 text-white">
+              Executive Keynotes
+            </h2>
+            <p className="text-xl text-white text-opacity-90 mb-10 max-w-3xl mx-auto">
+              High-impact executive keynotes designed to plug seamlessly into existing leadership meetings. These sessions equip executive teams with the insight and direction needed to lead enterprise transformation in the agentic era.
+            </p>
+          </div>
+          <KeynotesTable />
+        </div>
+      </section>
+
       {/* Spaces Section */}
       {spaces && spaces.length > 0 &&(
         <section id="spaces" className="py-20 section-padding">
@@ -150,19 +165,6 @@ export default function Home() {
           </div>
         </section>
       )}
-
-      {/* Keynotes Section */}
-      <section id="keynotes" className="py-20 section-padding">
-        <div className="container-max">
-          <div ref={keynotesHeaderRef} className="text-center mb-16 fade-in">
-            <h2 className="text-3xl md:text-5xl font-black mb-6 text-white">
-              Executive Keynotes
-            </h2>
-          </div>
-          
-          <KeynotesTable />
-        </div>
-      </section>
 
       {/* Meet the Team Section */}
       <section id="meet-the-team" className="py-20 section-padding">
