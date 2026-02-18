@@ -29,15 +29,6 @@
     "featured": true
   },
   {
-    "id": "agentforce-lab",
-    "title": "Agentforce Lab",
-    "description": "Experimental environment for customer teams to test advanced AI scenarios and push the boundaries of what's possible with their data.",
-    "tags": ["Hands-on", "Technical Users"],
-    "audienceSize": "8-15 participants",
-    "duration": "Half day",
-    "category": "technical"
-  },
-  {
     "id": "agentforce-now",
     "title": "Agentforce Now",
     "description": "Quick-start program to help customers get their first agent up and running in record time with immediate business impact.",

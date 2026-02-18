@@ -8,6 +8,7 @@
   },
   "navigation": [
     { "name": "Get Started", "href": "/plan-engagement" },
+    { "name": "Journey", "href": "/journey" },
     { "name": "Offerings", "href": "#offerings" },
     { "name": "Experiences", "href": "#experiences" },
     { "name": "Agenda Builder", "href": "/agenda-builder" },
