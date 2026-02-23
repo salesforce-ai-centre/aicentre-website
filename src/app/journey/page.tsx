@@ -7,10 +7,10 @@ export const metadata = {
 };
 
 const stages = [
-  { name: "Agent Deal in Progress", color: "#ef4444", glow: "rgba(239,68,68,0.3)" },
-  { name: "Agent SKU Provisioned", color: "#0d9488", glow: "rgba(13,148,136,0.3)" },
-  { name: "Agent Created", color: "#16a34a", glow: "rgba(22,163,74,0.3)" },
-  { name: "Agent in Production", color: "#8b5cf6", glow: "rgba(139,92,246,0.3)" },
+  { name: "Identify Use Cases", color: "#ef4444", glow: "rgba(239,68,68,0.3)" },
+  { name: "Design Agent", color: "#0d9488", glow: "rgba(13,148,136,0.3)" },
+  { name: "Deploy Agent", color: "#16a34a", glow: "rgba(22,163,74,0.3)" },
+  { name: "Scale Adoption", color: "#8b5cf6", glow: "rgba(139,92,246,0.3)" },
 ];
 
 interface ProgramSpan {
@@ -52,7 +52,7 @@ const programs: Program[] = [
     description: "Perfect for technical teams who want to master prompt grounding to create powerful actions for agents. A hands-on deep dive into building effective prompts that drive reliable agent behaviour.",
     experience: "Turing Test",
     spans: [{ start: 1, end: 3 }],
-    gradient: "linear-gradient(135deg, #f97316 0%, #ef4444 100%)",
+    gradient: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
     glowColor: "rgba(249,115,22,0.25)",
     audience: "Technical",
   },
@@ -61,8 +61,8 @@ const programs: Program[] = [
     description: "Perfect for technical teams who want to experiment boldly with Agentforce outside of their formal environments with guidance from Salesforce solutions teams. Build real agents in a supported sandbox.",
     experience: "F1 Simulators",
     spans: [{ start: 1, end: 3 }],
-    gradient: "linear-gradient(135deg, #fb923c 0%, #f97316 100%)",
-    glowColor: "rgba(251,146,60,0.25)",
+    gradient: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
+    glowColor: "rgba(249,115,22,0.25)",
     audience: "Technical",
   },
   {
@@ -70,8 +70,8 @@ const programs: Program[] = [
     description: "Perfect for technical teams early on in their Agentforce journey requiring a thorough guided approach to building across Data 360 and Agentforce products.",
     experience: "Turing Test",
     spans: [{ start: 1, end: 2 }],
-    gradient: "linear-gradient(135deg, #ea580c 0%, #dc2626 100%)",
-    glowColor: "rgba(234,88,12,0.25)",
+    gradient: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
+    glowColor: "rgba(249,115,22,0.25)",
     audience: "Technical",
   },
 ];
@@ -93,8 +93,11 @@ export default function JourneyPage() {
           <h1 className="text-4xl md:text-5xl font-black mb-3 text-white tracking-tight">
             AI Centre Journey
           </h1>
-          <p className="text-white/60 text-base md:text-lg max-w-xl">
-            Map the right programme to each stage of your customer&apos;s Agentforce journey. Hover over a programme to see details.
+          <p className="text-white/60 text-base md:text-lg mb-4">
+            This interactive journey map captures the breadth of engagements our team delivers and the moments in the customer lifecycle where we create the most impact.
+          </p>
+          <p className="text-white/60 text-base md:text-lg">
+            Use this map as a planning tool to identify the right experience for your customers at specific times. Hover over each engagement to explore its ideal audience, and click on the engagement for more details about each of the options.
           </p>
         </div>
       </section>
