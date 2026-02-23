@@ -239,7 +239,7 @@ export default function PlanEngagementPage() {
                 <ul className="space-y-3 text-white/80">
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                    <span>Location: Bluefin Building, 110 Southwark Street, London, SE1 0SU (10 minutes drive from Salesforce Tower near Blackfriars Bridge)</span>
+                    <span>Location: 110 Bishopsgate, London, EC2N 4AY, United Kingdom</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
