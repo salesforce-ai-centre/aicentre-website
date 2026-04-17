@@ -42,13 +42,13 @@ export default function KeynotesTable() {
               <td className="px-6 py-5 text-white">
                 <div className="font-semibold">{keynote.title}</div>
               </td>
-              <td className="px-6 py-5 text-white text-opacity-80">
+              <td className="px-6 py-5 text-white text-opacity-90">
                 {keynote.focusArea}
               </td>
-              <td className="px-6 py-5 text-white text-opacity-80">
+              <td className="px-6 py-5 text-white text-opacity-90">
                 {keynote.audience}
               </td>
-              <td className="px-6 py-5 text-white text-opacity-80">
+              <td className="px-6 py-5 text-white text-opacity-90">
                 {keynote.duration}
               </td>
             </tr>

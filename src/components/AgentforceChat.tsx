@@ -407,28 +407,28 @@ export default function AgentforceChat() {
               </div>
               <div>
                 <h3 className="text-sm font-semibold text-white">Agent Eric</h3>
-                <p className="text-xs text-white/80">AI Centre Helper</p>
+                <p className="text-xs text-white/90">AI Centre Helper</p>
               </div>
             </div>
             {/* Action buttons */}
             <div className="flex items-center space-x-1">
               <button
                 onClick={() => setSidebarSide(sidebarSide === 'left' ? 'right' : 'left')}
-                className="text-white/80 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+                className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
                 title={`Move to ${sidebarSide === 'left' ? 'right' : 'left'} side`}
               >
                 {sidebarSide === 'left' ? <ArrowRight size={16} /> : <ArrowLeft size={16} />}
               </button>
               <button
                 onClick={() => transitionToMode('fullscreen')}
-                className="text-white/80 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+                className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
                 title="Expand to fullscreen"
               >
                 <Maximize2 size={16} />
               </button>
               <button
                 onClick={() => transitionToMode('compact')}
-                className="text-white/80 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+                className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
                 title="Close"
               >
                 <X size={16} />
@@ -448,12 +448,12 @@ export default function AgentforceChat() {
                   {isConnecting ? (
                     <>
                       <h4 className="text-lg font-semibold text-white mb-2">Connecting...</h4>
-                      <p className="text-white/70 text-sm">Setting up your AI assistant</p>
+                      <p className="text-white/85 text-sm">Setting up your AI assistant</p>
                     </>
                   ) : connectionError ? (
                     <>
                       <h4 className="text-lg font-semibold text-red-400 mb-2">Connection Error</h4>
-                      <p className="text-white/70 text-sm mb-3">Unable to connect to AI system</p>
+                      <p className="text-white/85 text-sm mb-3">Unable to connect to AI system</p>
                       <button
                         onClick={retryConnection}
                         className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-all duration-200"
@@ -464,7 +464,7 @@ export default function AgentforceChat() {
                   ) : (
                     <>
                       <h4 className="text-lg font-semibold text-white mb-2">How can I help?</h4>
-                      <p className="text-white/70 text-sm">I&apos;m Agent Eric, ask me about AI Centre offerings</p>
+                      <p className="text-white/85 text-sm">I&apos;m Agent Eric, ask me about AI Centre offerings</p>
                     </>
                   )}
                 </div>
@@ -504,7 +504,7 @@ export default function AgentforceChat() {
                   ) : (
                     <FormattedText text={message.text} />
                   )}
-                  <p className={`text-xs mt-2 ${message.isUser ? 'text-white/70' : 'text-white/50'}`}>
+                  <p className={`text-xs mt-2 ${message.isUser ? 'text-white/85' : 'text-white/75'}`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
@@ -519,7 +519,7 @@ export default function AgentforceChat() {
                     <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
                     <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
                     <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    <span className="ml-2 text-xs text-white/70">Thinking...</span>
+                    <span className="ml-2 text-xs text-white/85">Thinking...</span>
                   </div>
                 </div>
               </div>
@@ -583,35 +583,35 @@ export default function AgentforceChat() {
               </div>
               <div>
                 <h3 className="text-sm md:text-lg font-semibold text-white">Agent Eric</h3>
-                <p className="text-xs md:text-sm text-white/80 hidden sm:block">Here to help with customer engagements</p>
+                <p className="text-xs md:text-sm text-white/90 hidden sm:block">Here to help with customer engagements</p>
               </div>
             </div>
             {/* Navigation controls */}
             <div className="flex items-center space-x-1 md:space-x-2">
               <button
                 onClick={() => setSidebarSide(sidebarSide === 'left' ? 'right' : 'left')}
-                className="hidden md:flex text-white/80 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
+                className="hidden md:flex text-white/90 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
                 title={`Sidebar will open on ${sidebarSide === 'left' ? 'right' : 'left'} side`}
               >
                 {sidebarSide === 'left' ? <ArrowRight className="w-4 h-4 md:w-5 md:h-5" /> : <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />}
               </button>
               <button
                 onClick={() => transitionToMode('sidebar')}
-                className="hidden md:flex text-white/80 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
+                className="hidden md:flex text-white/90 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
                 title="Open as sidebar"
               >
                 {sidebarSide === 'left' ? <PanelRightOpen className="w-4 h-4 md:w-5 md:h-5" /> : <PanelLeftOpen className="w-4 h-4 md:w-5 md:h-5" />}
               </button>
               <button
                 onClick={() => transitionToMode('compact')}
-                className="text-white/80 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
+                className="text-white/90 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
                 title="Minimize"
               >
                 <Minimize2 className="w-4 h-4 md:w-5 md:h-5" />
               </button>
               <button
                 onClick={() => transitionToMode('closed')}
-                className="text-white/80 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
+                className="text-white/90 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
                 title="Close"
               >
                 <X className="w-4 h-4 md:w-5 md:h-5" />
@@ -631,12 +631,12 @@ export default function AgentforceChat() {
                   {isConnecting ? (
                     <>
                       <h4 className="text-xl font-semibold text-white mb-2">Connecting to AI Assistant...</h4>
-                      <p className="text-white/70">Setting up your conversation</p>
+                      <p className="text-white/85">Setting up your conversation</p>
                     </>
                   ) : connectionError ? (
                     <>
                       <h4 className="text-xl font-semibold text-red-400 mb-2">Connection Error</h4>
-                      <p className="text-white/70 mb-4">Unable to connect to our AI system</p>
+                      <p className="text-white/85 mb-4">Unable to connect to our AI system</p>
                       <button
                         onClick={retryConnection}
                         className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl text-sm transition-all duration-200"
@@ -647,7 +647,7 @@ export default function AgentforceChat() {
                   ) : (
                     <>
                       <h4 className="text-xl font-semibold text-white mb-2">How can I help you today?</h4>
-                      <p className="text-white/70">I&apos;m here to assist with AI Centre customer engagements</p>
+                      <p className="text-white/85">I&apos;m here to assist with AI Centre customer engagements</p>
                     </>
                   )}
                 </div>
@@ -684,7 +684,7 @@ export default function AgentforceChat() {
                   ) : (
                     <FormattedText text={message.text} />
                   )}
-                  <p className={`text-xs mt-2 ${message.isUser ? 'text-white/70' : 'text-white/50'}`}>
+                  <p className={`text-xs mt-2 ${message.isUser ? 'text-white/85' : 'text-white/75'}`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
@@ -699,7 +699,7 @@ export default function AgentforceChat() {
                     <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
                     <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
                     <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <span className="ml-2 text-sm text-white/70">Agent Eric is thinking...</span>
+                    <span className="ml-2 text-sm text-white/85">Agent Eric is thinking...</span>
                   </div>
                 </div>
               </div>
@@ -761,7 +761,7 @@ export default function AgentforceChat() {
             </div>
             <div>
               <span className="text-white font-medium text-sm">Agent Eric</span>
-              <p className="text-white/70 text-xs">Ask me anything!</p>
+              <p className="text-white/85 text-xs">Ask me anything!</p>
             </div>
           </div>
           {/* Compact widget controls */}
@@ -771,28 +771,28 @@ export default function AgentforceChat() {
                 const newSide = sidebarSide === 'left' ? 'right' : 'left';
                 setSidebarSide(newSide);
               }}
-              className="hidden md:flex text-white/80 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+              className="hidden md:flex text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
               title={`Move to ${sidebarSide === 'left' ? 'right' : 'left'} side`}
             >
               {sidebarSide === 'left' ? <ArrowRight size={16} /> : <ArrowLeft size={16} />}
             </button>
             <button
               onClick={() => transitionToMode('sidebar')}
-              className="hidden md:flex text-white/80 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+              className="hidden md:flex text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
               title="Open as sidebar"
             >
               {sidebarSide === 'left' ? <PanelRightOpen size={16} /> : <PanelLeftOpen size={16} />}
             </button>
             <button
               onClick={() => transitionToMode('fullscreen')}
-              className="text-white/80 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+              className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
               title="Expand"
             >
               <Maximize2 size={16} />
             </button>
             <button
               onClick={() => transitionToMode('closed')}
-              className="text-white/80 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+              className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
               title="Close"
             >
               <X size={16} />

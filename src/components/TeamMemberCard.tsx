@@ -38,7 +38,7 @@ export default function TeamMemberCard({ teamMember }: TeamMemberCardProps) {
         </h3>
 
         {/* Role */}
-        <div className="text-lg text-purple-300 mb-4">
+        <div className="text-lg text-purple-200 mb-4">
           {teamMember.role}
         </div>
       </div>

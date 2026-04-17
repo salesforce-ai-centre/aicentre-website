@@ -6,7 +6,7 @@ export default function Hero() {
   const heroContent = getHeroContent();
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+    <section className="min-h-[70vh] flex items-center justify-center relative overflow-hidden pt-20">
       {/* Agentforce Background */}
       <div className="absolute inset-0">
         <Image 
@@ -64,7 +64,7 @@ export default function Hero() {
             </p>
           )}
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Link href={heroContent.primaryCTA.href} className="inline-block bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-purple-500 w-full sm:w-auto text-center">
               {heroContent.primaryCTA.text}
             </Link>

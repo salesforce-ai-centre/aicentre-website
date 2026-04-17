@@ -49,7 +49,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
       <section className="pt-32 pb-16 section-padding">
         <div className="container-max">
           {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-sm text-white text-opacity-60 mb-8">
+          <nav className="flex items-center space-x-2 text-sm text-white text-opacity-80 mb-8">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
             <Link href="/#offerings" className="hover:text-white transition-colors">Standard Offerings</Link>
@@ -65,7 +65,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                   {workshop.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-purple-500 bg-opacity-30 border border-purple-500 border-opacity-50 rounded-full text-xs font-medium text-white"
+                      className="px-3 py-1 bg-purple-500 bg-opacity-40 border border-purple-500 border-opacity-50 rounded-full text-xs font-medium text-white"
                     >
                       {tag}
                     </span>
@@ -115,11 +115,11 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
                       <h3 className="font-semibold text-white mb-2">Duration</h3>
-                      <p className="text-white text-opacity-80">{workshop.duration}</p>
+                      <p className="text-white text-opacity-90">{workshop.duration}</p>
                     </div>
                     <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
                       <h3 className="font-semibold text-white mb-2">Audience Size</h3>
-                      <p className="text-white text-opacity-80">{workshop.audienceSize || defaultAudienceSize}</p>
+                      <p className="text-white text-opacity-90">{workshop.audienceSize || defaultAudienceSize}</p>
                     </div>
                   </div>
                 </div>
@@ -130,7 +130,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
             <div className="lg:col-span-1">
               <div className="glass-card p-6 sticky top-24">
                 <h3 className="text-xl font-bold text-white mb-4">Ready to Book?</h3>
-                <p className="text-white text-opacity-80 mb-6">
+                <p className="text-white text-opacity-90 mb-6">
                   Partner with the AI Centre team to deliver this impactful workshop experience.
                 </p>
                 
@@ -149,7 +149,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                 </Link>
                 
                 <div className="text-center">
-                  <p className="text-sm text-white text-opacity-60 mb-2">Contact us via Slack:</p>
+                  <p className="text-sm text-white text-opacity-80 mb-2">Contact us via Slack:</p>
                   <a 
                     href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
                     target="_blank"
@@ -162,7 +162,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
 
                 <div className="mt-6 pt-6 border-t border-white border-opacity-20">
                   <h4 className="font-semibold text-white mb-2">Workshop Details</h4>
-                  <div className="space-y-2 text-sm text-white text-opacity-80">
+                  <div className="space-y-2 text-sm text-white text-opacity-90">
                     <div>Category: <span className="capitalize text-white">{workshop.category}</span></div>
                     <div>Duration: <span className="text-white">{workshop.duration}</span></div>
                     <div>Participants: <span className="text-white">{workshop.audienceSize || defaultAudienceSize}</span></div>

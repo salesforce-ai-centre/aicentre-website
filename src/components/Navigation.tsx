@@ -76,7 +76,7 @@ export default function Navigation() {
               <Link
                 key={item.name}
                 href={getNavigationHref(item.href)}
-                className="text-white text-opacity-80 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white hover:bg-opacity-10"
+                className="text-white text-opacity-90 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white hover:bg-opacity-10"
               >
                 {item.name}
               </Link>
@@ -92,7 +92,7 @@ export default function Navigation() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-white text-opacity-80 p-2"
+              className="text-white hover:text-white text-opacity-90 p-2"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isOpen ? (
@@ -115,7 +115,7 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={getNavigationHref(item.href)}
-                  className="text-white text-opacity-80 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:bg-white hover:bg-opacity-10"
+                  className="text-white text-opacity-90 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:bg-white hover:bg-opacity-10"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}

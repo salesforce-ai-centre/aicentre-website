@@ -53,7 +53,7 @@ export default function FAQ() {
         <h2 className="text-4xl md:text-6xl font-black mb-6 text-white bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
           Frequently Asked Questions
         </h2>
-        <p className="text-xl md:text-2xl text-white text-opacity-80 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-xl md:text-2xl text-white text-opacity-90 max-w-3xl mx-auto leading-relaxed">
           Get answers to common questions about our offerings
         </p>
       </div>
@@ -75,7 +75,7 @@ export default function FAQ() {
                 {openItems.includes(item.id) ? (
                   <ChevronDown className="w-5 h-5 text-blue-300" />
                 ) : (
-                  <ChevronRight className="w-5 h-5 text-white text-opacity-60" />
+                  <ChevronRight className="w-5 h-5 text-white text-opacity-80" />
                 )}
               </div>
             </button>
@@ -100,7 +100,7 @@ export default function FAQ() {
       {/* Decorative elements */}
       <div className="mt-16 text-center">
         <div className="inline-flex items-center space-x-2 bg-white bg-opacity-10 rounded-full px-6 py-3 border border-white border-opacity-20">
-          <span className="text-white text-opacity-80">Still have questions?</span>
+          <span className="text-white text-opacity-90">Still have questions?</span>
           <a
             href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
             target="_blank"

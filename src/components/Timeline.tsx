@@ -52,9 +52,9 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
           dot: 'bg-gray-600 border-gray-500',
           line: 'bg-gray-600',
           card: 'border-gray-600/30 bg-gray-600/10',
-          icon: 'text-gray-400',
-          title: 'text-white/70',
-          badge: 'bg-gray-600 text-white/70'
+          icon: 'text-gray-300',
+          title: 'text-white/85',
+          badge: 'bg-gray-600 text-white/85'
         };
     }
   };
@@ -65,7 +65,7 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
         {description && (
-          <p className="text-lg text-white/80 max-w-3xl mx-auto">{description}</p>
+          <p className="text-lg text-white/90 max-w-3xl mx-auto">{description}</p>
         )}
       </div>
 
@@ -112,7 +112,7 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
                               {step.duration}
                             </span>
                           </div>
-                          <p className="text-white/80 leading-relaxed">{step.description}</p>
+                          <p className="text-white/90 leading-relaxed">{step.description}</p>
                         </div>
                         
                         <div className="ml-4">
@@ -133,7 +133,7 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
                               {step.details.map((detail, idx) => (
                                 <li key={idx} className="flex items-start space-x-2">
                                   <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                                  <span className="text-white/80 text-sm">{detail}</span>
+                                  <span className="text-white/90 text-sm">{detail}</span>
                                 </li>
                               ))}
                             </ul>
@@ -149,7 +149,7 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
                                 {step.tips.map((tip, idx) => (
                                   <li key={idx} className="flex items-start space-x-2">
                                     <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
-                                    <span className="text-white/70 text-sm italic">{tip}</span>
+                                    <span className="text-white/85 text-sm italic">{tip}</span>
                                   </li>
                                 ))}
                               </ul>
@@ -181,7 +181,7 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
                             {step.duration}
                           </span>
                         </div>
-                        <p className="text-white/80 text-sm">{step.description}</p>
+                        <p className="text-white/90 text-sm">{step.description}</p>
                       </div>
                       
                       <div className={`w-6 h-6 rounded-full ${styles.card} flex items-center justify-center`}>
@@ -200,7 +200,7 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
                             {step.details.map((detail, idx) => (
                               <li key={idx} className="flex items-start space-x-2">
                                 <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                                <span className="text-white/80 text-sm">{detail}</span>
+                                <span className="text-white/90 text-sm">{detail}</span>
                               </li>
                             ))}
                           </ul>
@@ -216,7 +216,7 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
                               {step.tips.map((tip, idx) => (
                                 <li key={idx} className="flex items-start space-x-2">
                                   <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
-                                  <span className="text-white/70 text-sm italic">{tip}</span>
+                                  <span className="text-white/85 text-sm italic">{tip}</span>
                                 </li>
                               ))}
                             </ul>

@@ -57,7 +57,7 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
       <section className="pt-32 pb-16 section-padding">
         <div className="container-max">
           {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-sm text-white text-opacity-60 mb-8">
+          <nav className="flex items-center space-x-2 text-sm text-white text-opacity-80 mb-8">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
             <Link href="/#experiences" className="hover:text-white transition-colors">Immersive Experiences</Link>
@@ -71,7 +71,7 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
               <div className="glass-card p-8 mb-8">
                 <div className="flex items-center mb-6">
                   <span className={`inline-block w-4 h-4 rounded-full mr-3 ${getCategoryColor(experience.category)}`}></span>
-                  <span className="text-white text-opacity-80 uppercase text-sm font-semibold tracking-wide">
+                  <span className="text-white text-opacity-90 uppercase text-sm font-semibold tracking-wide">
                     {experience.type} Experience
                   </span>
                 </div>
@@ -131,7 +131,7 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
                     {experience.tags.map((tag, index) => (
                       <div key={index} className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
                         <h3 className="font-semibold text-white mb-2">{tag}</h3>
-                        <p className="text-white text-opacity-80 text-sm">
+                        <p className="text-white text-opacity-90 text-sm">
                           {tag === 'Interactive' && 'Engage directly with AI tools and see immediate results'}
                           {tag === 'Demo' && 'Watch live demonstrations of AI capabilities in action'}
                           {tag === 'Industry-specific' && 'Tailored examples relevant to your business context'}
@@ -170,11 +170,11 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
                       <h3 className="font-semibold text-white mb-2">Duration</h3>
-                      <p className="text-white text-opacity-80">{experience.duration}</p>
+                      <p className="text-white text-opacity-90">{experience.duration}</p>
                     </div>
                     <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
                       <h3 className="font-semibold text-white mb-2">Audience Size</h3>
-                      <p className="text-white text-opacity-80">{experience.audienceSize}</p>
+                      <p className="text-white text-opacity-90">{experience.audienceSize}</p>
                     </div>
                   </div>
                 </div>
@@ -185,7 +185,7 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
             <div className="lg:col-span-1">
               <div className="glass-card p-6 sticky top-24">
                 <h3 className="text-xl font-bold text-white mb-4">Ready to Experience?</h3>
-                <p className="text-white text-opacity-80 mb-6">
+                <p className="text-white text-opacity-90 mb-6">
                   Combine this immersive experience with a standard offering for maximum impact.
                 </p>
                 
@@ -204,7 +204,7 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
                 </Link>
                 
                 <div className="text-center">
-                  <p className="text-sm text-white text-opacity-60 mb-2">Contact us via Slack:</p>
+                  <p className="text-sm text-white text-opacity-80 mb-2">Contact us via Slack:</p>
                   <a 
                     href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
                     target="_blank"
@@ -217,7 +217,7 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
 
                 <div className="mt-6 pt-6 border-t border-white border-opacity-20">
                   <h4 className="font-semibold text-white mb-2">Experience Details</h4>
-                  <div className="space-y-2 text-sm text-white text-opacity-80">
+                  <div className="space-y-2 text-sm text-white text-opacity-90">
                     <div>Type: <span className="capitalize text-white">{experience.type}</span></div>
                     <div>Duration: <span className="text-white">{experience.duration}</span></div>
                     <div>Participants: <span className="text-white">{experience.audienceSize}</span></div>

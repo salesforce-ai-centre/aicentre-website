@@ -23,7 +23,7 @@ export default function Introduction() {
             {/* Card 1 */}
             <div className="glass-card p-8 group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 smooth-hover h-full flex flex-col">
               <h3 className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors mb-4">Experience-First Learning</h3>
-              <p className="text-white text-opacity-80 leading-relaxed">
+              <p className="text-white text-opacity-90 leading-relaxed">
                 At the AI Centre, we believe that the best way to understand AI is to experience it. 
                 We offer a range of proven formats, from short immersive experiences to full-day engagement programmes. 
                 Whether your customer is just starting their AI journey or ready to dive into building agents, 
@@ -34,7 +34,7 @@ export default function Introduction() {
             {/* Card 2 */}
             <div className="glass-card p-8 group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 smooth-hover h-full flex flex-col">
               <h3 className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors mb-4">You Lead, We Support</h3>
-              <p className="text-white text-opacity-80 leading-relaxed">
+              <p className="text-white text-opacity-90 leading-relaxed">
                 You lead the customer experience - we&apos;re here to support with content, coordination, and best practices. 
                 You choose the sessions that fit. We&apos;ll help you deliver and curate them so you can focus on what 
                 matters most: your customers.
@@ -45,7 +45,7 @@ export default function Introduction() {
             <div className="glass-card p-8 group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 smooth-hover h-full flex flex-col">
               <h3 className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors mb-4">Ready to Get Started?</h3>
               <div className="flex-1">
-                <p className="text-white text-opacity-80 leading-relaxed">
+                <p className="text-white text-opacity-90 leading-relaxed">
                   Use this guide to explore our menu of engagements, assemble your agenda, and reach out to the 
                   AI Centre team to support you with bringing it to life.
                 </p>

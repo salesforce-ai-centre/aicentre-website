@@ -119,7 +119,7 @@ export default function SlideViewer({ keynoteSlug, className = '' }: SlideViewer
   if (error || slides.length === 0) {
     return (
       <div className={`flex items-center justify-center h-96 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 ${className}`}>
-        <div className="text-center text-gray-400">
+        <div className="text-center text-gray-300">
           <div className="text-lg mb-2">No slides available</div>
           <div className="text-sm">Add slides to `/public/slides/{keynoteSlug}/`</div>
         </div>
@@ -137,21 +137,21 @@ export default function SlideViewer({ keynoteSlug, className = '' }: SlideViewer
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowThumbnails(!showThumbnails)}
-            className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+            className="p-2 text-white/85 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
             title="Toggle thumbnails"
           >
             <Grid3X3 size={16} />
           </button>
           <button
             onClick={downloadSlide}
-            className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+            className="p-2 text-white/85 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
             title="Download slide"
           >
             <Download size={16} />
           </button>
           <button
             onClick={() => setFullscreen(!fullscreen)}
-            className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+            className="p-2 text-white/85 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
             title="Fullscreen"
           >
             <Maximize size={16} />
@@ -241,7 +241,7 @@ export default function SlideViewer({ keynoteSlug, className = '' }: SlideViewer
       </div>
 
       {/* Footer with navigation info */}
-      <div className="p-4 bg-black/20 text-center text-sm text-white/70">
+      <div className="p-4 bg-black/20 text-center text-sm text-white/85">
         Use arrow keys to navigate • Click thumbnails to jump to slide
       </div>
     </div>

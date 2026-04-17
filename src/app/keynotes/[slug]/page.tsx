@@ -49,7 +49,7 @@ export default async function KeynotePage({ params }: { params: Promise<{ slug: 
         <div className="container-max">
           <div className="max-w-4xl mx-auto">
             {/* Breadcrumb */}
-            <nav className="flex items-center space-x-2 text-sm text-white text-opacity-60 mb-8">
+            <nav className="flex items-center space-x-2 text-sm text-white text-opacity-80 mb-8">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
               <span>/</span>
               <Link href="/#keynotes" className="hover:text-white transition-colors">Keynotes</Link>
@@ -63,7 +63,7 @@ export default async function KeynotePage({ params }: { params: Promise<{ slug: 
               <div className="mb-8">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                  <span className="text-purple-300 font-medium text-sm uppercase tracking-wider">
+                  <span className="text-purple-200 font-medium text-sm uppercase tracking-wider">
                     Executive Keynote
                   </span>
                 </div>
@@ -86,7 +86,7 @@ export default async function KeynotePage({ params }: { params: Promise<{ slug: 
                     <h3 className="font-semibold text-white">Presenter</h3>
                   </div>
                   <p className="text-white font-medium mb-1">{keynote.presenter}</p>
-                  <p className="text-white text-opacity-70 text-sm">{keynote.presenterRole}</p>
+                  <p className="text-white text-opacity-85 text-sm">{keynote.presenterRole}</p>
                 </div>
 
                 {/* Duration & Audience */}
@@ -98,7 +98,7 @@ export default async function KeynotePage({ params }: { params: Promise<{ slug: 
                     <h3 className="font-semibold text-white">Session Details</h3>
                   </div>
                   <p className="text-white font-medium mb-1">{keynote.duration}</p>
-                  <p className="text-white text-opacity-70 text-sm">{keynote.audienceSize}</p>
+                  <p className="text-white text-opacity-85 text-sm">{keynote.audienceSize}</p>
                 </div>
 
                 {/* Focus Area */}

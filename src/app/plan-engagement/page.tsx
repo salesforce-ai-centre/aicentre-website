@@ -161,7 +161,7 @@ export default function PlanEngagementPage() {
                 >
                   <div className="flex justify-center mb-3">{link.icon}</div>
                   <h3 className="text-white font-semibold mb-2 group-hover:text-purple-300">{link.title}</h3>
-                  <p className="text-white/70 text-sm">{link.description}</p>
+                  <p className="text-white/85 text-sm">{link.description}</p>
                 </a>
               ))}
             </div>
@@ -186,7 +186,7 @@ export default function PlanEngagementPage() {
                 <div key={index} className="glass-card p-6 text-center">
                   <div className="flex justify-center mb-3">{fact.icon}</div>
                   <h3 className="text-white font-semibold mb-2">{fact.title}</h3>
-                  <p className="text-white/70 text-sm">{fact.description}</p>
+                  <p className="text-white/85 text-sm">{fact.description}</p>
                 </div>
               ))}
             </div>
@@ -202,7 +202,7 @@ export default function PlanEngagementPage() {
                     {step.step}
                   </div>
                   <h3 className="text-white font-semibold mb-2">{step.title}</h3>
-                  <p className="text-white/70 text-sm mb-3">{step.description}</p>
+                  <p className="text-white/85 text-sm mb-3">{step.description}</p>
                   <span className="text-purple-300 text-xs font-medium bg-purple-500/20 px-3 py-1 rounded-full">
                     {step.action}
                   </span>
@@ -236,7 +236,7 @@ export default function PlanEngagementPage() {
               {/* About the AI Centre */}
               <div className="glass-card p-6">
                 <h3 className="text-xl font-bold text-white mb-4">About the AI Centre:</h3>
-                <ul className="space-y-3 text-white/80">
+                <ul className="space-y-3 text-white/90">
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
                     <span>Location: 110 Bishopsgate, London, EC2N 4AY, United Kingdom</span>
@@ -251,7 +251,7 @@ export default function PlanEngagementPage() {
               {/* What's Included */}
               <div className="glass-card p-6">
                 <h3 className="text-xl font-bold text-white mb-4">What&apos;s Included</h3>
-                <ul className="space-y-3 text-white/80">
+                <ul className="space-y-3 text-white/90">
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
                     <span>Engagements includes one core workshop (e.g. Agent Challenge) and one immersive experience (e.g. F1 simulators, Lego City)</span>

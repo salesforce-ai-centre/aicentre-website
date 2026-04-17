@@ -41,7 +41,7 @@ export default function ContactBanner() {
               {siteConfig.contactInfo.slackChannel}
             </a>
           </div>
-          <div className="text-sm opacity-80 mt-1">
+          <div className="text-sm opacity-90 mt-1">
             {siteConfig.contactInfo.supportDescription}
           </div>
         </div>

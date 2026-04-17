@@ -57,7 +57,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
 
         {/* Readiness status section - to match workshop tag height */}
         <div className="mb-5" style={{ minHeight: '32px' }}>
-          <span className={`px-3 py-1 ${getCategoryIndicator(experience.category)} bg-opacity-30 border ${getCategoryIndicator(experience.category).replace('bg-', 'border-')} border-opacity-50 rounded-full text-xs font-medium text-white`}>
+          <span className={`px-3 py-1 ${getCategoryIndicator(experience.category)} bg-opacity-40 border ${getCategoryIndicator(experience.category).replace('bg-', 'border-')} border-opacity-50 rounded-full text-xs font-medium text-white`}>
             🎯 {getReadinessStatus(experience.category)}
           </span>
         </div>

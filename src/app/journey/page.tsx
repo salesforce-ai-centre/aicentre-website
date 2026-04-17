@@ -93,10 +93,10 @@ export default function JourneyPage() {
           <h1 className="text-4xl md:text-5xl font-black mb-3 text-white tracking-tight">
             AI Centre Journey
           </h1>
-          <p className="text-white/60 text-base md:text-lg mb-4">
+          <p className="text-white/85 text-base md:text-lg mb-4">
             This interactive journey map captures the breadth of engagements our team delivers and the moments in the customer lifecycle where we create the most impact.
           </p>
-          <p className="text-white/60 text-base md:text-lg">
+          <p className="text-white/85 text-base md:text-lg">
             Use this map as a planning tool to identify the right experience for your customers at specific times. Hover over each engagement to explore its ideal audience, and click on the engagement for more details about each of the options.
           </p>
         </div>
@@ -209,7 +209,7 @@ export default function JourneyPage() {
                           />
 
                           <h4 className="text-white font-bold text-base mb-2 mt-1">{program.name}</h4>
-                          <p className="text-white/70 text-sm leading-relaxed mb-4">{program.description}</p>
+                          <p className="text-white/85 text-sm leading-relaxed mb-4">{program.description}</p>
 
                           <div className="flex flex-wrap items-center gap-2">
                             <span className="text-purple-300 text-xs font-medium bg-purple-500/20 px-3 py-1 rounded-full border border-purple-500/20">
@@ -237,14 +237,14 @@ export default function JourneyPage() {
 
           {/* Legend */}
           <div className="flex flex-wrap items-center gap-5 mt-5 px-1">
-            <span className="text-white/30 text-xs font-bold uppercase tracking-[0.15em]">Audience</span>
+            <span className="text-white/70 text-xs font-bold uppercase tracking-[0.15em]">Audience</span>
             {audienceLegend.map((item) => (
               <div key={item.label} className="flex items-center gap-2">
                 <div
                   className="w-2.5 h-2.5 rounded-full"
                   style={{ background: item.color, boxShadow: `0 0 6px ${item.color}44` }}
                 />
-                <span className="text-white/50 text-xs font-medium">{item.label}</span>
+                <span className="text-white/80 text-xs font-medium">{item.label}</span>
               </div>
             ))}
           </div>

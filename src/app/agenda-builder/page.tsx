@@ -49,7 +49,7 @@ function DraggableItem({ item, type, isUsed }: DraggableItemProps) {
       <div className="flex justify-between items-start">
         <div className="flex-1">
           <h3 className="font-semibold text-white text-sm line-clamp-2 pr-2">{item.title}</h3>
-          <p className="text-xs text-white/70 mt-1">
+          <p className="text-xs text-white/85 mt-1">
             {type === 'keynote' ? (item as Keynote).presenter : `${(item as Experience).type} Experience`}
           </p>
           {type === 'experience' && (item as Experience).tags && (
@@ -57,13 +57,13 @@ function DraggableItem({ item, type, isUsed }: DraggableItemProps) {
               {(item as Experience).tags.slice(0, 2).map((tag, index) => (
                 <span
                   key={index}
-                  className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/80 capitalize"
+                  className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/90 capitalize"
                 >
                   {tag.toLowerCase()}
                 </span>
               ))}
               {(item as Experience).tags.length > 2 && (
-                <span className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/60">
+                <span className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/80">
                   +{(item as Experience).tags.length - 2}
                 </span>
               )}
@@ -77,7 +77,7 @@ function DraggableItem({ item, type, isUsed }: DraggableItemProps) {
             onClick={(e) => e.stopPropagation()}
             className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-white/20 rounded"
           >
-            <ExternalLink className="w-4 h-4 text-white/70 hover:text-white" />
+            <ExternalLink className="w-4 h-4 text-white/85 hover:text-white" />
           </Link>
         )}
       </div>
@@ -114,7 +114,7 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-2">
               {slot.time.length > 0 && (
-                <p className="text-sm text-white/60 font-medium">{slot.time}</p>
+                <p className="text-sm text-white/80 font-medium">{slot.time}</p>
               )}
               {slot.type === 'Keynote' && !slot.filled && (
                 <span className="px-2 py-1 bg-blue-500/20 rounded-full text-xs text-blue-300">Keynote Slot</span>
@@ -131,7 +131,7 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex-1">
                     <h3 className="font-bold text-white text-lg mb-1">{slot.filled.title}</h3>
-                    <p className="text-sm text-white/70">
+                    <p className="text-sm text-white/85">
                       {slot.filledType === 'keynote' 
                         ? (slot.filled as Keynote).presenter 
                         : `${(slot.filled as Experience).type} Experience`}
@@ -143,7 +143,7 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
                       href={`/experiences/${slot.filled.id}`}
                       className="p-1 hover:bg-white/20 rounded transition-colors"
                     >
-                      <ExternalLink className="w-4 h-4 text-white/70 hover:text-white" />
+                      <ExternalLink className="w-4 h-4 text-white/85 hover:text-white" />
                     </Link>
                   )}
                 </div>
@@ -153,13 +153,13 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
                     {(slot.filled as Experience).tags.slice(0, 3).map((tag, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/80 capitalize"
+                        className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/90 capitalize"
                       >
                         {tag.toLowerCase()}
                       </span>
                     ))}
                     {(slot.filled as Experience).tags.length > 3 && (
-                      <span className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/60">
+                      <span className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/80">
                         +{(slot.filled as Experience).tags.length - 3}
                       </span>
                     )}
@@ -170,7 +170,7 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
               <>
                 <h3 className="font-semibold text-white/90">{slot.title}</h3>
                 {canDrop && (
-                  <p className="text-xs text-white/50 mt-1">
+                  <p className="text-xs text-white/80 mt-1">
                     Drag a {
                       slot.type === 'Keynote' 
                         ? 'keynote' 
@@ -548,7 +548,7 @@ export default function AgendaBuilderPage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
                 Agenda Builder
               </h1>
-              <p className="text-xl text-white/80 max-w-2xl mx-auto mb-6">
+              <p className="text-xl text-white/90 max-w-2xl mx-auto mb-6">
                 Customize your AI Centre experience by dragging keynotes and experiences into flexible time slots
               </p>
               <button
@@ -591,7 +591,7 @@ export default function AgendaBuilderPage() {
                       ))}
                     </select>
                     <div className="absolute right-0 flex items-center pointer-events-none">
-                      <ChevronDown className="w-6 h-6 text-white/60" />
+                      <ChevronDown className="w-6 h-6 text-white/80" />
                     </div>
                   </div>
                   {agenda.length > 0 && (
@@ -618,7 +618,7 @@ export default function AgendaBuilderPage() {
                     className={`flex-1 px-4 py-2 rounded-md font-semibold transition-all duration-200 ${
                       activeTab === 'keynotes'
                         ? 'bg-blue-600 text-white'
-                        : 'text-white/60 hover:text-white'
+                        : 'text-white/80 hover:text-white'
                     }`}
                   >
                     <span className="flex items-center justify-center">
@@ -631,7 +631,7 @@ export default function AgendaBuilderPage() {
                     className={`flex-1 px-4 py-2 rounded-md font-semibold transition-all duration-200 ${
                       activeTab === 'experiences'
                         ? 'bg-green-600 text-white'
-                        : 'text-white/60 hover:text-white'
+                        : 'text-white/80 hover:text-white'
                     }`}
                   >
                     <span className="flex items-center justify-center">
@@ -648,7 +648,7 @@ export default function AgendaBuilderPage() {
                       {keynotes.length === 0 ? (
                         <div className="text-center py-16">
                           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-3"></div>
-                          <p className="text-white/60 text-sm">Loading keynotes...</p>
+                          <p className="text-white/80 text-sm">Loading keynotes...</p>
                         </div>
                       ) : (
                         keynotes.map(keynote => (
@@ -666,7 +666,7 @@ export default function AgendaBuilderPage() {
                       {experiences.length === 0 ? (
                         <div className="text-center py-16">
                           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 mx-auto mb-3"></div>
-                          <p className="text-white/60 text-sm">Loading experiences...</p>
+                          <p className="text-white/80 text-sm">Loading experiences...</p>
                         </div>
                       ) : (
                         experiences.map(experience => (

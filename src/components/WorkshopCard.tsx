@@ -42,13 +42,13 @@ export default function WorkshopCard({ workshop }: WorkshopCardProps) {
           {workshop.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 bg-purple-500 bg-opacity-30 border border-purple-500 border-opacity-50 rounded-full text-xs font-medium text-white flex items-center"
+              className="px-3 py-1 bg-purple-500 bg-opacity-40 border border-purple-500 border-opacity-50 rounded-full text-xs font-medium text-white flex items-center"
             >
               {tag}
             </span>
           ))}
           {workshop.tags.length > 3 && (
-            <span className="px-3 py-1 bg-gray-500 bg-opacity-30 border border-gray-500 border-opacity-50 rounded-full text-xs font-medium text-white">
+            <span className="px-3 py-1 bg-gray-500 bg-opacity-40 border border-gray-500 border-opacity-50 rounded-full text-xs font-medium text-white">
               +{workshop.tags.length - 3} more
             </span>
           )}
