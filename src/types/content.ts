@@ -26,6 +26,7 @@ export interface Experience {
   category: string;
   image?: string;
   featured?: boolean;
+  isHosted?: boolean;
 }
 
 

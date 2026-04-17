@@ -9,8 +9,9 @@ const transformExperience = (object: Record<string, any>): Experience => ({
   type: object["Type__c"].toLowerCase(),
   duration: object["Duration__c"],
   audienceSize: object["Audience_Size__c"],
-  tags: object["Tags__c"].split(";"),
-  category: object["Status__c"]
+  tags: object["Tags__c"]?.split(";") || [],
+  category: object["Status__c"],
+  isHosted: object["Is_Hosted__c"],
 });
 
 export async function GET() {

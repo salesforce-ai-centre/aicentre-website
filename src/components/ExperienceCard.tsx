@@ -70,6 +70,9 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
           <div className="bg-purple-500 bg-opacity-20 border border-purple-500 border-opacity-30 px-3 py-1.5 rounded-xl text-sm font-medium text-white inline-block">
             ⏰ {experience.duration}
           </div>
+          <div className="bg-purple-500 bg-opacity-20 border border-purple-500 border-opacity-30 px-3 py-1.5 rounded-xl text-sm font-medium text-white inline-block mt-3">
+            {experience.isHosted ? "Guided by AI Centre Team" : "Self-Service"}
+          </div>
         </div>
       </div>
     </div>
