@@ -9,7 +9,7 @@
   
   body {
     @apply text-white min-h-screen;
-    background: linear-gradient(135deg, #1B1B3A 0%, #2D1B69 60%, #6366F1 100%);
+    background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%);
     /* Remove background-attachment: fixed - major performance killer */
   }
   
@@ -111,8 +111,8 @@
     @apply font-bold text-purple-300;
   }
 
-  /* Lighter background for Get Started page */
+  /* Lighter background for Get Started page — matches new body now that body itself is lifted */
   .page-lighter {
-    background: linear-gradient(135deg, #2A2A4A 0%, #3D2B79 60%, #7C7CF1 100%);
+    background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%);
   }
 }

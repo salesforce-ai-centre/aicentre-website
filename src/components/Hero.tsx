@@ -7,43 +7,29 @@ export default function Hero() {
 
   return (
     <section className="min-h-[70vh] flex items-center justify-center relative overflow-hidden pt-20">
-      {/* Agentforce Background */}
-      <div className="absolute inset-0">
-        <Image 
-          src="/images/AgentforceBackground.webp" 
-          alt="Agentforce Background" 
-          fill
-          className="object-cover opacity-30"
-          priority
-          quality={60}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-          style={{
-            objectFit: 'cover'
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900 bg-opacity-50 to-blue-900 bg-opacity-70"></div>
-      </div>
-      
+      {/* Hero tint — dark purple top fading into the body gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/70 via-blue-900/50 to-transparent pointer-events-none"></div>
+
       {/* Flying Agent Astro */}
-      <div className="absolute top-20 right-10 md:right-20 z-5">
-        <Image 
-          src="/images/AgentAstroFlying.png" 
-          alt="Agent Astro Flying" 
-          width={200} 
-          height={200}
-          className="floating opacity-80"
+      <div className="absolute top-28 right-24 md:right-40 z-5">
+        <Image
+          src="/images/AgentAstroFlying.png"
+          alt="Agent Astro Flying"
+          width={240}
+          height={240}
+          className="animate-floating opacity-80"
           loading="eager"
           quality={80}
-          sizes="(max-width: 768px) 150px, 200px"
+          sizes="(max-width: 768px) 180px, 240px"
         />
       </div>
-      
+
       {/* Agent Astro Character */}
-      <div className="absolute bottom-10 left-10 md:left-20 z-5">
-        <Image 
-          src="/images/AgentAstro.webp" 
-          alt="Agent Astro" 
-          width={300} 
+      <div className="absolute bottom-10 left-20 md:left-40 z-5">
+        <Image
+          src="/images/AgentAstro.webp"
+          alt="Agent Astro"
+          width={300}
           height={300}
           className="opacity-70 scale-x-[-1]"
           loading="lazy"

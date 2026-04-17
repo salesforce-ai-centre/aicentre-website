@@ -41,8 +41,8 @@ export default function RootLayout({
         <style dangerouslySetInnerHTML={{
           __html: `
             /* Critical CSS - inline for faster FCP */
-            html { margin: 0; padding: 0; background: linear-gradient(135deg, #1B1B3A 0%, #2D1B69 60%, #6366F1 100%); color: white; min-height: 100%; overscroll-behavior: none; }
-            body { margin: 0; padding: 0; background: linear-gradient(135deg, #1B1B3A 0%, #2D1B69 60%, #6366F1 100%); color: white; min-height: 100vh; overscroll-behavior: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
+            html { margin: 0; padding: 0; background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%); color: white; min-height: 100%; overscroll-behavior: none; }
+            body { margin: 0; padding: 0; background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%); color: white; min-height: 100vh; overscroll-behavior: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
             img { pointer-events: none; -webkit-user-drag: none; -khtml-user-drag: none; -moz-user-drag: none; -o-user-drag: none; user-drag: none; }
             .container-max { max-width: 1280px; margin: 0 auto; }
             .section-padding { padding-left: 1rem; padding-right: 1rem; }
