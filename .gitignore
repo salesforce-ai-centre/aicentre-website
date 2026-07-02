@@ -20,3 +20,12 @@ coverage/
 *.swp
 *.swo
 *~
+
+# Salesforce DX tooling cache
+.sfdx/
+
+# Claude Code local project memory
+.claude/
+
+# TypeScript incremental build cache
+*.tsbuildinfo
