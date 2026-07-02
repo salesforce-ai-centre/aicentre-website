@@ -2,10 +2,10 @@ export default function Introduction() {
   return (
     <section className="py-20 section-padding relative">
       {/* Background effects */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-30">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-purple-500 rounded-full filter blur-3xl opacity-20"></div>
-        <div className="absolute top-20 right-10 w-64 h-64 bg-blue-500 rounded-full filter blur-3xl opacity-20"></div>
-        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-64 h-64 bg-indigo-500 rounded-full filter blur-3xl opacity-20"></div>
+      <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+        <div className="haze haze-drift-1 top-20 left-10 w-64 h-64 bg-purple-500 opacity-20"></div>
+        <div className="haze haze-drift-2 top-20 right-10 w-64 h-64 bg-blue-500 opacity-20"></div>
+        <div className="haze haze-drift-3 bottom-20 left-1/2 -translate-x-1/2 w-64 h-64 bg-indigo-500 opacity-20"></div>
       </div>
 
       <div className="container-max relative z-10">

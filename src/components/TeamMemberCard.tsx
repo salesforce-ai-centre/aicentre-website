@@ -1,5 +1,4 @@
 import { TeamMember } from '@/types/content';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image'
 
 interface TeamMemberCardProps {
@@ -8,14 +7,9 @@ interface TeamMemberCardProps {
 
 export default function TeamMemberCard({ teamMember }: TeamMemberCardProps) {
   return (
-    <div 
-    className="glass-card p-8 relative overflow-hidden group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 flex flex-col h-full"
-    style={{ transition: 'border-color 0.2s ease' }}
-    >
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500"></div>
+    <div className="card p-6 relative overflow-hidden group flex flex-col h-full">
       <div className="flex flex-col flex-1 items-start text-left">
-        {/* Profile Image */}
-        <div className="relative w-32 h-32 mb-4 rounded-full overflow-hidden">
+        <div className="relative w-24 h-24 mb-4 rounded-full overflow-hidden border-2 border-border">
           {teamMember.imageUrl ? (
             <Image
               src={teamMember.imageUrl}
@@ -24,21 +18,19 @@ export default function TeamMemberCard({ teamMember }: TeamMemberCardProps) {
               className="object-cover object-top"
             />
           ) : (
-            <div className="w-full h-full bg-purple-500/20 flex items-center justify-center">
-              <span className="text-3xl text-purple-200">
+            <div className="w-full h-full bg-accent-light flex items-center justify-center">
+              <span className="text-2xl text-accent font-semibold">
                 {teamMember.name.charAt(0)}
               </span>
             </div>
           )}
         </div>
 
-        {/* Name */}
-        <h3 className="text-2xl font-bold text-white group-hover:text-purple-200 transition-colors">
+        <h3 className="text-lg font-semibold text-ink group-hover:text-accent transition-colors">
           {teamMember.name}
         </h3>
 
-        {/* Role */}
-        <div className="text-lg text-purple-200 mb-4">
+        <div className="text-sm text-ink-secondary mt-1">
           {teamMember.role}
         </div>
       </div>

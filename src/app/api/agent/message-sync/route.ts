@@ -1,16 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSalesforceAccessToken, getSalesforceBaseUrl } from '@/lib/salesforce-auth';
+import { getUserSession } from '@/lib/user-session';
 
 interface MessageRequest {
   sessionId: string;
   message: string;
   sequenceId?: number;
+  userContext?: { name: string; email: string };
 }
 
 export async function POST(request: NextRequest) {
+  const session = await getUserSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
-    const { sessionId, message, sequenceId = 1 }: MessageRequest = await request.json();
-    
+    const { sessionId, message, sequenceId = 1, userContext }: MessageRequest = await request.json();
+
     if (!sessionId || !message) {
       return NextResponse.json(
         { error: 'Missing required fields: sessionId, message' },
@@ -18,12 +24,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    let enrichedMessage = message;
+    if (userContext && sequenceId === 1) {
+      enrichedMessage = `[User: ${userContext.name}, Email: ${userContext.email}]\n\n${message}`;
+    }
+
     const accessToken = await getSalesforceAccessToken();
     const baseUrl = getSalesforceBaseUrl();
 
-    // Use the new API endpoint
     const messageUrl = `${baseUrl}/einstein/ai-agent/v1/sessions/${sessionId}/messages/stream`;
-    
+
     const response = await fetch(messageUrl, {
       method: 'POST',
       headers: {
@@ -35,7 +45,7 @@ export async function POST(request: NextRequest) {
         message: {
           sequenceId: sequenceId,
           type: "Text",
-          text: message
+          text: enrichedMessage
         }
       }),
     });

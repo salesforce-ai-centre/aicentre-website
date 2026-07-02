@@ -1,6 +1,7 @@
 import type { Keynote } from '@/types/content';
 import { NextResponse } from 'next/server';
 import { getAllRecords } from '@/lib/salesforce-request';
+import { getUserSession } from '@/lib/user-session';
 
 const transformKeynote = (object: Record<string, any>): Keynote => ({
   id: object["Name"],
@@ -16,6 +17,10 @@ const transformKeynote = (object: Record<string, any>): Keynote => ({
 });
 
 export async function GET() {
+  const session = await getUserSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const objects = await getAllRecords("Executive_Keynote__c", 20, true);
     if (!objects) {

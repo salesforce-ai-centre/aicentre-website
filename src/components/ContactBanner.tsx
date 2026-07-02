@@ -1,47 +1,23 @@
 import { getSiteConfig } from '@/lib/content';
-import Image from 'next/image';
+import Link from 'next/link';
 
 export default function ContactBanner() {
   const siteConfig = getSiteConfig();
-  
+
   return (
-    <div className="bg-gradient-to-r from-purple-600 to-purple-500 py-5 relative overflow-hidden">
-      {/* Diagonal stripe pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: `repeating-linear-gradient(
-              45deg,
-              transparent,
-              transparent 10px,
-              rgba(255, 255, 255, 0.03) 10px,
-              rgba(255, 255, 255, 0.03) 20px
-            )`
-          }}
-        />
-      </div>
-      
-      <div className="container-max section-padding relative z-10">
-        <div className="text-center text-white">
-          <div className="text-lg font-semibold flex items-center justify-center space-x-3">
-            <Image 
-              src="/images/SlackLogo.webp" 
-              alt="Slack Logo" 
-              width={24} 
-              height={24}
-            />
-            <span>{siteConfig.contactInfo.slackDescription}:</span>
-            <a 
-              href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded-full font-mono text-sm transition-all duration-200 cursor-pointer"
+    <div className="bg-surface-muted border-y border-border py-5">
+      <div className="container-max section-padding">
+        <div className="text-center text-ink">
+          <div className="text-sm font-medium flex items-center justify-center space-x-3">
+            <span className="text-ink-secondary">Ready to plan a customer engagement?</span>
+            <Link
+              href="/request"
+              className="text-accent font-semibold hover:underline"
             >
-              {siteConfig.contactInfo.slackChannel}
-            </a>
+              Submit a request
+            </Link>
           </div>
-          <div className="text-sm opacity-90 mt-1">
+          <div className="text-xs text-ink-tertiary mt-1">
             {siteConfig.contactInfo.supportDescription}
           </div>
         </div>

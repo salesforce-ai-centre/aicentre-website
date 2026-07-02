@@ -1,6 +1,7 @@
 import type { Workshop } from '@/types/content';
 import { NextResponse } from 'next/server';
 import { getSortedRecords } from '@/lib/salesforce-request';
+import { getUserSession } from '@/lib/user-session';
 
 const transformWorkshop = (object: Record<string, any>): Workshop => ({
   id: object["Name"],
@@ -18,6 +19,10 @@ const transformWorkshop = (object: Record<string, any>): Workshop => ({
 });
 
 export async function GET() {
+  const session = await getUserSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const objects = await getSortedRecords("Engagement_Tools__c", 20, true, "ORDER+BY+CreatedDate+ASC");
     if (!objects) {

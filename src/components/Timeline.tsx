@@ -31,30 +31,30 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
     switch (status) {
       case 'completed':
         return {
-          dot: 'bg-green-500 border-green-300',
+          dot: 'bg-green-50 border-green-500',
           line: 'bg-green-500',
-          card: 'border-green-500/30 bg-green-500/10',
-          icon: 'text-green-400',
-          title: 'text-white',
-          badge: 'bg-green-500 text-white'
+          card: 'border-green-200 bg-green-50/50',
+          icon: 'text-green-600',
+          title: 'text-ink',
+          badge: 'bg-green-100 text-green-700'
         };
       case 'current':
         return {
-          dot: 'bg-purple-500 border-purple-300 animate-pulse',
-          line: 'bg-gradient-to-b from-green-500 to-purple-500',
-          card: 'border-purple-500/50 bg-purple-500/20 ring-2 ring-purple-500/30',
-          icon: 'text-purple-400',
-          title: 'text-white font-bold',
-          badge: 'bg-purple-500 text-white animate-pulse'
+          dot: 'bg-accent-light border-accent',
+          line: 'bg-accent',
+          card: 'border-accent/30 bg-accent-light/50 ring-1 ring-accent/20',
+          icon: 'text-accent',
+          title: 'text-ink font-bold',
+          badge: 'bg-accent text-white'
         };
       default:
         return {
-          dot: 'bg-gray-600 border-gray-500',
-          line: 'bg-gray-600',
-          card: 'border-gray-600/30 bg-gray-600/10',
-          icon: 'text-gray-300',
-          title: 'text-white/85',
-          badge: 'bg-gray-600 text-white/85'
+          dot: 'bg-surface-muted border-border',
+          line: 'bg-border',
+          card: 'border-border bg-surface-elevated',
+          icon: 'text-ink-tertiary',
+          title: 'text-ink',
+          badge: 'bg-surface-muted text-ink-secondary'
         };
     }
   };
@@ -63,18 +63,18 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
     <div className="w-full">
       {/* Header */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
+        <h2 className="font-serif text-h2 text-ink mb-3">{title}</h2>
         {description && (
-          <p className="text-lg text-white/90 max-w-3xl mx-auto">{description}</p>
+          <p className="text-ink-secondary max-w-3xl mx-auto">{description}</p>
         )}
       </div>
 
       {/* Timeline */}
       <div className="relative">
-        {/* Vertical line - hidden on mobile, visible on larger screens */}
-        <div className="hidden lg:block absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-500 via-purple-500 to-gray-600"></div>
+        {/* Vertical line */}
+        <div className="hidden lg:block absolute left-8 top-0 bottom-0 w-0.5 bg-border"></div>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {steps.map((step, index) => {
             const styles = getStepStyles(step.status);
             const isExpanded = expandedStep === step.id;
@@ -84,39 +84,36 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
               <div key={step.id} className="relative">
                 {/* Desktop Layout */}
                 <div className="hidden lg:flex items-start">
-                  {/* Timeline dot */}
                   <div className="relative flex-shrink-0">
-                    <div className={`w-16 h-16 rounded-full border-4 ${styles.dot} flex items-center justify-center z-10 relative`}>
+                    <div className={`w-16 h-16 rounded-full border-2 ${styles.dot} flex items-center justify-center z-10 relative`}>
                       <div className={`${styles.icon}`}>
                         {step.icon}
                       </div>
                     </div>
-                    
-                    {/* Connecting line to next step */}
+
                     {!isLast && (
-                      <div className={`absolute top-16 left-1/2 transform -translate-x-1/2 w-0.5 h-8 ${styles.line}`}></div>
+                      <div className={`absolute top-16 left-1/2 transform -translate-x-1/2 w-0.5 h-6 ${styles.line}`}></div>
                     )}
                   </div>
 
-                  {/* Content */}
-                  <div className="ml-8 flex-1">
-                    <div 
-                      className={`glass-card p-6 cursor-pointer transition-all duration-300 hover:scale-[1.02] ${styles.card}`}
+                  <div className="ml-6 flex-1">
+                    <div
+                      className={`card p-5 cursor-pointer transition-all duration-200 hover:shadow-card-hover ${styles.card}`}
                       onClick={() => toggleStep(step.id)}
                     >
-                      <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
-                          <div className="flex items-center space-x-3 mb-2">
-                            <h3 className={`text-xl font-bold ${styles.title}`}>{step.title}</h3>
-                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${styles.badge}`}>
+                          <div className="flex items-center space-x-3 mb-1.5">
+                            <h3 className={`text-lg font-semibold ${styles.title}`}>{step.title}</h3>
+                            <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${styles.badge}`}>
                               {step.duration}
                             </span>
                           </div>
-                          <p className="text-white/90 leading-relaxed">{step.description}</p>
+                          <p className="text-ink-secondary text-sm leading-relaxed">{step.description}</p>
                         </div>
-                        
+
                         <div className="ml-4">
-                          <div className={`w-8 h-8 rounded-full ${styles.card} flex items-center justify-center cursor-pointer`}>
+                          <div className={`w-7 h-7 rounded-full bg-surface-muted border border-border flex items-center justify-center cursor-pointer text-ink-tertiary text-xs`}>
                             <div className={`transform transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>
                               ▼
                             </div>
@@ -124,32 +121,31 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
                         </div>
                       </div>
 
-                      {/* Expanded content */}
                       {isExpanded && (
-                        <div className="mt-6 space-y-4 animate-fade-in">
+                        <div className="mt-4 space-y-4 animate-fade-in">
                           <div>
-                            <h4 className="text-white font-semibold mb-3">Key Activities:</h4>
-                            <ul className="space-y-2">
+                            <h4 className="text-ink font-semibold text-sm mb-2">Key Activities:</h4>
+                            <ul className="space-y-1.5">
                               {step.details.map((detail, idx) => (
                                 <li key={idx} className="flex items-start space-x-2">
-                                  <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                                  <span className="text-white/90 text-sm">{detail}</span>
+                                  <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                                  <span className="text-ink-secondary text-sm">{detail}</span>
                                 </li>
                               ))}
                             </ul>
                           </div>
-                          
+
                           {step.tips && step.tips.length > 0 && (
-                            <div className="border-t border-white/20 pt-4">
-                              <h4 className="text-white font-semibold mb-3 flex items-center">
-                                <Lightbulb className="w-4 h-4 text-yellow-400 mr-2" />
+                            <div className="border-t border-border pt-3">
+                              <h4 className="text-ink font-semibold text-sm mb-2 flex items-center">
+                                <Lightbulb className="w-4 h-4 text-amber-500 mr-2" />
                                 Pro Tips:
                               </h4>
-                              <ul className="space-y-2">
+                              <ul className="space-y-1.5">
                                 {step.tips.map((tip, idx) => (
                                   <li key={idx} className="flex items-start space-x-2">
-                                    <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
-                                    <span className="text-white/85 text-sm italic">{tip}</span>
+                                    <div className="w-1.5 h-1.5 bg-amber-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span className="text-ink-secondary text-sm italic">{tip}</span>
                                   </li>
                                 ))}
                               </ul>
@@ -163,60 +159,59 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
 
                 {/* Mobile Layout */}
                 <div className="lg:hidden">
-                  <div 
-                    className={`glass-card p-6 cursor-pointer transition-all duration-300 ${styles.card}`}
+                  <div
+                    className={`card p-5 cursor-pointer transition-all duration-200 ${styles.card}`}
                     onClick={() => toggleStep(step.id)}
                   >
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className={`w-12 h-12 rounded-full border-4 ${styles.dot} flex items-center justify-center flex-shrink-0`}>
-                        <div className={`${styles.icon}`}>
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div className={`w-10 h-10 rounded-full border-2 ${styles.dot} flex items-center justify-center flex-shrink-0`}>
+                        <div className={`${styles.icon} [&>svg]:w-4 [&>svg]:h-4`}>
                           {step.icon}
                         </div>
                       </div>
-                      
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <h3 className={`text-lg font-bold ${styles.title}`}>{step.title}</h3>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles.badge}`}>
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center space-x-2 mb-0.5">
+                          <h3 className={`text-base font-semibold ${styles.title} truncate`}>{step.title}</h3>
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium flex-shrink-0 ${styles.badge}`}>
                             {step.duration}
                           </span>
                         </div>
-                        <p className="text-white/90 text-sm">{step.description}</p>
+                        <p className="text-ink-secondary text-sm">{step.description}</p>
                       </div>
-                      
-                      <div className={`w-6 h-6 rounded-full ${styles.card} flex items-center justify-center`}>
-                        <div className={`transform transition-transform duration-200 text-xs ${isExpanded ? 'rotate-180' : ''}`}>
+
+                      <div className={`w-6 h-6 rounded-full bg-surface-muted border border-border flex items-center justify-center text-ink-tertiary text-xs flex-shrink-0`}>
+                        <div className={`transform transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>
                           ▼
                         </div>
                       </div>
                     </div>
 
-                    {/* Mobile expanded content */}
                     {isExpanded && (
-                      <div className="mt-4 space-y-4 animate-fade-in">
+                      <div className="mt-3 space-y-3 animate-fade-in">
                         <div>
-                          <h4 className="text-white font-semibold mb-3">Key Activities:</h4>
-                          <ul className="space-y-2">
+                          <h4 className="text-ink font-semibold text-sm mb-2">Key Activities:</h4>
+                          <ul className="space-y-1.5">
                             {step.details.map((detail, idx) => (
                               <li key={idx} className="flex items-start space-x-2">
-                                <CheckCircle className="w-4 h-4 text-green-400 mt-1 flex-shrink-0" />
-                                <span className="text-white/90 text-sm">{detail}</span>
+                                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                                <span className="text-ink-secondary text-sm">{detail}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
-                        
+
                         {step.tips && step.tips.length > 0 && (
-                          <div className="border-t border-white/20 pt-4">
-                            <h4 className="text-white font-semibold mb-3 flex items-center">
-                              <Lightbulb className="w-4 h-4 text-yellow-400 mr-2" />
+                          <div className="border-t border-border pt-3">
+                            <h4 className="text-ink font-semibold text-sm mb-2 flex items-center">
+                              <Lightbulb className="w-4 h-4 text-amber-500 mr-2" />
                               Pro Tips:
                             </h4>
-                            <ul className="space-y-2">
+                            <ul className="space-y-1.5">
                               {step.tips.map((tip, idx) => (
                                 <li key={idx} className="flex items-start space-x-2">
-                                  <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
-                                  <span className="text-white/85 text-sm italic">{tip}</span>
+                                  <div className="w-1.5 h-1.5 bg-amber-500 rounded-full mt-2 flex-shrink-0"></div>
+                                  <span className="text-ink-secondary text-sm italic">{tip}</span>
                                 </li>
                               ))}
                             </ul>
@@ -225,11 +220,10 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
                       </div>
                     )}
                   </div>
-                  
-                  {/* Mobile connecting line */}
+
                   {!isLast && (
-                    <div className="flex justify-center my-4">
-                      <div className={`w-0.5 h-8 ${styles.line}`}></div>
+                    <div className="flex justify-center my-3">
+                      <div className={`w-0.5 h-6 ${styles.line}`}></div>
                     </div>
                   )}
                 </div>
@@ -242,7 +236,6 @@ export default function Timeline({ steps, title = "Engagement Timeline", descrip
   );
 }
 
-// Export default timeline data for the engagement process
 export const engagementTimelineSteps: TimelineStep[] = [
   {
     id: 'initial-contact',

@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
 import { getSalesforceAccessToken, getSalesforceBaseUrl, getSalesforceAgentId, getSalesforceDomainUrl } from '@/lib/salesforce-auth';
+import { getUserSession } from '@/lib/user-session';
 import { randomUUID } from 'crypto';
 
 export async function POST() {
+  const session = await getUserSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const accessToken = await getSalesforceAccessToken();
     const baseUrl = getSalesforceBaseUrl();

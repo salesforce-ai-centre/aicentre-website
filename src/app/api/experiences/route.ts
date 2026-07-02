@@ -1,6 +1,7 @@
 import type { Experience } from '@/types/content';
 import { NextResponse } from 'next/server';
 import { getSortedRecords } from '@/lib/salesforce-request';
+import { getUserSession } from '@/lib/user-session';
 
 const transformExperience = (object: Record<string, any>): Experience => ({
   id: object["Name"],
@@ -15,6 +16,10 @@ const transformExperience = (object: Record<string, any>): Experience => ({
 });
 
 export async function GET() {
+  const session = await getUserSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const objects = await getSortedRecords("Immersive_Experience__c", 20, true, "ORDER+BY+Status__c+ASC");
     if (!objects) {

@@ -15,40 +15,40 @@ export default function KeynotesTable() {
   }
 
   return (
-    <div className="glass-card overflow-hidden border border-white border-opacity-20 rounded-2xl my-10">
+    <div className="card overflow-hidden rounded-2xl my-10">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="bg-purple-500 bg-opacity-30">
-            <th className="px-6 py-5 text-left font-bold text-white border-b border-white border-opacity-10">
+          <tr className="bg-surface-muted">
+            <th className="px-6 py-4 text-left font-semibold text-ink text-sm border-b border-border">
               Keynote
             </th>
-            <th className="px-6 py-5 text-left font-bold text-white border-b border-white border-opacity-10">
+            <th className="px-6 py-4 text-left font-semibold text-ink text-sm border-b border-border">
               Focus Area
             </th>
-            <th className="px-6 py-5 text-left font-bold text-white border-b border-white border-opacity-10">
+            <th className="px-6 py-4 text-left font-semibold text-ink text-sm border-b border-border">
               Audience
             </th>
-            <th className="px-6 py-5 text-left font-bold text-white border-b border-white border-opacity-10">
+            <th className="px-6 py-4 text-left font-semibold text-ink text-sm border-b border-border">
               Duration
             </th>
           </tr>
         </thead>
         <tbody>
-          {keynotes.map((keynote, index) => (
-            <tr 
-              key={keynote.id} 
-              className="hover:bg-purple-500 hover:bg-opacity-20 transition-colors border-b border-white border-opacity-10 last:border-b-0"
+          {keynotes.map((keynote) => (
+            <tr
+              key={keynote.id}
+              className="hover:bg-surface-muted transition-colors border-b border-border last:border-b-0"
             >
-              <td className="px-6 py-5 text-white">
-                <div className="font-semibold">{keynote.title}</div>
+              <td className="px-6 py-4 text-ink">
+                <div className="font-medium">{keynote.title}</div>
               </td>
-              <td className="px-6 py-5 text-white text-opacity-90">
+              <td className="px-6 py-4 text-ink-secondary text-sm">
                 {keynote.focusArea}
               </td>
-              <td className="px-6 py-5 text-white text-opacity-90">
+              <td className="px-6 py-4 text-ink-secondary text-sm">
                 {keynote.audience}
               </td>
-              <td className="px-6 py-5 text-white text-opacity-90">
+              <td className="px-6 py-4 text-ink-secondary text-sm">
                 {keynote.duration}
               </td>
             </tr>

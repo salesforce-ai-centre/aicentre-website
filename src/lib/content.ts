@@ -7,15 +7,17 @@ import faqsContent from '../../content/faqs.json';
 import siteConfigContent from '../../content/site-config.json';
 import teamMembersContent from '../../content/team-members.json';
 import spacesContent from '../../content/spaces.json';
-import { 
-  Workshop, 
-  Experience, 
-  Keynote, 
-  FAQ, 
-  HeroContent, 
-  SiteConfig, 
+import engagementTiersContent from '../../content/engagement-tiers.json';
+import {
+  Workshop,
+  Experience,
+  Keynote,
+  FAQ,
+  HeroContent,
+  SiteConfig,
   TeamMember,
-  Space
+  Space,
+  EngagementTier
 } from '@/types/content';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
@@ -60,8 +62,12 @@ export function getSiteConfig(): SiteConfig {
   return siteConfigContent as SiteConfig;
 }
 
-export function getTeamMembers(): TeamMember[] {
-  return teamMembersContent as TeamMember[];
+export async function getTeamMembers(): Promise<TeamMember[]> {
+  return fetchWithFallback<TeamMember[]>(
+    '/api/team_members',
+    teamMembersContent as TeamMember[],
+    (data): data is TeamMember[] => Array.isArray(data)
+  );
 }
 
 export function getSpaces(): Promise<Space[]> {
@@ -70,6 +76,10 @@ export function getSpaces(): Promise<Space[]> {
     spacesContent as Space[],
     (data): data is Space[] => Array.isArray(data)
   );
+}
+
+export function getEngagementTiers(): EngagementTier[] {
+  return engagementTiersContent as EngagementTier[];
 }
 
 export async function getWorkshopsByCategory(category: Workshop['category']): Promise<Workshop[]> {

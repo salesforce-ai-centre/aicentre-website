@@ -1,12 +1,12 @@
 {
-  "title": "Welcome to the AI Centre's Engagement Guide",
-  "subtitle": "Your toolkit for designing impactful customer engagements",
+  "title": "Plan Your AI Centre Visit",
+  "subtitle": "Four steps from request to delivery. Start with a REWS ticket.",
   "primaryCTA": {
-    "text": "Plan Your Engagement",
-    "href": "/plan-engagement"
+    "text": "Get Started",
+    "href": "#process"
   },
   "secondaryCTA": {
-    "text": "Explore Our Menu",
-    "href": "#offerings"
+    "text": "Explore Offerings",
+    "href": "/workshops"
   }
 }

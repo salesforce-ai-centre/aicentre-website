@@ -1,26 +1,34 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Instrument_Serif, DM_Sans } from 'next/font/google'
 import './globals.css'
 import AgentforceChat from '@/components/AgentforceChat'
 import { ChatProvider } from '@/contexts/ChatContext'
+import { UserProvider } from '@/contexts/UserContext'
 import SidebarAwareLayout from '@/components/SidebarAwareLayout'
 import Script from 'next/script'
 
-const inter = Inter({ 
+const instrumentSerif = Instrument_Serif({
+  weight: '400',
   subsets: ['latin'],
   display: 'swap',
-  preload: true,
-  fallback: ['system-ui', 'arial']
+  variable: '--font-instrument-serif',
+})
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm-sans',
+  weight: ['400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
   title: 'Salesforce AI Centre | Engagement Portal',
-  description: 'Discover AI Centre engagement offerings for Salesforce account teams',
+  description: 'Plan your customer engagement at the Salesforce AI Centre',
   keywords: ['Salesforce', 'AI Centre', 'Workshops', 'Experiences', 'Agentforce'],
   robots: 'index, follow',
   other: {
-    'theme-color': '#6366F1',
-    'color-scheme': 'dark',
+    'theme-color': '#635BFF',
+    'color-scheme': 'light',
   }
 }
 
@@ -36,27 +44,24 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable}`}>
       <head>
         <style dangerouslySetInnerHTML={{
           __html: `
-            /* Critical CSS - inline for faster FCP */
-            html { margin: 0; padding: 0; background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%); color: white; min-height: 100%; overscroll-behavior: none; }
-            body { margin: 0; padding: 0; background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%); color: white; min-height: 100vh; overscroll-behavior: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
-            img { pointer-events: none; -webkit-user-drag: none; -khtml-user-drag: none; -moz-user-drag: none; -o-user-drag: none; user-drag: none; }
-            .container-max { max-width: 1280px; margin: 0 auto; }
-            .section-padding { padding-left: 1rem; padding-right: 1rem; }
-            @media (min-width: 640px) { .section-padding { padding-left: 1.5rem; padding-right: 1.5rem; } }
-            @media (min-width: 1024px) { .section-padding { padding-left: 2rem; padding-right: 2rem; } }
+            html { margin: 0; padding: 0; background: #FFFFFF; color: #0A2540; min-height: 100%; overscroll-behavior: none; }
+            body { margin: 0; padding: 0; background: #FFFFFF; color: #0A2540; min-height: 100vh; overscroll-behavior: none; }
+            .container-max { max-width: 1152px; margin: 0 auto; }
+            .section-padding { padding-left: 1.25rem; padding-right: 1.25rem; }
+            @media (min-width: 640px) { .section-padding { padding-left: 2rem; padding-right: 2rem; } }
+            @media (min-width: 1024px) { .section-padding { padding-left: 3rem; padding-right: 3rem; } }
           `
         }} />
         <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; img-src 'self' data: https:;" />
       </head>
-      <body className={inter.className} suppressHydrationWarning={true}>
+      <body className={dmSans.className} suppressHydrationWarning={true}>
         {process.env.NODE_ENV === 'production' && (
           <>
             <Script
@@ -73,12 +78,14 @@ export default function RootLayout({
             </Script>
           </>
         )}
-        <ChatProvider>
-          <SidebarAwareLayout>
-            {children}
-          </SidebarAwareLayout>
-          <AgentforceChat />
-        </ChatProvider>
+        <UserProvider>
+          <ChatProvider>
+            <SidebarAwareLayout>
+              {children}
+            </SidebarAwareLayout>
+            <AgentforceChat />
+          </ChatProvider>
+        </UserProvider>
       </body>
     </html>
   )

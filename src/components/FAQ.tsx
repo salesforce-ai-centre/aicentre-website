@@ -27,7 +27,6 @@ export default function FAQ() {
   };
 
   const processAnswerText = (text: string) => {
-    // Replace #ai-centre-uk with a clickable link
     const parts = text.split(/(#ai-centre-uk)/g);
     return parts.map((part, index) => {
       if (part === '#ai-centre-uk') {
@@ -37,7 +36,7 @@ export default function FAQ() {
             href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-300 hover:text-blue-200 underline underline-offset-2 decoration-blue-300/50 hover:decoration-blue-200 transition-colors font-semibold"
+            className="text-accent hover:text-accent-dark underline underline-offset-2 decoration-accent/50 hover:decoration-accent transition-colors font-semibold"
           >
             {part}
           </a>
@@ -48,46 +47,46 @@ export default function FAQ() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="text-center mb-16 fade-in">
-        <h2 className="text-4xl md:text-6xl font-black mb-6 text-white bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+    <div className="max-w-4xl mx-auto">
+      <div className="text-center mb-12">
+        <h2 className="font-serif text-h2 text-ink mb-3">
           Frequently Asked Questions
         </h2>
-        <p className="text-xl md:text-2xl text-white text-opacity-90 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-ink-secondary max-w-2xl mx-auto">
           Get answers to common questions about our offerings
         </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {faqData.map((item) => (
-          <div 
-            key={item.id} 
-            className="bg-white bg-opacity-10 rounded-2xl border border-white border-opacity-20 overflow-hidden fade-in smooth-hover"
+          <div
+            key={item.id}
+            className="bg-surface-elevated border border-border rounded-xl overflow-hidden"
           >
             <button
-              className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-white hover:bg-opacity-5 smooth-hover"
+              className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-surface-muted transition-colors duration-200"
               onClick={() => toggleItem(item.id)}
             >
-              <span className="text-lg font-semibold text-white pr-4">
+              <span className="text-base font-medium text-ink pr-4">
                 {item.question}
               </span>
               <div className="flex-shrink-0 ml-4">
                 {openItems.includes(item.id) ? (
-                  <ChevronDown className="w-5 h-5 text-blue-300" />
+                  <ChevronDown className="w-5 h-5 text-accent" />
                 ) : (
-                  <ChevronRight className="w-5 h-5 text-white text-opacity-80" />
+                  <ChevronRight className="w-5 h-5 text-ink-tertiary" />
                 )}
               </div>
             </button>
-            
+
             <div className={`overflow-hidden transition-all duration-300 ease-out ${
-              openItems.includes(item.id) 
-                ? 'max-h-96 opacity-100' 
+              openItems.includes(item.id)
+                ? 'max-h-96 opacity-100'
                 : 'max-h-0 opacity-0'
             }`}>
               <div className="px-6 pb-5">
-                <div className="border-t border-white border-opacity-10 pt-4">
-                  <p className="text-white text-opacity-90 leading-relaxed">
+                <div className="border-t border-border pt-4">
+                  <p className="text-ink-secondary leading-relaxed">
                     {processAnswerText(item.answer)}
                   </p>
                 </div>
@@ -97,15 +96,14 @@ export default function FAQ() {
         ))}
       </div>
 
-      {/* Decorative elements */}
-      <div className="mt-16 text-center">
-        <div className="inline-flex items-center space-x-2 bg-white bg-opacity-10 rounded-full px-6 py-3 border border-white border-opacity-20">
-          <span className="text-white text-opacity-90">Still have questions?</span>
+      <div className="mt-10 text-center">
+        <div className="inline-flex items-center space-x-2 bg-surface-muted rounded-full px-5 py-2.5 border border-border">
+          <span className="text-ink-secondary text-sm">Still have questions?</span>
           <a
             href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-300 hover:text-blue-200 font-semibold transition-colors"
+            className="text-accent hover:text-accent-dark font-semibold text-sm transition-colors"
           >
             Ask us on Slack
           </a>

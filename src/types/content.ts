@@ -13,6 +13,8 @@ export interface Workshop {
   agendaId?: string;
   sampleAgenda?: string;
   engagementExpectations?: string[];
+  videoUrl?: string;
+  videoThumbnail?: string;
 }
 
 export interface Experience {
@@ -27,6 +29,8 @@ export interface Experience {
   image?: string;
   featured?: boolean;
   isHosted?: boolean;
+  videoUrl?: string;
+  videoThumbnail?: string;
 }
 
 
@@ -110,11 +114,28 @@ export interface Space {
   status?: 'Active' | 'Planned' | 'Temporarily Unavailable' | 'Retired';
 }
 
-export interface AgendaItem {
+export interface EngagementTier {
   id: string;
-  time: string;
-  title: string;
-  type: 'Session' | 'Keynote' | 'Experience' | 'Open Slot';
-  filled?: Keynote | Experience;
-  filledType?: 'keynote' | 'experience';
+  name: string;
+  color: string;
+  tagline: string;
+  description: string;
+  includes: string[];
+  yourRole: string;
+  support: string;
+}
+
+export interface UserEvent {
+  id: string;
+  name: string;
+  date: string | null;
+  startDateTime: string | null;
+  endDateTime: string | null;
+  status: string;
+  eventType: string | null;
+  program: string | null;
+  account: string | null;
+  space: string | null;
+  slackChannelLink: string | null;
+  role: string;
 }

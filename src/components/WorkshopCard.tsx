@@ -13,52 +13,44 @@ export default function WorkshopCard({ workshop }: WorkshopCardProps) {
   };
 
   return (
-    <div 
-      className="glass-card p-8 relative overflow-hidden group border-white border-opacity-15 hover:border-purple-500 hover:border-opacity-50 cursor-pointer h-full flex flex-col"
+    <div
+      className="card p-6 relative overflow-hidden group cursor-pointer h-full flex flex-col"
       onClick={handleClick}
-      style={{ transition: 'border-color 0.2s ease', minHeight: '320px' }}
+      style={{ minHeight: '280px' }}
     >
-      {/* Top gradient border */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500"></div>
-      
-      {/* Content container with flexbox for equal height distribution */}
       <div className="flex flex-col flex-1">
-        {/* Title section - fixed height */}
-        <div className="mb-4" style={{ minHeight: '60px' }}>
-          <h3 className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors line-clamp-2">
+        <div className="mb-3" style={{ minHeight: '52px' }}>
+          <h3 className="text-lg font-semibold text-ink group-hover:text-accent transition-colors line-clamp-2">
             {workshop.title}
           </h3>
         </div>
-        
-        {/* Description section - flexible height but clamped */}
-        <div className="mb-5 flex-1">
-          <p className="text-white text-opacity-90 leading-relaxed">
+
+        <div className="mb-4 flex-1">
+          <p className="text-ink-secondary text-sm leading-relaxed line-clamp-3">
             {workshop.description}
           </p>
         </div>
 
-        {/* Tags section - flexible height */}
-        <div className="flex flex-wrap gap-2 mb-5" style={{ minHeight: '32px' }}>
+        <div className="flex flex-wrap gap-1.5 mb-4" style={{ minHeight: '28px' }}>
           {workshop.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 bg-purple-500 bg-opacity-40 border border-purple-500 border-opacity-50 rounded-full text-xs font-medium text-white flex items-center"
+              className="px-2.5 py-0.5 bg-surface-muted border border-border rounded-full text-xs font-medium text-ink-secondary"
             >
               {tag}
             </span>
           ))}
           {workshop.tags.length > 3 && (
-            <span className="px-3 py-1 bg-gray-500 bg-opacity-40 border border-gray-500 border-opacity-50 rounded-full text-xs font-medium text-white">
-              +{workshop.tags.length - 3} more
+            <span className="px-2.5 py-0.5 bg-surface-muted border border-border rounded-full text-xs font-medium text-ink-tertiary">
+              +{workshop.tags.length - 3}
             </span>
           )}
         </div>
 
-        {/* Audience size - footer section */}
         <div className="mt-auto">
-          <div className="bg-purple-500 bg-opacity-20 border border-purple-500 border-opacity-30 px-3 py-1.5 rounded-xl text-sm font-medium text-white inline-block">
-            👥 {workshop.audienceSize}
-          </div>
+          <span className="bg-accent-light text-accent px-3 py-1 rounded-full text-xs font-medium">
+            {workshop.audienceSize}
+          </span>
         </div>
       </div>
     </div>

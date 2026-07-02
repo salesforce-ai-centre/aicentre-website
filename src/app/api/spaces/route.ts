@@ -1,6 +1,7 @@
 import type { Space } from '@/types/content';
 import { NextResponse } from 'next/server';
 import { getSortedRecords } from '@/lib/salesforce-request';
+import { getUserSession } from '@/lib/user-session';
 
 const transformSpace = (object: Record<string, any>): Space => ({
   id: object["Id"],
@@ -12,6 +13,10 @@ const transformSpace = (object: Record<string, any>): Space => ({
 });
 
 export async function GET() {
+  const session = await getUserSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const objects = await getSortedRecords("Space__c", 20, false, "ORDER+BY+CreatedDate+ASC");
     if (!objects) {

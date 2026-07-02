@@ -1,6 +1,7 @@
 import type { FAQ } from '@/types/content';
 import { NextResponse } from 'next/server';
 import { getAllRecords } from '@/lib/salesforce-request';
+import { getUserSession } from '@/lib/user-session';
 
 const transformFaq = (object: Record<string, any>): FAQ => ({
   id: object["Name"],
@@ -10,6 +11,10 @@ const transformFaq = (object: Record<string, any>): FAQ => ({
 });
 
 export async function GET() {
+  const session = await getUserSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const objects = await getAllRecords("Frequently_Asked_Question__c");
     if (!objects) {

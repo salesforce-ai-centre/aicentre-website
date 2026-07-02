@@ -51,7 +51,7 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
           result.push(
             <pre 
               key={`${key}-code-${index}`} 
-              className="bg-gray-800 border border-gray-600 rounded-lg p-3 my-2 text-sm font-mono overflow-x-auto"
+              className="bg-surface-muted border border-border rounded-lg p-3 my-2 text-sm font-mono overflow-x-auto"
             >
               <code className="text-gray-100">{code}</code>
             </pre>
@@ -62,7 +62,7 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
           result.push(
             <code 
               key={`${key}-inline-${index}`} 
-              className="bg-gray-700 text-purple-300 px-1.5 py-0.5 rounded text-sm font-mono"
+              className="bg-surface-muted text-accent px-1.5 py-0.5 rounded text-sm font-mono"
             >
               {code}
             </code>

@@ -21,22 +21,21 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
       const resolvedParams = await params;
       const workshops = await getWorkshops();
       const foundWorkshop = workshops.find(w => w.id === resolvedParams.slug);
-      
+
       if (foundWorkshop) {
         setWorkshop(foundWorkshop);
       } else {
-        // Redirect to home if workshop not found
         router.push('/');
       }
     };
-    
+
     loadWorkshop();
   }, [params, router]);
 
   if (!workshop) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
       </div>
     );
   }
@@ -44,128 +43,124 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
   return (
     <main className="min-h-screen">
       <Navigation />
-      
-      {/* Hero Section */}
+
       <section className="pt-32 pb-16 section-padding">
         <div className="container-max">
-          {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-sm text-white text-opacity-80 mb-8">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <nav className="flex items-center space-x-2 text-sm text-ink-secondary mb-8">
+            <Link href="/" className="hover:text-ink transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/#offerings" className="hover:text-white transition-colors">Standard Offerings</Link>
+            <Link href="/discover" className="hover:text-ink transition-colors">Offerings</Link>
             <span>/</span>
-            <span className="text-white">{workshop.title}</span>
+            <span className="text-ink">{workshop.title}</span>
           </nav>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Main Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2">
-              <div className="glass-card p-8 mb-8">
-                <div className="flex flex-wrap gap-2 mb-6">
+              <div className="card p-8 mb-8">
+                <div className="flex flex-wrap gap-2 mb-5">
                   {workshop.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-purple-500 bg-opacity-40 border border-purple-500 border-opacity-50 rounded-full text-xs font-medium text-white"
+                      className="px-3 py-1 bg-accent-light text-accent rounded-full text-xs font-medium"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <h1 className="text-4xl md:text-5xl font-black mb-6 text-white">
+                <h1 className="font-serif text-h1 text-ink mb-4">
                   {workshop.title}
                 </h1>
 
-                <p className="text-l text-white text-opacity-90 leading-relaxed mb-8">
+                <p className="text-ink-secondary text-lg leading-relaxed mb-8">
                   {workshop.longDescription || workshop.description}
                 </p>
 
-                {/* Detailed Content */}
-                <div className="prose prose-invert max-w-none">
+                <div className="space-y-8">
                   {workshop?.sampleAgenda && (
-                    <>
-                      <h2 className="text-2xl font-bold text-white mb-4">Sample Agenda</h2>
-                      <div className="space-y-4 text-white text-opacity-90 mb-8">
-                        <ul className="space-y-2">
-                          {workshop.sampleAgenda.split("\n").map((item: string, index: number) => (
-                            <li key={`agenda_item_${index}`}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </>
+                    <div>
+                      <h2 className="text-xl font-semibold text-ink mb-3">Sample Agenda</h2>
+                      <ul className="space-y-2 text-ink-secondary">
+                        {workshop.sampleAgenda.split("\n").map((item: string, index: number) => (
+                          <li key={`agenda_item_${index}`} className="flex items-start gap-2">
+                            <span className="text-accent mt-1">•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
 
                   {workshop?.engagementExpectations && (
-                    <>
-                      <h2 className="text-2xl font-bold text-white mb-4">Engagement Expectations</h2>
-                      <div className="space-y-4 text-white text-opacity-90">
-                        <p className="text-l text-white text-opacity-90 leading-relaxed mb-8">
-                          {workshop.engagementExpectations.map((item, index) => (
-                            <span key={index}>
-                              {item}
-                              <br></br>
-                            </span>
-                          ))}
-                        </p>
-                      </div>
-                    </>
-                  )}
-                  
-                  <h2 className="text-2xl font-bold text-white mb-4 mt-8">Workshop Format</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
-                      <h3 className="font-semibold text-white mb-2">Duration</h3>
-                      <p className="text-white text-opacity-90">{workshop.duration}</p>
+                    <div>
+                      <h2 className="text-xl font-semibold text-ink mb-3">Engagement Expectations</h2>
+                      <ul className="space-y-2 text-ink-secondary">
+                        {workshop.engagementExpectations.map((item, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <span className="text-accent mt-1">•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
-                      <h3 className="font-semibold text-white mb-2">Audience Size</h3>
-                      <p className="text-white text-opacity-90">{workshop.audienceSize || defaultAudienceSize}</p>
+                  )}
+
+                  <div>
+                    <h2 className="text-xl font-semibold text-ink mb-4">Workshop Format</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-surface-muted p-4 rounded-xl">
+                        <h3 className="font-medium text-ink text-sm mb-1">Duration</h3>
+                        <p className="text-ink-secondary">{workshop.duration}</p>
+                      </div>
+                      <div className="bg-surface-muted p-4 rounded-xl">
+                        <h3 className="font-medium text-ink text-sm mb-1">Audience Size</h3>
+                        <p className="text-ink-secondary">{workshop.audienceSize || defaultAudienceSize}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="glass-card p-6 sticky top-24">
-                <h3 className="text-xl font-bold text-white mb-4">Ready to Book?</h3>
-                <p className="text-white text-opacity-90 mb-6">
-                  Partner with the AI Centre team to deliver this impactful workshop experience.
+              <div className="card p-6 sticky top-24">
+                <h3 className="text-lg font-semibold text-ink mb-3">Ready to Book?</h3>
+                <p className="text-ink-secondary text-sm mb-5">
+                  Partner with the AI Centre team to deliver this workshop.
                 </p>
-                
-                <Link 
-                  href="/plan-engagement"
-                  className="block w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl mb-4 text-center"
+
+                <Link
+                  href="/tiers"
+                  className="block w-full btn-primary text-center mb-3"
                 >
-                  Plan Customer Engagement
+                  View Tiers
                 </Link>
-                
-                <Link 
+
+                <Link
                   href="/agenda-builder"
-                  className="block w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl mb-4 text-center"
+                  className="block w-full btn-secondary text-center mb-4"
                 >
                   Build Custom Agenda
                 </Link>
-                
+
                 <div className="text-center">
-                  <p className="text-sm text-white text-opacity-80 mb-2">Contact us via Slack:</p>
-                  <a 
+                  <p className="text-xs text-ink-tertiary mb-1.5">Contact us via Slack:</p>
+                  <a
                     href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-full font-mono text-sm text-white transition-all duration-200 cursor-pointer"
+                    className="text-accent font-semibold text-sm hover:underline"
                   >
                     #ai-centre-uk
                   </a>
                 </div>
 
-                <div className="mt-6 pt-6 border-t border-white border-opacity-20">
-                  <h4 className="font-semibold text-white mb-2">Workshop Details</h4>
-                  <div className="space-y-2 text-sm text-white text-opacity-90">
-                    <div>Category: <span className="capitalize text-white">{workshop.category}</span></div>
-                    <div>Duration: <span className="text-white">{workshop.duration}</span></div>
-                    <div>Participants: <span className="text-white">{workshop.audienceSize || defaultAudienceSize}</span></div>
+                <div className="mt-5 pt-5 border-t border-border">
+                  <h4 className="font-medium text-ink text-sm mb-2">Details</h4>
+                  <div className="space-y-1.5 text-sm text-ink-secondary">
+                    <div>Category: <span className="capitalize text-ink">{workshop.category}</span></div>
+                    <div>Duration: <span className="text-ink">{workshop.duration}</span></div>
+                    <div>Participants: <span className="text-ink">{workshop.audienceSize || defaultAudienceSize}</span></div>
                   </div>
                 </div>
               </div>

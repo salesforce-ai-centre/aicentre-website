@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
 import { getSalesforceAccessToken, getSalesforceBaseUrl, getSalesforceAgentId } from '@/lib/salesforce-auth';
+import { getUserSession } from '@/lib/user-session';
 
 interface MessageRequest {
   sessionId: string;
@@ -8,6 +9,13 @@ interface MessageRequest {
 }
 
 export async function POST(request: NextRequest) {
+  const session = await getUserSession();
+  if (!session) {
+    return new Response(
+      JSON.stringify({ error: 'Unauthorized' }),
+      { status: 401, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
   try {
     const { sessionId, message, sequenceId }: MessageRequest = await request.json();
     
