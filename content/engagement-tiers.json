@@ -1,0 +1,45 @@
+[
+  {
+    "id": "bronze",
+    "name": "Bronze",
+    "color": "#9CA3AF",
+    "tagline": "Use the Space",
+    "description": "Bring your own agenda and team. Benefit from the AI Centre environment with self-serve experiences.",
+    "includes": [
+      "AI Centre venue access",
+      "Self-serve experiences (Lego City, phone booth, etc.)",
+      "Guest passes and basic AV"
+    ],
+    "yourRole": "You own the agenda, team, and delivery",
+    "support": "Venue access only"
+  },
+  {
+    "id": "silver",
+    "name": "Silver",
+    "color": "#A78BFA",
+    "tagline": "Space + Booked Experience",
+    "description": "Everything in Bronze, plus a scheduled AI Centre experience added to your agenda.",
+    "includes": [
+      "Everything in Bronze",
+      "One booked experience (F1 Simulators, Turing Test, etc.)",
+      "Experience facilitation by AI Centre Team"
+    ],
+    "yourRole": "You own the agenda, we facilitate the experience",
+    "support": "Experience facilitation"
+  },
+  {
+    "id": "gold",
+    "name": "Gold",
+    "color": "#F59E0B",
+    "tagline": "Full AI Centre Day",
+    "description": "AI Centre owns and runs the agenda with you. Includes experiences and full engagement design.",
+    "includes": [
+      "Everything in Silver",
+      "AI Centre designs and runs the day",
+      "Experience Strategist assigned",
+      "Full engagement planning support"
+    ],
+    "yourRole": "Collaborate — we run the day with your account team",
+    "support": "Full engagement design & delivery"
+  }
+]
