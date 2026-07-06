@@ -5,6 +5,10 @@ import { hmacAuth } from './lib/hmac-auth';
 console.log('🚀 Middleware file loaded');
 
 export async function middleware(request: NextRequest) {
+  if (process.env.MAINTENANCE_MODE === 'true') {
+    return NextResponse.rewrite(new URL('/maintenance', request.url));
+  }
+
   if (process.env.NODE_ENV === 'development') {
     console.log('🔧 Development environment detected, skipping auth');
     return NextResponse.next();
@@ -59,5 +63,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|get-access).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|images|slides|favicon.ico|get-access|maintenance).*)'],
 };
