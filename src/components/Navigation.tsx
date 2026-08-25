@@ -1,132 +1,145 @@
 'use client';
 
+/**
+ * Navigation — redesigned light-theme header.
+ *
+ * Figma header (node 7:50): cloud logo + navy "AI Centre" wordmark left,
+ * centred nav links (active link underlined), right-aligned solid brand
+ * "Request to visit" button. Links + CTA come from site-config.json.
+ *
+ * AIC2-130 — part of the Design System epic (AIC2-126).
+ */
+
 import { useState, useEffect } from 'react';
 import { getSiteConfig } from '@/lib/content';
 import Image from 'next/image';
 import Link from 'next/link';
-import SearchBar from './SearchBar';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+import Button from './ui/Button';
 import { useChat } from '@/contexts/ChatContext';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const siteConfig = getSiteConfig();
+  const pathname = usePathname();
   const { isSidebarOpen, sidebarSide } = useChat();
   const [isLargeScreen, setIsLargeScreen] = useState(true);
 
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024);
-    };
-
+    const checkScreenSize = () => setIsLargeScreen(window.innerWidth >= 1024);
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Calculate margin based on screen size and sidebar state
+  // Shift the header when the chat sidebar is open (unchanged behaviour).
   const getMargin = () => {
     if (!isSidebarOpen) return { marginLeft: '0', marginRight: '0' };
-    
     const marginValue = isLargeScreen ? '24rem' : '20rem';
-    
-    if (sidebarSide === 'left') {
-      return { marginLeft: marginValue, marginRight: '0' };
-    } else {
-      return { marginLeft: '0', marginRight: marginValue };
-    }
+    return sidebarSide === 'left'
+      ? { marginLeft: marginValue, marginRight: '0' }
+      : { marginLeft: '0', marginRight: marginValue };
   };
 
-  // Helper function to create proper navigation links
-  const getNavigationHref = (href: string) => {
-    // If it's a fragment link (starts with #), make it work from any page
-    if (href.startsWith('#')) {
-      return `/${href}`;
-    }
-    return href;
-  };
+  // A nav link is active when the current path matches (exact for "/", prefix otherwise).
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href);
 
   return (
-    <div 
+    <div
       className="fixed top-0 left-0 z-50 section-padding pt-4 transition-all duration-300 ease-in-out"
-      style={{
-        right: '0',
-        ...getMargin(),
-      }}
+      style={{ right: '0', ...getMargin() }}
     >
-      <nav className="container-max bg-black bg-opacity-40 border border-white border-opacity-30 rounded-2xl backdrop-blur-md shadow-lg">
-        <div className="px-3 sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0 hover:opacity-80 transition-opacity duration-200">
-            <Image 
-              src="/images/SalesforceLogo.png" 
-              alt="Salesforce Logo" 
-              width={36} 
-              height={36}
-              className="rounded-lg flex-shrink-0"
-            />
-            <h1 className="text-sm sm:text-lg md:text-xl font-bold text-white whitespace-nowrap">
-              <span className="hidden sm:inline">{siteConfig.siteName}</span>
-              <span className="sm:hidden">AI Centre</span>
-            </h1>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
-            {siteConfig.navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={getNavigationHref(item.href)}
-                className="text-white text-opacity-90 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white hover:bg-opacity-10"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Search Bar */}
-          <div className="hidden md:block w-80">
-            <SearchBar />
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-white text-opacity-90 p-2"
+      <nav className="container-max rounded-2xl bg-white/70 shadow-card backdrop-blur-md">
+        <div className="px-4 sm:px-6">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo + wordmark */}
+            <Link
+              href="/"
+              className="flex flex-shrink-0 items-center gap-2 transition-opacity duration-200 hover:opacity-80"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {isOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
+              <Image
+                src="/images/SalesforceLogo.png"
+                alt="AI Centre"
+                width={36}
+                height={36}
+                className="flex-shrink-0 rounded-lg"
+              />
+              <span className="font-heading whitespace-nowrap text-lg font-semibold text-brand sm:text-xl">
+                {siteConfig.siteName}
+              </span>
+            </Link>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-white border-opacity-20">
-              {siteConfig.navigation
-                .filter((item) => item.name !== "Agenda Builder")
-                .map((item) => (
+            {/* Desktop nav links */}
+            <div className="hidden items-center gap-8 md:flex">
+              {siteConfig.navigation.map((item) => (
                 <Link
                   key={item.name}
-                  href={getNavigationHref(item.href)}
-                  className="text-white text-opacity-90 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:bg-white hover:bg-opacity-10"
-                  onClick={() => setIsOpen(false)}
+                  href={item.href}
+                  className={`font-sans text-base font-bold transition-colors duration-200 ${
+                    isActive(item.href)
+                      ? 'text-navy underline decoration-2 underline-offset-8'
+                      : 'text-gray-700 hover:text-navy'
+                  }`}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="mt-4 pt-2 border-t border-white border-opacity-20">
-                <SearchBar />
+            </div>
+
+            {/* Desktop CTA */}
+            {siteConfig.ctaButton && (
+              <div className="hidden md:block">
+                <Button href={siteConfig.ctaButton.href}>
+                  {siteConfig.ctaButton.name}
+                </Button>
+              </div>
+            )}
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-navy md:hidden"
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+
+          {/* Mobile nav */}
+          {isOpen && (
+            <div className="border-t border-navy/10 md:hidden">
+              <div className="space-y-1 px-2 pb-3 pt-2">
+                {siteConfig.navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`block rounded-md px-3 py-2 font-sans text-base font-bold transition-colors duration-200 ${
+                      isActive(item.href)
+                        ? 'bg-brand/10 text-navy'
+                        : 'text-gray-700 hover:bg-brand/5 hover:text-navy'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                {siteConfig.ctaButton && (
+                  <div className="px-3 pt-2">
+                    <Button
+                      href={siteConfig.ctaButton.href}
+                      className="w-full"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {siteConfig.ctaButton.name}
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-        )}
+          )}
         </div>
       </nav>
     </div>

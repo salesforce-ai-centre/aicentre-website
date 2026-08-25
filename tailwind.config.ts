@@ -36,12 +36,33 @@ const config: Config = {
         background: {
           primary: '#1B1B3A',
           secondary: '#6366F1',
-        }
+        },
+        // Redesign light theme (Figma "AI Centre Guide") — AIC2-129
+        brand: {
+          DEFAULT: '#022ac0', // primary blue: buttons, logo wordmark, CTA well
+          dark: '#001e5b',    // deep navy: headings + body text on light surfaces
+        },
+        navy: '#001e5b',
+      },
+      fontFamily: {
+        // Headings use Avant Garde For Salesforce (Demi); body/UI use Salesforce Sans.
+        heading: ['"Avant Garde For Salesforce"', '"Salesforce Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"Salesforce Sans"', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-primary': 'linear-gradient(135deg, #1B1B3A 0%, #2D1B69 60%, #6366F1 100%)',
         'gradient-card': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
         'gradient-radial': 'radial-gradient(circle, var(--tw-gradient-stops))',
+        // Page background for redesigned light pages — cream at top fading to light blue.
+        // Figma node 7:49 ("Cloud Yellow Gradient 2"), reversed so cream sits at the top of the page.
+        'page-gradient':
+          'linear-gradient(180deg, #FBF3E0 0%, #EAF5FE 35%, #90D0FE 78%, #00B3FF 100%)',
+      },
+      borderRadius: {
+        card: '16px', // shared white content card shell (Figma rounded-16)
+      },
+      boxShadow: {
+        card: '0 8px 30px rgba(0, 30, 91, 0.08)', // soft navy-tinted card shadow
       },
       backdropBlur: {
         'xs': '2px',

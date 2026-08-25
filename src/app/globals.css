@@ -45,7 +45,15 @@
   .container-max {
     @apply max-w-7xl mx-auto;
   }
-  
+
+  /* ── Redesign light theme (AIC2-129) ─────────────────────────────
+     Shared surfaces for the About + Experiences pages. Prefer the
+     bg-page-gradient / text-navy / bg-brand / font-heading tokens
+     from tailwind.config.ts over raw hex. */
+  .page-gradient {
+    @apply bg-page-gradient min-h-screen text-navy;
+  }
+
   /* Remove fade-in animations completely for maximum performance */
   .fade-in {
     @apply opacity-100;
