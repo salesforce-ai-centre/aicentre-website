@@ -83,6 +83,10 @@ export interface SiteConfig {
     name: string;
     href: string;
   }>;
+  ctaButton?: {
+    name: string;
+    href: string;
+  };
   agentforceBadge: string;
   socialLinks?: {
     linkedin?: string;

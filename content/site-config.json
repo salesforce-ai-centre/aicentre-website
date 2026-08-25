@@ -7,13 +7,11 @@
     "supportDescription": "Account team support • Customer experience planning"
   },
   "navigation": [
-    { "name": "Get Started", "href": "/plan-engagement" },
-    { "name": "Journey", "href": "/journey" },
-    { "name": "Offerings", "href": "#offerings" },
-    { "name": "Experiences", "href": "#experiences" },
-    { "name": "Agenda Builder", "href": "/agenda-builder" },
-    { "name": "Meet the Team", "href": "#meet-the-team" }
+    { "name": "About", "href": "/" },
+    { "name": "Experiences", "href": "/experiences" },
+    { "name": "Plan", "href": "/plan-engagement" }
   ],
+  "ctaButton": { "name": "Request to visit", "href": "/plan-engagement" },
   "agentforceBadge": "Powered by Agentforce",
   "analytics": {
     "googleAnalyticsId": null
