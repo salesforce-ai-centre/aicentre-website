@@ -38,11 +38,15 @@ export default function MeetTheTeam() {
                 <Image
                   src={member.imageUrl}
                   alt={member.name}
+                  style={{
+                    maskImage: "linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,0)",
+                    maxHeight: "80%"
+                  }}
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 70vw, 25vw"
                 />
-                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white via-white/60 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white via-white/10 to-transparent" />
               </div>
               {/* Name/role sit over the faded lower area of the photo. */}
               <div className="absolute inset-x-0 bottom-0 px-6 pb-6 text-navy">

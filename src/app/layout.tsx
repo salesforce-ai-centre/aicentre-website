@@ -77,7 +77,6 @@ export default function RootLayout({
           <SidebarAwareLayout>
             {children}
           </SidebarAwareLayout>
-          <AgentforceChat />
         </ChatProvider>
       </body>
     </html>
