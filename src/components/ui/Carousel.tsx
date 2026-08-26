@@ -114,6 +114,7 @@ export default function Carousel({
         aria-label={ariaLabel}
         tabIndex={0}
         onKeyDown={onKeyDown}
+        style={{ overflowY: "hidden" }}
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
       >
         {items.map((child, i) => (
