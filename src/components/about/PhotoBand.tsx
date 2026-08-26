@@ -25,10 +25,10 @@ import styles from './PhotoBand.module.css';
 // Fewer tiles around the circle → each spans a wider angle → a tighter drum.
 // With the camera inside (deep perspective), the side walls curve toward the
 // viewer and reach the screen edges, so more of the cylinder is visible.
-const PLACEHOLDER_COUNT = 9;
+const PLACEHOLDER_COUNT = 12; // more tiles → larger radius → flatter, wider front arc
 const TILE_WIDTH = 360; // must match .tile width in the CSS module
 const GAP = 20; // small gap → tiles sit tight against each other
-const SPEED = 0.1; // degrees of ring rotation per frame
+const SPEED = 0.09; // degrees of ring rotation per frame
 
 export default function PhotoBand() {
   const images = (gallery.images as string[]) ?? [];
