@@ -12,6 +12,7 @@
  */
 
 import Button from './Button';
+import styles from './CtaWell.module.css';
 
 interface CtaWellProps {
   heading: React.ReactNode;
@@ -29,19 +30,11 @@ export default function CtaWell({
   className = '',
 }: CtaWellProps) {
   return (
-    <section
-      className={`rounded-t-[80px] bg-brand px-6 py-20 text-center text-white sm:rounded-t-[120px] ${className}`.trim()}
-    >
-      <div className="container-max flex flex-col items-center gap-6">
-        <h2 className="font-heading text-3xl font-semibold leading-tight sm:text-4xl lg:text-[56px]">
-          {heading}
-        </h2>
-        {body && (
-          <p className="font-sans max-w-xl text-lg text-white/90 sm:text-xl lg:text-2xl">
-            {body}
-          </p>
-        )}
-        <Button href={href} variant="outline" className="mt-2">
+    <section className={`${styles.well} ${className}`.trim()}>
+      <div className={styles.inner}>
+        <h2 className={styles.heading}>{heading}</h2>
+        {body && <p className={styles.body}>{body}</p>}
+        <Button href={href} variant="outline" className={styles.button}>
           {buttonLabel}
         </Button>
       </div>
