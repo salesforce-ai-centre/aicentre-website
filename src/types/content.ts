@@ -105,6 +105,12 @@ export interface TeamMember {
   imageUrl: string;
 }
 
+export interface Testimonial {
+  id: string;
+  quote: string;
+  attribution: string;
+}
+
 export interface Space {
   id: string;
   name: string;

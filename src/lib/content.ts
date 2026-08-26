@@ -7,15 +7,17 @@ import faqsContent from '../../content/faqs.json';
 import siteConfigContent from '../../content/site-config.json';
 import teamMembersContent from '../../content/team-members.json';
 import spacesContent from '../../content/spaces.json';
-import { 
-  Workshop, 
-  Experience, 
-  Keynote, 
-  FAQ, 
-  HeroContent, 
-  SiteConfig, 
+import testimonialsContent from '../../content/testimonials.json';
+import {
+  Workshop,
+  Experience,
+  Keynote,
+  FAQ,
+  HeroContent,
+  SiteConfig,
   TeamMember,
-  Space
+  Space,
+  Testimonial
 } from '@/types/content';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
@@ -62,6 +64,10 @@ export function getSiteConfig(): SiteConfig {
 
 export function getTeamMembers(): TeamMember[] {
   return teamMembersContent as TeamMember[];
+}
+
+export function getTestimonials(): Testimonial[] {
+  return testimonialsContent as Testimonial[];
 }
 
 export function getSpaces(): Promise<Space[]> {
