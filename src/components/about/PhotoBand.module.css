@@ -1,35 +1,48 @@
-/* PhotoBand — static concave cylinder band (AIC2-138).
-   No scrolling: a fixed, centred arc of images. Custom CSS for the 3D scene. */
+/* PhotoBand — curved panoramic 3D carousel (AIC2-138).
+   Images are positioned around the inside of a rotating cylinder
+   (rotateY + translateZ), forming a curved panorama that auto-rotates.
+   User cannot scroll it. Custom CSS for the 3D scene. */
 
 .section {
   padding-block: 2.5rem;
-  overflow: hidden; /* clip edge tiles that fall outside the viewport */
+  overflow: hidden;
+  /* Break out of any parent max-width container to span the full viewport. */
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
-.track {
-  display: flex;
-  align-items: flex-end; /* tiles sit on a shared baseline → flat bottom */
-  justify-content: center;
-  gap: 1.5rem;
-  /* 3D scene: tiles rotate around the inside of a cylinder. */
-  perspective: 1500px;
-  perspective-origin: center bottom;
-  padding-block: 4rem 1.5rem;
+/* Perspective viewport — the 3D "camera". Full page width. */
+.stage {
+  position: relative;
+  width: 100%;
+  /* height is set to the tile height + breathing room */
+  height: 420px;
+  perspective: 1000px;
+  perspective-origin: center center;
+}
+
+/* The rotating drum; rotateY is driven inline from the animation loop. */
+.ring {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .tile {
-  position: relative;
-  flex: 0 0 auto;
-  width: 210px;
-  height: 340px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 360px;
+  height: 380px;
+  margin-left: -180px;
+  margin-top: -190px;
   overflow: hidden;
-  /* Sharp corners — no radius, per the design. */
-  border-radius: 0;
-  /* Scale from the bottom: edge tiles grow upward, keeping bottoms level so
-     the top edge arcs while the bottom stays flat. transform is set inline. */
-  transform-origin: center bottom;
-  box-shadow: 0 18px 40px rgba(0, 30, 91, 0.14);
+  border-radius: 0; /* sharp corners, per the design */
+  /* Each tile's rotateY/translateZ placement is set inline. */
   backface-visibility: hidden;
+  box-shadow: 0 18px 40px rgba(0, 30, 91, 0.18);
 }
 
 .image {
@@ -53,12 +66,14 @@
 }
 
 @media (max-width: 640px) {
-  .tile {
-    width: 130px;
-    height: 220px;
+  .stage {
+    height: 300px;
+    perspective: 800px;
   }
-  .track {
-    gap: 0.75rem;
-    padding-block: 3rem 1rem;
+  .tile {
+    width: 160px;
+    height: 260px;
+    margin-left: -80px;
+    margin-top: -130px;
   }
 }
