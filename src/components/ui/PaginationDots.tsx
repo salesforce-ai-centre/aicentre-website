@@ -32,18 +32,20 @@ export default function PaginationDots({
 
   return (
     <div className={`flex justify-center gap-2 ${className}`.trim()}>
-      {Array.from({ length: count }, (_, i) => (
-        <button
-          key={i}
-          type="button"
-          onClick={() => onSelect(i)}
-          aria-label={`Go to ${itemLabel} ${i + 1} of ${count}`}
-          aria-current={i === active}
-          className={`h-2.5 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
-            i === active ? 'w-2.5 bg-brand' : 'w-2.5 bg-brand/30 hover:bg-brand/50'
-          }`}
-        />
-      ))}
+      <div style={{padding: "12px", borderRadius: "20px"}} className="flex justify-center gap-2 bg-white">
+        {Array.from({ length: count }, (_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => onSelect(i)}
+            aria-label={`Go to ${itemLabel} ${i + 1} of ${count}`}
+            aria-current={i === active}
+            className={`h-2.5 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+              i === active ? 'w-2.5 bg-[#00B3FF]' : 'w-2.5 bg-brand/30 hover:bg-brand/50'
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 }

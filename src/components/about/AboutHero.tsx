@@ -11,7 +11,7 @@ import SectionHeading from '@/components/ui/SectionHeading';
 
 export default function AboutHero() {
   return (
-    <section className="section-padding pt-32 pb-12 sm:pt-40">
+    <section className="section-padding pt-32 sm:pt-40">
       <div className="container-max">
         <SectionHeading
           as="h1"

@@ -4,9 +4,7 @@
    User cannot scroll it. Custom CSS for the 3D scene. */
 
 .section {
-  padding-block: 2.5rem;
   overflow: hidden;
-  /* Break out of any parent max-width container to span the full viewport. */
   width: 100vw;
   margin-left: 50%;
   transform: translateX(-50%);
@@ -16,7 +14,6 @@
 .stage {
   position: relative;
   width: 100%;
-  /* height is set to the tile height + breathing room */
   height: 420px;
   perspective: 1000px;
   perspective-origin: center center;
@@ -39,10 +36,8 @@
   margin-left: -180px;
   margin-top: -190px;
   overflow: hidden;
-  border-radius: 0; /* sharp corners, per the design */
-  /* Each tile's rotateY/translateZ placement is set inline. */
+  border-radius: 0;
   backface-visibility: hidden;
-  box-shadow: 0 18px 40px rgba(0, 30, 91, 0.18);
 }
 
 .image {

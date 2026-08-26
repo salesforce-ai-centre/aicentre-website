@@ -21,30 +21,33 @@ export default function Testimonials() {
   return (
     <section className="section-padding py-16">
       <div className="container-max">
-        <Carousel ariaLabel="What people say about the AI Centre">
+        <Carousel ariaLabel="What people say about the AI Centre" itemClassName="basis-[85%] sm:basis-1/2 lg:basis-2/5">
           {testimonials.map((t) => (
             <figure key={t.id} className="relative h-full pb-5">
-              {/* Speech bubble */}
-              <div className="relative flex h-full flex-col rounded-3xl bg-[#e8f2fd] p-8">
-                {/* Gold quote marks */}
+              <div style={{gap: "1rem"}} className="relative flex h-full flex-row rounded-3xl bg-white p-8">
                 <span
                   aria-hidden
-                  className="font-heading text-5xl font-bold leading-none text-amber-400"
+                  className="font-heading text-6xl font-bold leading-none text-amber-400"
                 >
                   &ldquo;
                 </span>
-                <blockquote className="font-sans mt-3 flex-1 text-lg font-semibold text-navy">
-                  {t.quote}
-                </blockquote>
-                <figcaption className="font-sans mt-5 text-sm text-navy/70">
-                  {t.attribution}
-                </figcaption>
+                <div className="relative flex h-full flex-col">
+                  <blockquote className="font-sans flex-1 text-lg font-semibold text-navy">
+                    {t.quote}
+                  </blockquote>
+                  <figcaption className="font-sans mt-5 text-sm text-navy/70">
+                    {t.attribution}
+                  </figcaption>
+                </div>
               </div>
-              {/* Bottom-right tail — a rotated square that reads as the bubble's point. */}
               <div
                 aria-hidden
-                className="absolute bottom-1 right-10 h-8 w-8 rotate-45 rounded-br-lg bg-[#e8f2fd]"
-              />
+                className="absolute bottom-1 right-16 h-8 w-8"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+                  <path d="M96 71L0 0H96V71Z" fill="white"/>
+                </svg>
+              </div>
             </figure>
           ))}
         </Carousel>

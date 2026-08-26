@@ -72,8 +72,6 @@ export default function PhotoBand() {
               key={i}
               className={styles.tile}
               style={{
-                // Place on the cylinder wall, then flip 180° to face inward
-                // toward the camera at the centre (we're inside the cylinder).
                 transform: `rotateY(${i * anglePer}deg) translateZ(${radius}px) rotateY(180deg)`,
               }}
             >
