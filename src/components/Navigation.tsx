@@ -25,12 +25,22 @@ export default function Navigation() {
   const pathname = usePathname();
   const { isSidebarOpen, sidebarSide } = useChat();
   const [isLargeScreen, setIsLargeScreen] = useState(true);
+  // Header background is transparent at the top of the page and fades in
+  // once the user scrolls past a small threshold.
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const checkScreenSize = () => setIsLargeScreen(window.innerWidth >= 1024);
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll(); // set initial state (e.g. on reload mid-page)
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   // Shift the header when the chat sidebar is open (unchanged behaviour).
@@ -51,7 +61,13 @@ export default function Navigation() {
       className="fixed top-0 left-0 z-50 section-padding pt-4 transition-all duration-300 ease-in-out"
       style={{ right: '0', ...getMargin() }}
     >
-      <nav className="container-max rounded-2xl bg-white/70 shadow-card backdrop-blur-md">
+      <nav
+        className={`container-max rounded-2xl transition-all duration-300 ease-in-out ${
+          scrolled || isOpen
+            ? 'bg-white/70 shadow-card backdrop-blur-md'
+            : 'bg-transparent shadow-none'
+        }`}
+      >
         <div className="px-4 sm:px-6">
           <div className="flex h-16 items-center justify-between">
             {/* Logo + wordmark */}
