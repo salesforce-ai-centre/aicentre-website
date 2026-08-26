@@ -31,9 +31,9 @@ export default function MeetTheTeam() {
           {team.map((member) => (
             <div
               key={member.id}
-              className="flex h-full flex-col overflow-hidden rounded-card bg-white pb-6 shadow-card"
+              className="relative flex h-full flex-col overflow-hidden rounded-card bg-white shadow-card"
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
+              <div className="relative aspect-[4/5] w-full">
                 <Image
                   src={member.imageUrl}
                   alt={member.name}
@@ -42,7 +42,9 @@ export default function MeetTheTeam() {
                   sizes="(max-width: 640px) 70vw, 25vw"
                 />
               </div>
-              <div className="px-6 pt-4 text-navy">
+              {/* Text panel rides up over the bottom of the photo; a white
+                  gradient (transparent at the top) fades it into the image. */}
+              <div className="relative -mt-12 bg-gradient-to-t from-white from-55% to-transparent px-6 pb-6 pt-14 text-navy">
                 <p className="font-heading text-xl font-semibold">{member.name}</p>
                 <p className="font-sans mt-1 text-sm text-navy/70">{member.role}</p>
               </div>
