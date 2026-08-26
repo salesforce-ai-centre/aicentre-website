@@ -3,18 +3,20 @@
 
 .section {
   padding-block: 2.5rem;
+  overflow: hidden; /* hide the off-screen repeated tiles cleanly */
 }
 
 .track {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2rem;
   overflow-x: auto;
   overflow-y: hidden;
   /* 3D scene: tiles rotate around the inside of a cylinder. */
-  perspective: 1600px;
-  perspective-origin: center center;
-  padding-block: 1.5rem;
+  perspective: 1400px;
+  perspective-origin: center 45%;
+  /* Generous vertical padding gives the arced tiles room without clipping. */
+  padding-block: 6rem;
   scrollbar-width: none;
 }
 .track::-webkit-scrollbar {
@@ -25,14 +27,15 @@
   position: relative;
   flex: 0 0 auto;
   width: 230px;
-  height: 380px;
+  height: 360px;
   overflow: hidden;
   /* Sharp corners — no radius, per the design. */
   border-radius: 0;
-  transform-style: preserve-3d;
+  transform-origin: center center;
   /* transform + opacity are set inline from JS per scroll position. */
-  will-change: transform;
+  will-change: transform, opacity;
   box-shadow: 0 18px 40px rgba(0, 30, 91, 0.14);
+  backface-visibility: hidden;
 }
 
 .image {
@@ -50,17 +53,18 @@
 }
 
 .button {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
 }
 
 @media (max-width: 640px) {
   .tile {
-    width: 170px;
-    height: 300px;
+    width: 160px;
+    height: 260px;
   }
   .track {
-    gap: 1.5rem;
+    gap: 1.25rem;
+    padding-block: 4.5rem;
   }
 }

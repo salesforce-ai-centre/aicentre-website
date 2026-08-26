@@ -1,17 +1,19 @@
 /**
  * PhotoBand — concave cylinder photo carousel for the About page.
  *
- * Images sit around the inside of a shallow cylinder: the centre image faces
- * the viewer flat, and images toward the edges rotate away (rotateY) so they
- * appear to curve backward — a gentle coverflow, not a harsh skew. Sharp
- * corners, per the design. Transforms update live from each tile's distance
- * to the viewport centre. Figma node 7:119.
+ * Images wrap around the inside of a cylinder: the centre image faces the
+ * viewer, and tiles toward the edges rotate away (rotateY) AND rise up along
+ * a parabola (translateY) so the top and bottom of the strip bow into a
+ * concave curve — like looking into the inside of a carousel drum.
+ * Sharp corners, per the design. Figma node 7:119.
  *
- * Auto-scrolls continuously and loops seamlessly by rendering the image set
- * 3× and wrapping scrollLeft by one set-width. Under prefers-reduced-motion
- * the auto-scroll stops (manual scroll + transforms still work).
+ * Auto-scrolls continuously and loops seamlessly: the image set is rendered
+ * 3× and a float scroll accumulator wraps by one set-width. (scrollLeft is
+ * integer-quantised, so we track the position as a float and assign it —
+ * incrementing scrollLeft directly by <1px never accumulates.)
+ * prefers-reduced-motion stops the auto-scroll; manual scroll still curves.
  *
- * Styling lives in PhotoBand.module.css (custom CSS for the 3D scene).
+ * Styling lives in PhotoBand.module.css.
  *
  * AIC2-138 — part of the About Page epic (AIC2-127).
  */
@@ -26,10 +28,11 @@ import styles from './PhotoBand.module.css';
 
 const PLACEHOLDER_COUNT = 6;
 const REPEATS = 3; // render the set 3× so the loop has content either side
-const SPEED = 0.4; // px per frame auto-scroll
-const FALLOFF = 620; // px from centre to reach the full edge transform
-const MAX_ROTATE = 38; // degrees rotateY at the edges (gentle cylinder curve)
-const MIN_SCALE = 0.9; // edge tiles recede slightly
+const SPEED = 0.6; // px per frame auto-scroll
+const FALLOFF = 640; // px from centre over which the curve develops
+const MAX_ROTATE = 42; // deg rotateY at the edges (cylinder wall)
+const ARC_RISE = 90; // px the edge tiles lift, bowing the strip into a curve
+const MIN_SCALE = 0.82; // edge tiles recede
 const MAX_SCALE = 1; // centre tile faces the viewer, full size
 
 export default function PhotoBand() {
@@ -40,8 +43,10 @@ export default function PhotoBand() {
 
   const trackRef = useRef<HTMLDivElement>(null);
   const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const posRef = useRef(0); // float scroll position (scrollLeft floors sub-px increments)
+  const selfScrollRef = useRef(false); // true while WE set scrollLeft, so onScroll ignores it
 
-  // Rotate each tile around the cylinder based on distance to viewport centre.
+  // Curve each tile from its distance to the viewport centre.
   const applyTransforms = useCallback(() => {
     const viewportCentre = window.innerWidth / 2;
     tileRefs.current.forEach((el) => {
@@ -51,12 +56,15 @@ export default function PhotoBand() {
       // -1 (far left) → 0 (centre) → 1 (far right), clamped.
       const offset = Math.max(-1, Math.min(1, (tileCentre - viewportCentre) / FALLOFF));
       const dist = Math.abs(offset);
-      // Edge tiles rotate away from the viewer; sign turns them inward.
-      const rotate = -offset * MAX_ROTATE;
+
+      const rotate = -offset * MAX_ROTATE; // edges rotate away from viewer
       const scale = MAX_SCALE - (MAX_SCALE - MIN_SCALE) * dist;
-      el.style.transform = `rotateY(${rotate.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+      // Parabolic rise: 0 at centre, ARC_RISE at the edges → concave bow.
+      const lift = -ARC_RISE * dist * dist;
+
+      el.style.transform = `translateY(${lift.toFixed(1)}px) rotateY(${rotate.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
       el.style.zIndex = String(Math.round((1 - dist) * 10));
-      el.style.opacity = (1 - dist * 0.25).toFixed(2);
+      el.style.opacity = (1 - dist * 0.3).toFixed(2);
     });
   }, []);
 
@@ -66,24 +74,51 @@ export default function PhotoBand() {
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const setWidth = () => track.scrollWidth / REPEATS;
-    track.scrollLeft = setWidth(); // start one set in, room to loop left
+
+    // Start one full set in, so there's a set to the left to loop through.
+    posRef.current = setWidth();
+    track.scrollLeft = posRef.current;
     applyTransforms();
 
     let raf = 0;
     const frame = () => {
-      if (!reduced) track.scrollLeft += SPEED;
       const w = setWidth();
-      if (track.scrollLeft >= w * 2) track.scrollLeft -= w;
-      else if (track.scrollLeft <= 0) track.scrollLeft += w;
+      if (!reduced) {
+        posRef.current += SPEED;
+        if (posRef.current >= w * 2) posRef.current -= w; // seamless wrap
+        selfScrollRef.current = true;
+        track.scrollLeft = posRef.current; // assign float → actually moves
+      }
       applyTransforms();
       raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);
 
+    // Manual scroll (drag/trackpad): keep the float accumulator in sync + re-wrap.
+    // Ignore scroll events we triggered ourselves by assigning scrollLeft.
+    const onScroll = () => {
+      if (selfScrollRef.current) {
+        selfScrollRef.current = false;
+        return;
+      }
+      const w = setWidth();
+      posRef.current = track.scrollLeft;
+      if (posRef.current >= w * 2) {
+        posRef.current -= w;
+        track.scrollLeft = posRef.current;
+      } else if (posRef.current <= 0) {
+        posRef.current += w;
+        track.scrollLeft = posRef.current;
+      }
+      applyTransforms();
+    };
+    track.addEventListener('scroll', onScroll, { passive: true });
     const onResize = () => applyTransforms();
     window.addEventListener('resize', onResize);
+
     return () => {
       cancelAnimationFrame(raf);
+      track.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
     };
   }, [applyTransforms]);
