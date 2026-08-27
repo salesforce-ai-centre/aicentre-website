@@ -25,8 +25,6 @@ export default function Navigation() {
   const pathname = usePathname();
   const { isSidebarOpen, sidebarSide } = useChat();
   const [isLargeScreen, setIsLargeScreen] = useState(true);
-  // Header background is transparent at the top of the page and fades in
-  // once the user scrolls past a small threshold.
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -38,12 +36,11 @@ export default function Navigation() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll(); // set initial state (e.g. on reload mid-page)
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Shift the header when the chat sidebar is open (unchanged behaviour).
   const getMargin = () => {
     if (!isSidebarOpen) return { marginLeft: '0', marginRight: '0' };
     const marginValue = isLargeScreen ? '24rem' : '20rem';
@@ -52,7 +49,6 @@ export default function Navigation() {
       : { marginLeft: '0', marginRight: marginValue };
   };
 
-  // A nav link is active when the current path matches (exact for "/", prefix otherwise).
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
@@ -64,13 +60,12 @@ export default function Navigation() {
       <nav
         className={`container-max rounded-2xl transition-all duration-300 ease-in-out ${
           scrolled || isOpen
-            ? 'bg-white/70 shadow-card backdrop-blur-md'
+            ? 'bg-white backdrop-blur-md'
             : 'bg-transparent shadow-none'
         }`}
       >
         <div className="px-4 sm:px-6">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo + wordmark */}
             <Link
               href="/"
               className="flex flex-shrink-0 items-center gap-2 transition-opacity duration-200 hover:opacity-80"
@@ -87,7 +82,6 @@ export default function Navigation() {
               </span>
             </Link>
 
-            {/* Desktop nav links */}
             <div className="hidden items-center gap-8 md:flex">
               {siteConfig.navigation.map((item) => (
                 <Link
@@ -95,8 +89,8 @@ export default function Navigation() {
                   href={item.href}
                   className={`font-sans text-base font-bold transition-colors duration-200 ${
                     isActive(item.href)
-                      ? 'text-navy underline decoration-2 underline-offset-8'
-                      : 'text-gray-700 hover:text-navy'
+                      ? 'text-gray-800 underline decoration-[#E4A200] decoration-2 underline-offset-8'
+                      : 'text-gray-700 hover:text-gray-800'
                   }`}
                 >
                   {item.name}
