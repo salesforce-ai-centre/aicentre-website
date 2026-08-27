@@ -1,0 +1,27 @@
+/* ExperienceSection — titled carousel section (AIC2-145/146/147). */
+
+.section {
+  padding-block: 3rem;
+  padding-inline: 1rem;
+  scroll-margin-top: 6rem; /* offset for the fixed header when pills jump here */
+}
+
+@media (min-width: 640px) {
+  .section {
+    padding-inline: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .section {
+    padding-inline: 2rem;
+  }
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.heading {
+  margin-bottom: 2.5rem;
+}

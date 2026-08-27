@@ -1,0 +1,26 @@
+/* ExperiencesHero — heading + pill filter row (AIC2-143). */
+
+.hero {
+  padding-block: 8rem 2rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .hero {
+    padding-top: 10rem;
+    padding-inline: 1.5rem;
+  }
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.pills {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}

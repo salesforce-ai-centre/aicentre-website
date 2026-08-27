@@ -41,8 +41,8 @@ export default function ContentCard({
     <div
       className={`flex h-full flex-col overflow-hidden rounded-card bg-white pb-8 shadow-card ${className}`.trim()}
     >
-      {imageSrc && (
-        <div className="relative h-[238px] w-full shrink-0 overflow-hidden">
+      <div className="relative h-[238px] w-full shrink-0 overflow-hidden">
+        {imageSrc ? (
           <Image
             src={imageSrc}
             alt={imageAlt}
@@ -50,13 +50,15 @@ export default function ContentCard({
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
-          {badge && (
-            <span className="absolute right-4 top-4 rounded-2xl bg-white px-4 py-1.5 font-sans text-base font-bold text-navy">
-              {badge}
-            </span>
-          )}
-        </div>
-      )}
+        ) : (
+          <div className="h-full w-full bg-gradient-to-br from-brand/25 to-brand/5" />
+        )}
+        {badge && (
+          <span className="absolute right-4 top-4 rounded-2xl bg-white px-4 py-1.5 font-sans text-base font-bold text-navy">
+            {badge}
+          </span>
+        )}
+      </div>
 
       <div className="flex flex-col gap-4 px-8 pt-6 text-navy">
         {title && (
