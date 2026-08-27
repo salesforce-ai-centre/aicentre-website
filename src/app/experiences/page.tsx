@@ -19,6 +19,7 @@ import ExperienceSection, {
   type ExperienceCardData,
 } from '@/components/experiences/ExperienceSection';
 import CtaWell from '@/components/ui/CtaWell';
+import SiteFooter from '@/components/ui/SiteFooter';
 
 const ACTIVATIONS: ExperienceCardData[] = [
   {
@@ -148,6 +149,7 @@ export default function ExperiencesPage() {
         href="/plan-engagement"
         className="mt-12"
       />
+      <SiteFooter />
     </main>
   );
 }

@@ -10,7 +10,7 @@
 
 import Navigation from '@/components/Navigation';
 import PlanHero from '@/components/plan/PlanHero';
-import PlanFooter from '@/components/plan/PlanFooter';
+import SiteFooter from '@/components/ui/SiteFooter';
 
 export const metadata = {
   title: 'Plan your visit | AI Centre',
@@ -33,7 +33,7 @@ export default function PlanPage() {
       <div className="flex-1">
         <PlanHero />
       </div>
-      <PlanFooter />
+      <SiteFooter />
     </main>
   );
 }

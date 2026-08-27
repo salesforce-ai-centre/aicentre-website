@@ -15,6 +15,7 @@ import Testimonials from '@/components/about/Testimonials';
 import FeatureCards from '@/components/about/FeatureCards';
 import MeetTheTeam from '@/components/about/MeetTheTeam';
 import CtaWell from '@/components/ui/CtaWell';
+import SiteFooter from '@/components/ui/SiteFooter';
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
         href="/experiences"
         className="mt-12"
       />
+      <SiteFooter />
     </main>
   );
 }

@@ -1,19 +1,19 @@
 /**
- * PlanFooter — navy footer bar on the Plan page.
+ * SiteFooter — shared navy footer bar used across all redesigned pages.
  *
  * "Created by your AI Centre team" on the left, "View slack channel" outline
  * button on the right. Figma node 84:155.
  *
- * Plan page (Figma frame 14:712).
+ * Part of the Design System (shared across About / Experiences / Plan).
  */
 
-import Button from '@/components/ui/Button';
-import styles from './PlanFooter.module.css';
+import Button from './Button';
+import styles from './SiteFooter.module.css';
 
 const SLACK_CHANNEL_URL =
   'https://salesforce.enterprise.slack.com/archives/C080TP9HENQ';
 
-export default function PlanFooter() {
+export default function SiteFooter() {
   return (
     <footer className={styles.bar}>
       <div className={styles.inner}>
