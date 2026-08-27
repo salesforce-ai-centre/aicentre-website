@@ -30,7 +30,7 @@ const PLACEHOLDER_COUNT = 12;
 const SPEED = 0.04; // degrees of ring rotation per frame
 const MOBILE_MAX = 640;
 // Portrait aspect for the tiles (height / width).
-const ASPECT = 380 / 240;
+const ASPECT = 360 / 320;
 
 /**
  * Tile size for a given viewport width. Width scales with the viewport (so the
@@ -41,8 +41,9 @@ function tileForWidth(vw: number) {
   if (vw <= MOBILE_MAX) {
     return { width: 150, height: 250, gap: 8 };
   }
-  // ~17% of viewport width, clamped 220–420px.
-  const width = Math.round(Math.min(420, Math.max(220, vw * 0.17)));
+  // ~22% of viewport width, clamped 260–560px — larger tiles + bigger radius
+  // so the front arc spans wider and spills further toward the screen edges.
+  const width = Math.round(Math.min(480, Math.max(220, vw * 0.22)));
   return { width, height: Math.round(width * ASPECT), gap: 16 };
 }
 
