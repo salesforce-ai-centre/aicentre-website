@@ -1,0 +1,97 @@
+/* MeetTheTeam — team carousel section (AIC2-141).
+   Card photo fades into white at the bottom; name/role sit over the fade. */
+
+.section {
+  padding-block: 4rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .section {
+    padding-inline: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .section {
+    padding-inline: 2rem;
+  }
+}
+
+.container {
+  max-width: 80rem; /* container-max */
+  margin: 0 auto;
+}
+
+.heading {
+  margin-bottom: 3rem;
+}
+
+.card {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-card, 16px);
+  background-color: #fff;
+  box-shadow: var(--shadow-card, 0 8px 30px rgba(0, 30, 91, 0.08));
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+.image {
+  object-fit: cover;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0)
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0)
+  );
+  max-height: 80%;
+}
+
+/* Extra white wash over the lower half to seat the text cleanly. */
+.fade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 50%;
+  background: linear-gradient(
+    to top,
+    #fff,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+}
+
+.text {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 0 1.5rem 1.5rem;
+  color: var(--navy, #001e5b);
+}
+
+.name {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.role {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(0, 30, 91, 0.8);
+}

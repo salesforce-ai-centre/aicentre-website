@@ -17,6 +17,8 @@ interface SectionHeadingProps {
   className?: string;
   /** Render level for the title — defaults to h2 (use h1 for the hero). */
   as?: 'h1' | 'h2';
+  /** Extra classes for the title element (e.g. relax leading on a two-line hero). */
+  titleClassName?: string;
 }
 
 export default function SectionHeading({
@@ -24,14 +26,17 @@ export default function SectionHeading({
   subtitle,
   className = '',
   as: Tag = 'h2',
+  titleClassName = '',
 }: SectionHeadingProps) {
   return (
     <div className={`text-center text-navy ${className}`.trim()}>
-      <Tag className="font-heading font-semibold leading-tight text-3xl sm:text-4xl lg:text-[56px]">
+      <Tag
+        className={`font-heading font-semibold leading-tight text-3xl sm:text-4xl lg:text-[56px] ${titleClassName}`.trim()}
+      >
         {title}
       </Tag>
       {subtitle && (
-        <p className="font-sans mx-auto mt-4 max-w-xl text-lg sm:text-xl lg:text-2xl text-navy/90">
+        <p className="font-sans mx-auto mt-4 max-w-xl text-lg sm:text-xl lg:text-2xl text-gray-900/90">
           {subtitle}
         </p>
       )}

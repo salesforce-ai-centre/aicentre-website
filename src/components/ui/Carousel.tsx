@@ -27,6 +27,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
+import PaginationDots from './PaginationDots';
 
 interface CarouselProps {
   children: ReactNode;
@@ -114,6 +115,7 @@ export default function Carousel({
         aria-label={ariaLabel}
         tabIndex={0}
         onKeyDown={onKeyDown}
+        style={{ overflowY: "hidden" }}
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
       >
         {items.map((child, i) => (
@@ -129,22 +131,12 @@ export default function Carousel({
         ))}
       </div>
 
-      {items.length > 1 && (
-        <div className="mt-6 flex justify-center gap-2">
-          {items.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => scrollToIndex(i)}
-              aria-label={`Go to item ${i + 1} of ${items.length}`}
-              aria-current={i === activeIndex}
-              className={`h-2.5 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
-                i === activeIndex ? 'w-6 bg-brand' : 'w-2.5 bg-brand/30 hover:bg-brand/50'
-              }`}
-            />
-          ))}
-        </div>
-      )}
+      <PaginationDots
+        count={items.length}
+        active={activeIndex}
+        onSelect={scrollToIndex}
+        className="mt-6"
+      />
     </div>
   );
 }

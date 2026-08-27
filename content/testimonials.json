@@ -1,0 +1,22 @@
+[
+  {
+    "id": "brunel",
+    "quote": "The facility is stunning and has a genuine campus feel that signals serious, longer-term commitment to AI in the UK.",
+    "attribution": "Professor, Brunel Business School"
+  },
+  {
+    "id": "spurs",
+    "quote": "Wonderful space to support the deeper understanding, adoption and development of AI and to support the creation of opportunities for people.",
+    "attribution": "CEO, Tottenham Hotspur"
+  },
+  {
+    "id": "salesforce-ae",
+    "quote": "Data 360 is a lot more exciting when you're hurtling towards a corner at 150mph on the F1 simulators.",
+    "attribution": "Account Executive, Salesforce"
+  },
+  {
+    "id": "journalist",
+    "quote": "The importance of a physical space is hugely under-rated in this AI world.",
+    "attribution": "Independent Journalist"
+  }
+]
