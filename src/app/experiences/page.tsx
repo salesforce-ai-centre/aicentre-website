@@ -42,6 +42,7 @@ const ACTIVATIONS: ExperienceCardData[] = [
     title: 'Lego City',
     description:
       'A connected, animated LEGO city that brings Salesforce industry solutions to life across Manufacturing, Healthcare, Retail, Utilities and Banking.',
+    image: '/images/Experiences/activations/activation-lego-city1.jpg',
     badge: 'Self Serve',
   },
   {
@@ -50,7 +51,7 @@ const ACTIVATIONS: ExperienceCardData[] = [
     description:
       'An AI sommelier that pairs recommendations to your taste — a playful showcase of agentic personalisation.',
     image: '/images/Experiences/activations/activation-sommelai1.jpg',
-    badge: 'Self Serve',
+    badge: 'Guided',
   },
   {
     id: 'ai-or-human',
