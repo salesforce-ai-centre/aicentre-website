@@ -36,7 +36,7 @@ export default function SectionHeading({
         {title}
       </Tag>
       {subtitle && (
-        <p className="font-sans mx-auto mt-4 max-w-xl text-lg sm:text-xl lg:text-2xl text-navy/90">
+        <p className="font-sans mx-auto mt-4 max-w-xl text-lg sm:text-xl lg:text-2xl text-gray-900/90">
           {subtitle}
         </p>
       )}

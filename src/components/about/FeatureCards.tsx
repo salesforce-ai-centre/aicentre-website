@@ -30,7 +30,7 @@ const FEATURES: Feature[] = [
   },
 ];
 
-function Card({ feature }: { feature: Feature }) {
+function Card({ feature, isPrimary=true }: { feature: Feature, isPrimary: boolean }) {
   return (
     <div
       className="relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-card p-8 shadow-card"
@@ -46,13 +46,28 @@ function Card({ feature }: { feature: Feature }) {
     >
       {/* Brand fill when no image, plus a legibility gradient for the text. */}
       {!feature.imageSrc && <div className="absolute inset-0 bg-brand" />}
-      <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/30 to-transparent" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: isPrimary ? "linear-gradient(39.22deg, #001E5B 12.38%, rgba(2, 42, 192, 0.5) 51.34%, rgba(2, 42, 192, 0) 71.97%)" : "linear-gradient(10.73deg, #ECF5FB 35.05%, rgba(238, 245, 248, 0.90891) 45.68%, rgba(245, 244, 236, 0.5) 59.06%, rgba(236, 245, 251, 0) 71.93%)"
+        }}
+      />
       <div className="relative">
-        <h3 className="font-heading text-3xl font-semibold text-white lg:text-4xl">
+        <h3
+          className={
+            `font-heading text-3xl font-semibold
+            ${isPrimary ? "text-white" : "text-navy"}
+            lg:text-4xl`
+          }
+        >
           {feature.title}
         </h3>
         {feature.body && (
-          <p className="font-sans mt-3 max-w-md text-base text-white/90">
+          <p
+            className={
+              `font-sans mt-3 max-w-md text-base ${isPrimary ? "text-white/90" : "text-navy/90"}`
+            }
+          >
             {feature.body}
           </p>
         )}
@@ -69,7 +84,7 @@ export default function FeatureCards() {
           <Card feature={FEATURES[0]} />
         </div>
         <div className="lg:col-span-1">
-          <Card feature={FEATURES[1]} />
+          <Card feature={FEATURES[1]} isPrimary={false} />
         </div>
       </div>
     </section>
