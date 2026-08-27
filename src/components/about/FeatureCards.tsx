@@ -21,10 +21,12 @@ const FEATURES: Feature[] = [
   {
     title: 'Reimagine your business',
     body: "We're inspiring teams to reimagine their businesses with AI through immersive experiences and thought-provoking workshops.",
+    imageSrc: '/images/About/Other/business-cio-breakfast1.jpg',
   },
   {
     title: 'Equip the next generation',
     body: "We're equipping the next generation across the UK and Ireland with essential AI literacy.",
+    imageSrc: '/images/About/Other/community-future-trailblazers1.jpg',
   },
 ];
 
