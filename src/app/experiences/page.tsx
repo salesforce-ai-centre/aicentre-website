@@ -132,7 +132,7 @@ const SPACES: ExperienceCardData[] = [
 
 export default function ExperiencesPage() {
   return (
-    <main className="page-gradient overflow-x-hidden">
+    <main className="page-gradient overflow-x-hidden" style={{ '--page-gradient': 'linear-gradient(0deg, #00B3FF 0%, #90D0FE 21.42%, #EAF5FE 68.72%, #F9F0FF 100%)'}}>
       <Navigation />
       <ExperiencesHero />
       <ExperienceSection id="activations" title="Activations" items={ACTIVATIONS} />
