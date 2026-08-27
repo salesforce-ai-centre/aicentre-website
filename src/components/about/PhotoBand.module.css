@@ -31,10 +31,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 360px;
-  height: 380px;
-  margin-left: -180px;
-  margin-top: -190px;
+  /* width / height / margins are set inline from JS (per breakpoint) so the
+     rendered tile size always matches the JS-computed drum radius. */
   overflow: hidden;
   border-radius: 0;
   backface-visibility: hidden;
@@ -62,13 +60,7 @@
 
 @media (max-width: 640px) {
   .stage {
-    height: 300px;
-    perspective: 800px;
-  }
-  .tile {
-    width: 160px;
-    height: 260px;
-    margin-left: -80px;
-    margin-top: -130px;
+    height: 290px;
+    perspective: 700px;
   }
 }

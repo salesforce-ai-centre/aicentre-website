@@ -8,8 +8,12 @@
  * depth. The whole ring auto-rotates continuously; the user cannot scroll it.
  * Sharp corners, per the design. Figma node 7:119.
  *
- * Technique per the "curved panoramic 3D carousel" pattern. prefers-reduced-
- * motion freezes the rotation. Styling in PhotoBand.module.css.
+ * Tile size is chosen per breakpoint in JS, and the drum radius is derived
+ * from that same size — so tiles stay tight together at every width (the
+ * radius and tile width can never disagree). Thinner/portrait tiles above the
+ * mobile breakpoint. prefers-reduced-motion freezes the rotation.
+ *
+ * Styling in PhotoBand.module.css.
  *
  * AIC2-138 — part of the About Page epic (AIC2-127).
  */
@@ -17,29 +21,52 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from '@/components/ui/Button';
 import gallery from '../../../content/gallery.json';
 import styles from './PhotoBand.module.css';
 
-// Fewer tiles around the circle → each spans a wider angle → a tighter drum.
-// With the camera inside (deep perspective), the side walls curve toward the
-// viewer and reach the screen edges, so more of the cylinder is visible.
-const PLACEHOLDER_COUNT = 12; // more tiles → larger radius → flatter, wider front arc
-const TILE_WIDTH = 360; // must match .tile width in the CSS module
-const GAP = 20; // small gap → tiles sit tight against each other
-const SPEED = 0.09; // degrees of ring rotation per frame
+const PLACEHOLDER_COUNT = 12;
+const SPEED = 0.04; // degrees of ring rotation per frame
+const MOBILE_MAX = 640;
+// Portrait aspect for the tiles (height / width).
+const ASPECT = 380 / 240;
+
+/**
+ * Tile size for a given viewport width. Width scales with the viewport (so the
+ * drum radius, derived from it, keeps the arc filling wide screens) but is
+ * clamped so tiles stay a sensible size. Thinner/portrait via ASPECT.
+ */
+function tileForWidth(vw: number) {
+  if (vw <= MOBILE_MAX) {
+    return { width: 150, height: 250, gap: 8 };
+  }
+  // ~17% of viewport width, clamped 220–420px.
+  const width = Math.round(Math.min(420, Math.max(220, vw * 0.17)));
+  return { width, height: Math.round(width * ASPECT), gap: 16 };
+}
 
 export default function PhotoBand() {
   const images = (gallery.images as string[]) ?? [];
   const hasImages = images.length > 0;
   const count = hasImages ? images.length : PLACEHOLDER_COUNT;
-
-  // Even angular spacing around the full circle.
   const anglePer = 360 / count;
+
+  // Tile dimensions track the viewport so the radius (below) always matches
+  // the rendered tile width. The mobile "far apart" bug came from computing
+  // the radius from the desktop width while CSS shrank the tiles; and a fixed
+  // desktop width left wide screens under-filled — hence the viewport scale.
+  const [tile, setTile] = useState(() => tileForWidth(1440));
+  useEffect(() => {
+    const pick = () => setTile(tileForWidth(window.innerWidth));
+    pick();
+    window.addEventListener('resize', pick);
+    return () => window.removeEventListener('resize', pick);
+  }, []);
+
   // Radius so tiles sit side by side: half-chord / tan(halfAngle).
   const radius = Math.round(
-    (TILE_WIDTH + GAP) / 2 / Math.tan((Math.PI * anglePer) / 360),
+    (tile.width + tile.gap) / 2 / Math.tan((Math.PI * anglePer) / 360),
   );
 
   const ringRef = useRef<HTMLDivElement>(null);
@@ -53,7 +80,7 @@ export default function PhotoBand() {
 
     let raf = 0;
     const frame = () => {
-      rotationRef.current -= SPEED;
+      rotationRef.current += SPEED;
       // Camera sits INSIDE the cylinder (no translateZ pullback on the ring),
       // so images wrap around the viewer and the side images curve toward us.
       ring.style.transform = `rotateY(${rotationRef.current}deg)`;
@@ -72,6 +99,10 @@ export default function PhotoBand() {
               key={i}
               className={styles.tile}
               style={{
+                width: tile.width,
+                height: tile.height,
+                marginLeft: -tile.width / 2,
+                marginTop: -tile.height / 2,
                 transform: `rotateY(${i * anglePer}deg) translateZ(${radius}px) rotateY(180deg)`,
               }}
             >
@@ -81,7 +112,7 @@ export default function PhotoBand() {
                   alt=""
                   fill
                   className={styles.image}
-                  sizes="230px"
+                  sizes="240px"
                 />
               ) : (
                 <div className={styles.placeholder} />
