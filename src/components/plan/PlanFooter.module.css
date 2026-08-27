@@ -1,0 +1,30 @@
+/* PlanFooter — navy footer bar (Plan page). */
+
+.bar {
+  background: var(--navy, #001e5b);
+}
+
+.inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  min-height: 89px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.text {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .text {
+    font-size: 2rem;
+  }
+}

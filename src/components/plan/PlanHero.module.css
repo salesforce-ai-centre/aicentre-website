@@ -1,0 +1,85 @@
+/* PlanHero — two-column hero (Plan page). */
+
+.hero {
+  padding-block: 8rem 3rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .hero {
+    padding-inline: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .hero {
+    padding-top: 10rem;
+    padding-inline: 2rem;
+  }
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.heading {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-weight: 600;
+  color: var(--navy, #001e5b);
+  font-size: 2.25rem;
+  line-height: 1.15;
+}
+
+@media (min-width: 640px) {
+  .heading {
+    font-size: 3rem;
+  }
+}
+@media (min-width: 1024px) {
+  .heading {
+    font-size: 3.5rem;
+  }
+}
+
+.subtitle {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  color: #181818;
+  font-size: 1.25rem;
+  max-width: 24rem;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 683 / 522;
+  border-radius: var(--radius-card, 16px);
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+}
