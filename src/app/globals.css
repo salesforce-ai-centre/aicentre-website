@@ -48,10 +48,22 @@
 
   /* ── Redesign light theme (AIC2-129) ─────────────────────────────
      Shared surfaces for the About + Experiences pages. Prefer the
-     bg-page-gradient / text-navy / bg-brand / font-heading tokens
-     from tailwind.config.ts over raw hex. */
+     text-navy / bg-brand / font-heading tokens from tailwind.config.ts
+     over raw hex. */
+
+  /* Default page background gradient. A page can override it per-instance by
+     setting the --page-gradient custom property (e.g. via an inline style):
+       <main className="page-gradient" style={{ '--page-gradient': '...' }}> */
   .page-gradient {
-    @apply bg-page-gradient min-h-screen text-navy;
+    --page-gradient: linear-gradient(
+      180deg,
+      #fbf3e0 0%,
+      #eaf5fe 35%,
+      #90d0fe 78%,
+      #00b3ff 100%
+    );
+    @apply min-h-screen text-navy;
+    background-image: var(--page-gradient);
   }
 
   /* Remove fade-in animations completely for maximum performance */

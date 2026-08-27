@@ -115,22 +115,18 @@ const WORKSHOPS: ExperienceCardData[] = [
   },
 ];
 
+// One card per room, with default copy for now — real capacity/blurbs to follow.
 const SPACES: ExperienceCardData[] = [
-  {
-    id: 'knightsbridge',
-    title: 'Knightsbridge',
-    description: 'Seats up to xx people and is perfect for...',
-  },
-  {
-    id: 'kensington',
-    title: 'Kensington',
-    description: 'Seats up to xx people and is perfect for...',
-  },
-  {
-    id: 'richmond',
-    title: 'Richmond',
-    description: 'Seats up to xx people and is perfect for...',
-  },
+  { id: 'reception', title: 'Reception', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-reception1.jpg' },
+  { id: 'concourse', title: 'Concourse', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-concourse1.jpg' },
+  { id: 'exchange', title: 'Exchange', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-exchange1.jpg' },
+  { id: 'knightsbridge', title: 'Knightsbridge', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-knightsbridge.jpg' },
+  { id: 'kensington', title: 'Kensington', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-kensington.jpg' },
+  { id: 'greenwich', title: 'Greenwich', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-greenwich1.jpg' },
+  { id: 'bloomsbury', title: 'Bloomsbury', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-bloomsbury.jpg' },
+  { id: 'camden', title: 'Camden', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-camden.jpg' },
+  { id: 'primrose-hill', title: 'Primrose Hill', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-primrose-hill.jpg' },
+  { id: 'exhibition-road', title: 'Exhibition Road', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-exhibition-road.jpg' },
 ];
 
 export default function ExperiencesPage() {
