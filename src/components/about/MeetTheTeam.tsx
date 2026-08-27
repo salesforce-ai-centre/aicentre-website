@@ -14,44 +14,38 @@ import Image from 'next/image';
 import Carousel from '@/components/ui/Carousel';
 import SectionHeading from '@/components/ui/SectionHeading';
 import { getTeamMembers } from '@/lib/content';
+import styles from './MeetTheTeam.module.css';
 
 export default function MeetTheTeam() {
   const team = getTeamMembers();
   if (team.length === 0) return null;
 
   return (
-    <section className="section-padding py-16">
-      <div className="container-max">
-        <SectionHeading title="Meet the team" className="mb-12" />
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <SectionHeading title="Meet the team" className={styles.heading} />
 
         <Carousel
           ariaLabel="AI Centre team members"
           itemClassName="basis-[70%] sm:basis-1/3 lg:basis-1/4"
         >
           {team.map((member) => (
-            <div
-              key={member.id}
-              className="relative h-full overflow-hidden rounded-card bg-white shadow-card"
-            >
+            <div key={member.id} className={styles.card}>
               {/* Photo fills the card; the bottom fades smoothly into white. */}
-              <div className="relative aspect-[4/5] w-full">
+              <div className={styles.imageWrapper}>
                 <Image
                   src={member.imageUrl}
                   alt={member.name}
-                  style={{
-                    maskImage: "linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,0)",
-                    maxHeight: "80%"
-                  }}
                   fill
-                  className="object-cover"
+                  className={styles.image}
                   sizes="(max-width: 640px) 70vw, 25vw"
                 />
-                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white via-white/10 to-transparent" />
+                <div className={styles.fade} />
               </div>
               {/* Name/role sit over the faded lower area of the photo. */}
-              <div className="absolute inset-x-0 bottom-0 px-6 pb-6 text-navy">
-                <p className="font-heading text-xl font-semibold">{member.name}</p>
-                <p className="font-sans mt-1 text-sm text-navy/70">{member.role}</p>
+              <div className={styles.text}>
+                <p className={styles.name}>{member.name}</p>
+                <p className={styles.role}>{member.role}</p>
               </div>
             </div>
           ))}
