@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": "knightsbridge",
+    "name": "Knightsbridge",
+    "capacity": "Seats up to xx people and is perfect for...",
+    "imageUrl": ""
+  },
+  {
+    "id": "kensington",
+    "name": "Kensington",
+    "capacity": "Seats up to xx people and is perfect for...",
+    "imageUrl": ""
+  },
+  {
+    "id": "richmond",
+    "name": "Richmond",
+    "capacity": "Seats up to xx people and is perfect for...",
+    "imageUrl": ""
+  }
+]

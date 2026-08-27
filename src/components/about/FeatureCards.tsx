@@ -30,7 +30,7 @@ const FEATURES: Feature[] = [
   },
 ];
 
-function Card({ feature, isPrimary=true }: { feature: Feature, isPrimary: boolean }) {
+function Card({ feature, isPrimary = true }: { feature: Feature; isPrimary?: boolean }) {
   return (
     <div
       className="relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-card p-8 shadow-card"

@@ -27,6 +27,8 @@ export interface Experience {
   image?: string;
   featured?: boolean;
   isHosted?: boolean;
+  /** Delivery badge shown on the Experiences page card (Figma node 28:78). */
+  badge?: 'Guided' | 'Self Serve';
 }
 
 
