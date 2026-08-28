@@ -20,7 +20,9 @@ export const metadata: Metadata = {
   robots: 'index, follow',
   other: {
     'theme-color': '#6366F1',
-    'color-scheme': 'dark',
+    // Follow the user's browser/OS preference for UI chrome (e.g. scrollbars)
+    // rather than forcing dark.
+    'color-scheme': 'light dark',
   }
 }
 
@@ -41,7 +43,7 @@ export default function RootLayout({
         <style dangerouslySetInnerHTML={{
           __html: `
             /* Critical CSS - inline for faster FCP */
-            html { margin: 0; padding: 0; background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%); color: white; min-height: 100%; overscroll-behavior: none; }
+            html { margin: 0; padding: 0; background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%); color: white; min-height: 100%; overscroll-behavior: none; scrollbar-gutter: stable; }
             body { margin: 0; padding: 0; background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%); color: white; min-height: 100vh; overscroll-behavior: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
             img { pointer-events: none; -webkit-user-drag: none; -khtml-user-drag: none; -moz-user-drag: none; -o-user-drag: none; user-drag: none; }
             .container-max { max-width: 1280px; margin: 0 auto; }

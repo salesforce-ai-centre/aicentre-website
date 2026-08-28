@@ -28,10 +28,12 @@ export default function SectionHeading({
   as: Tag = 'h2',
   titleClassName = '',
 }: SectionHeadingProps) {
+  // Hero titles (h1) are 56px; section titles (h2) are 48px (Mario's spec).
+  const sizeClass = Tag === 'h1' ? 'lg:text-[56px]' : 'lg:text-5xl';
   return (
     <div className={`text-center text-navy ${className}`.trim()}>
       <Tag
-        className={`font-heading font-semibold leading-tight text-3xl sm:text-4xl lg:text-[56px] ${titleClassName}`.trim()}
+        className={`font-heading font-semibold leading-tight text-3xl sm:text-4xl ${sizeClass} ${titleClassName}`.trim()}
       >
         {title}
       </Tag>

@@ -117,18 +117,84 @@ const WORKSHOPS: ExperienceCardData[] = [
   },
 ];
 
-// One card per room, with default copy for now — real capacity/blurbs to follow.
 const SPACES: ExperienceCardData[] = [
-  { id: 'reception', title: 'Reception', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-reception1.jpg' },
-  { id: 'concourse', title: 'Concourse', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-concourse1.jpg' },
-  { id: 'exchange', title: 'Exchange', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-exchange1.jpg' },
-  { id: 'knightsbridge', title: 'Knightsbridge', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-knightsbridge.jpg' },
-  { id: 'kensington', title: 'Kensington', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-kensington.jpg' },
-  { id: 'greenwich', title: 'Greenwich', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-greenwich1.jpg' },
-  { id: 'bloomsbury', title: 'Bloomsbury', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-bloomsbury.jpg' },
-  { id: 'camden', title: 'Camden', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-camden.jpg' },
-  { id: 'primrose-hill', title: 'Primrose Hill', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-primrose-hill.jpg' },
-  { id: 'exhibition-road', title: 'Exhibition Road', description: 'Seats up to xx people and is perfect for...', image: '/images/Experiences/spaces/space-exhibition-road.jpg' },
+  {
+    id: 'exhibition-road',
+    title: 'Exhibition Road',
+    description:
+      'The immersive walkthrough space, featuring interactive activations like the History of AI wall, Customer Showcase, Lego City, and more.',
+    image: '/images/Experiences/spaces/space-exhibition-road.jpg',
+  },
+  {
+    id: 'kensington',
+    title: 'Kensington',
+    description:
+      'A flexible meeting room fitting 16–39 people (24 workshop-style, 39 theatre-style). It can be combined with Knightsbridge to form one larger space seating up to 72 theatre-style.',
+    image: '/images/Experiences/spaces/space-kensington.jpg',
+  },
+  {
+    id: 'knightsbridge',
+    title: 'Knightsbridge',
+    description:
+      'A smaller meeting room suited to groups of 10–25. It can be combined with Kensington to form one larger space seating up to 72 theatre-style.',
+    image: '/images/Experiences/spaces/space-knightsbridge.jpg',
+  },
+  {
+    id: 'richmond',
+    title: 'Richmond',
+    description:
+      'A boardroom-style meeting room designed for smaller, focused sessions, seating up to 8 people.',
+    image: '/images/Experiences/spaces/space-richmond.jpg',
+  },
+  {
+    id: 'the-studio',
+    title: 'The Studio',
+    description:
+      'A media production space for recording customer conversations, enablement content, and other media.',
+      image: '/images/Experiences/spaces/space-the-studio.jpg',
+  },
+  {
+    id: 'the-exchange',
+    title: 'The Exchange',
+    description:
+      "The AI Centre's social lounge, this is the go-to spot for informal chats and mingling between sessions. It's also home to the main kitchen, stocked with snacks and drinks, making it a natural gathering point throughout the day.",
+    image: '/images/Experiences/spaces/space-exchange1.jpg',
+  },
+  {
+    id: 'greenwich',
+    title: 'Greenwich',
+    description:
+      'A large, flexible high-capacity space for townhalls and workshops: up to 85 theatre-style, 64 classroom, or 40 workshop-style.',
+    image: '/images/Experiences/spaces/space-greenwich1.jpg',
+  },
+  {
+    id: 'primrose-hill',
+    title: 'Primrose Hill',
+    description:
+      'Tiered seating built for short, high-impact presentations, live demos, or storytelling, with a dedicated townhall zone holding up to 70.',
+    image: '/images/Experiences/spaces/space-primrose-hill.jpg',
+  },
+  {
+    id: 'the-concourse',
+    title: 'The Concourse',
+    description:
+      'The area where the F1 Data Driven Experience and other guided immersive experiences take place.',
+    image: '/images/Experiences/spaces/space-concourse1.jpg',
+  },
+  {
+    id: 'bloomsbury',
+    title: 'Bloomsbury',
+    description:
+      'A large, flexible high-capacity space for townhalls and workshops: up to 85 theatre-style, 64 classroom, or 40 workshop-style — for internal meetings only.',
+    image: '/images/Experiences/spaces/space-bloomsbury.jpg',
+  },
+  {
+    id: 'camden',
+    title: 'Camden',
+    description:
+      'A smaller meeting room suited to groups of 10–25 on floor 2 — for internal meetings only.',
+    image: '/images/Experiences/spaces/space-camden.jpg',
+  },
 ];
 
 export default function ExperiencesPage() {

@@ -21,6 +21,8 @@ interface ContentCardProps {
   imageAlt?: string;
   /** Optional pill shown top-right over the image (e.g. "Guided", "Self Serve"). */
   badge?: ReactNode;
+  /** Shows a brand-blue "New" pill top-left over the image. */
+  isNew?: boolean;
   title?: ReactNode;
   description?: ReactNode;
   /** Extra content rendered in the text area below the description. */
@@ -32,6 +34,7 @@ export default function ContentCard({
   imageSrc,
   imageAlt = '',
   badge,
+  isNew = false,
   title,
   description,
   children,
@@ -39,7 +42,7 @@ export default function ContentCard({
 }: ContentCardProps) {
   return (
     <div
-      className={`flex h-full flex-col overflow-hidden rounded-card bg-white pb-8 shadow-card ${className}`.trim()}
+      className={`flex h-full flex-col overflow-hidden rounded-card bg-white pb-8 ${className}`.trim()}
     >
       <div className="relative h-[238px] w-full shrink-0 overflow-hidden">
         {imageSrc ? (
@@ -52,6 +55,11 @@ export default function ContentCard({
           />
         ) : (
           <div className="h-full w-full bg-gradient-to-br from-brand/25 to-brand/5" />
+        )}
+        {isNew && (
+          <span className="absolute left-4 top-4 rounded-2xl bg-brand px-4 py-1.5 font-sans text-base font-bold text-white">
+            New
+          </span>
         )}
         {badge && (
           <span className="absolute right-4 top-4 rounded-2xl bg-white px-4 py-1.5 font-sans text-base font-bold text-navy">
