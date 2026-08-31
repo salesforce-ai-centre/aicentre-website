@@ -21,7 +21,12 @@ export default function Testimonials() {
   return (
     <section className="section-padding py-16">
       <div className="container-max">
-        <Carousel ariaLabel="What people say about the AI Centre" itemClassName="basis-[85%] sm:basis-1/2 lg:basis-2/5">
+        <Carousel
+          ariaLabel="What people say about the AI Centre"
+          snapAlign="center"
+          loop
+          itemClassName="basis-[85%] sm:basis-3/4 lg:basis-2/5"
+        >
           {testimonials.map((t) => (
             <figure key={t.id} className="relative h-full pb-5">
               <div style={{gap: "1rem"}} className="relative flex h-full flex-row rounded-3xl bg-white p-8">
@@ -32,7 +37,7 @@ export default function Testimonials() {
                   &ldquo;
                 </span>
                 <div className="relative flex h-full flex-col">
-                  <blockquote className="font-sans flex-1 text-lg font-semibold text-navy">
+                  <blockquote className="font-heading flex-1 text-xl font-semibold text-navy">
                     {t.quote}
                   </blockquote>
                   <figcaption className="font-sans mt-5 text-sm text-navy/70">
