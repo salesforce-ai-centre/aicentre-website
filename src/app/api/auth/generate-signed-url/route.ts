@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hmacAuth } from '@/lib/hmac-auth';
-import { getAccessTier } from '@/lib/auth-session';
+import { AUTH_COOKIE } from '@/lib/auth-session';
 
 /**
  * Signed-URL generation. This endpoint mints access links, so it MUST require
@@ -14,9 +14,10 @@ import { getAccessTier } from '@/lib/auth-session';
  *
  * AIC2-159 — part of the Privacy & Sharing epic (AIC2-155).
  */
-function requireFullTier(request: NextRequest): NextResponse | null {
+async function requireFullTier(request: NextRequest): Promise<NextResponse | null> {
   if (process.env.NODE_ENV === 'development') return null;
-  const tier = getAccessTier(request.cookies);
+  // Verify the SIGNED scope cookie (rejects tampered lite→full escalation).
+  const tier = await hmacAuth.verifyScopeCookie(request.cookies.get(AUTH_COOKIE)?.value);
   if (tier !== 'full') {
     return NextResponse.json(
       { error: 'Forbidden: a full-tier session is required to generate links.' },
@@ -27,7 +28,7 @@ function requireFullTier(request: NextRequest): NextResponse | null {
 }
 
 export async function POST(request: NextRequest) {
-  const denied = requireFullTier(request);
+  const denied = await requireFullTier(request);
   if (denied) return denied;
 
   try {
@@ -60,7 +61,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const denied = requireFullTier(request);
+  const denied = await requireFullTier(request);
   if (denied) return denied;
 
   const searchParams = request.nextUrl.searchParams;

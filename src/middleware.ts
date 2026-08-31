@@ -30,29 +30,31 @@ export async function middleware(request: NextRequest) {
 
 
   if (timestamp && signature) {
-    console.log('🔐 HMAC signature verification requested');
-    
     // Extract the path (remove leading slash for consistency with the example)
     const path = url.pathname.substring(1);
-    
-    const verification = await hmacAuth.verifySignature(path, timestamp, signature);
-    
+    const scope = url.searchParams.get('scope');
+    const exp = url.searchParams.get('exp');
+
+    const verification = await hmacAuth.verifySignature(path, timestamp, signature, scope, exp);
+
     if (verification.valid) {
-      console.log('✅ HMAC signature verified, setting session cookie');
-      
-      // Set auth cookie for 24 hours
+      const tier = verification.scope ?? 'full';
+      // Lite sessions are shorter-lived than the internal 24h full session.
+      const maxAge = tier === 'lite' ? 7 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
+      // Cookie carries a SIGNED scope so it can't be edited to escalate lite→full.
+      const cookieValue = await hmacAuth.signScopeCookie(tier);
+
       const response = NextResponse.redirect(new URL('/', request.url));
-      response.cookies.set('aicentre-auth', 'authenticated', {
+      response.cookies.set('aicentre-auth', cookieValue, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        maxAge,
         path: '/'
       });
-      
+
       return response;
     } else {
-      console.log('❌ HMAC signature verification failed:', verification.error);
       return NextResponse.redirect(new URL('/get-access', request.url));
     }
   }
