@@ -18,12 +18,20 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import Button from './ui/Button';
 import { useChat } from '@/contexts/ChatContext';
+import { useIsLite } from '@/contexts/AccessTierContext';
+import { isLitePathAllowed } from '@/lib/auth-session';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const siteConfig = getSiteConfig();
   const pathname = usePathname();
   const { isSidebarOpen, sidebarSide } = useChat();
+  const isLite = useIsLite();
+  // Lite (client) sessions only see nav links to lite-visible routes, and not
+  // the internal "Request to visit" CTA.
+  const navItems = isLite
+    ? siteConfig.navigation.filter((item) => isLitePathAllowed(item.href))
+    : siteConfig.navigation;
   const [isLargeScreen, setIsLargeScreen] = useState(true);
   const [scrolled, setScrolled] = useState(false);
 
@@ -83,7 +91,7 @@ export default function Navigation() {
             </Link>
 
             <div className="hidden items-center gap-8 md:flex">
-              {siteConfig.navigation.map((item) => (
+              {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
@@ -98,8 +106,8 @@ export default function Navigation() {
               ))}
             </div>
 
-            {/* Desktop CTA */}
-            {siteConfig.ctaButton && (
+            {/* Desktop CTA — internal, hidden for lite sessions */}
+            {siteConfig.ctaButton && !isLite && (
               <div className="hidden md:block">
                 <Button href={siteConfig.ctaButton.href}>
                   {siteConfig.ctaButton.name}
@@ -122,7 +130,7 @@ export default function Navigation() {
           {isOpen && (
             <div className="border-t border-navy/10 md:hidden">
               <div className="space-y-1 px-2 pb-3 pt-2">
-                {siteConfig.navigation.map((item) => (
+                {navItems.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
@@ -136,7 +144,7 @@ export default function Navigation() {
                     {item.name}
                   </Link>
                 ))}
-                {siteConfig.ctaButton && (
+                {siteConfig.ctaButton && !isLite && (
                   <div className="px-3 pt-2">
                     <Button
                       href={siteConfig.ctaButton.href}

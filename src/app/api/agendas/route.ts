@@ -1,4 +1,5 @@
 import type { AgendaItem } from '@/types/content';
+import { requireFullTierApi } from '@/lib/auth-session';
 import { NextResponse, NextRequest } from 'next/server';
 import { getChildRecords } from '@/lib/salesforce-request';
 import { parse, format } from 'date-fns';
@@ -19,6 +20,8 @@ const transformAgenda = (object: Record<string, any>): AgendaItem => {
 };
 
 export async function GET(request: NextRequest) {
+  const denied = await requireFullTierApi(request);
+  if (denied) return denied;
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');

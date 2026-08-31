@@ -1,5 +1,6 @@
 import type { Keynote } from '@/types/content';
-import { NextResponse } from 'next/server';
+import { requireFullTierApi } from '@/lib/auth-session';
+import { NextRequest, NextResponse } from 'next/server';
 import { getAllRecords } from '@/lib/salesforce-request';
 
 const transformKeynote = (object: Record<string, any>): Keynote => ({
@@ -15,7 +16,10 @@ const transformKeynote = (object: Record<string, any>): Keynote => ({
   audience: object["Audience__c"].replace(";", ", ")
 });
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = await requireFullTierApi(request);
+  if (denied) return denied;
+
   try {
     const objects = await getAllRecords("Executive_Keynote__c", 20, true);
     if (!objects) {

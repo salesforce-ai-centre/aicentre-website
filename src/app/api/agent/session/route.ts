@@ -1,8 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { requireFullTierApi } from '@/lib/auth-session';
 import { getSalesforceAccessToken, getSalesforceBaseUrl, getSalesforceAgentId, getSalesforceDomainUrl } from '@/lib/salesforce-auth';
 import { randomUUID } from 'crypto';
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const denied = await requireFullTierApi(request);
+  if (denied) return denied;
+
   try {
     const accessToken = await getSalesforceAccessToken();
     const baseUrl = getSalesforceBaseUrl();

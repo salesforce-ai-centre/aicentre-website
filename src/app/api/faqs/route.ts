@@ -1,5 +1,6 @@
 import type { FAQ } from '@/types/content';
-import { NextResponse } from 'next/server';
+import { requireFullTierApi } from '@/lib/auth-session';
+import { NextRequest, NextResponse } from 'next/server';
 import { getAllRecords } from '@/lib/salesforce-request';
 
 const transformFaq = (object: Record<string, any>): FAQ => ({
@@ -9,7 +10,10 @@ const transformFaq = (object: Record<string, any>): FAQ => ({
   category: object["Category__c"].toLowerCase()
 });
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = await requireFullTierApi(request);
+  if (denied) return denied;
+
   try {
     const objects = await getAllRecords("Frequently_Asked_Question__c");
     if (!objects) {

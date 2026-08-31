@@ -1,5 +1,6 @@
 import type { TeamMember } from '@/types/content';
-import { NextResponse } from 'next/server';
+import { requireFullTierApi } from '@/lib/auth-session';
+import { NextRequest, NextResponse } from 'next/server';
 import { getSortedRecords } from '@/lib/salesforce-request';
 
 const transformTeamMember = (object: Record<string, any>): TeamMember => ({
@@ -10,7 +11,10 @@ const transformTeamMember = (object: Record<string, any>): TeamMember => ({
   role: object["Role__c"]
 });
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = await requireFullTierApi(request);
+  if (denied) return denied;
+
   try {
     // const objects = await getSortedRecords("AI_Team_Member__c", 20, false, "ORDER+BY+Priority__c+ASC");
     const objects: TeamMember[] = [];

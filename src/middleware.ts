@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hmacAuth } from './lib/hmac-auth';
+import { AUTH_COOKIE, isLitePathAllowed } from './lib/auth-session';
 
 // 	https://ai-centre-uk.my.salesforce-sites.com/services/apexrest/generateOfferingsLink/workshop
-console.log('🚀 Middleware file loaded');
 
 export async function middleware(request: NextRequest) {
   if (process.env.MAINTENANCE_MODE === 'true') {
@@ -10,7 +10,6 @@ export async function middleware(request: NextRequest) {
   }
 
   if (process.env.NODE_ENV === 'development') {
-    console.log('🔧 Development environment detected, skipping auth');
     return NextResponse.next();
   }
 
@@ -18,12 +17,19 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const timestamp = url.searchParams.get('ts');
   const signature = url.searchParams.get('sig');
-  
+
   // Check for existing auth session first
-  const authCookie = request.cookies.get('aicentre-auth');
+  const authCookie = request.cookies.get(AUTH_COOKIE);
   if (authCookie) {
     if (timestamp || signature)
       return NextResponse.redirect(new URL('/', request.url));
+
+    // Enforce the lite tier: a client session may only reach lite-visible
+    // routes; any full-only route bounces back to the lite home.
+    const tier = await hmacAuth.verifyScopeCookie(authCookie.value);
+    if (tier === 'lite' && !isLitePathAllowed(url.pathname)) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
 
     return NextResponse.next();
   }
