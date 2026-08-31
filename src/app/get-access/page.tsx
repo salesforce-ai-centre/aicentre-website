@@ -1,11 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import AgentAstroFlying from '../../../public/images/AgentAstroFlying.png';
 import AgentAstro from '../../../public/images/AgentAstro.webp';
 
 const AccessDenied = () => {
+  // An expired client share link shows a different, client-appropriate message.
+  const reason = useSearchParams().get('reason');
+  const expired = reason === 'expired';
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background gradient matching the site theme */}
@@ -58,25 +62,35 @@ const AccessDenied = () => {
           
           {/* Main heading */}
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Oops!
+            {expired ? 'This link has expired' : 'Oops!'}
           </h1>
-          
-          {/* Updated message */}
+
+          {/* Message — client-friendly when a shared link has expired, else the
+              internal "get a personalised link via Slack" message. */}
           <div className="space-y-4">
-            <p className="text-lg text-gray-200">
-              It looks like you have an invalid link to this page.
-            </p>
-            <p className="text-lg text-white">
-              If you are a Salesforce employee, please visit the<br/>
-                <a 
-                  href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className="text-blue-400 font-bold">#ai-centre-uk</span>{' '}
-                </a>
-              Slack channel to obtain your personalised link.
-            </p>
+            {expired ? (
+              <p className="text-lg text-gray-200">
+                Your access link to the AI Centre has expired. Please ask the
+                person who shared it with you for a new link.
+              </p>
+            ) : (
+              <>
+                <p className="text-lg text-gray-200">
+                  It looks like you have an invalid link to this page.
+                </p>
+                <p className="text-lg text-white">
+                  If you are a Salesforce employee, please visit the<br/>
+                    <a
+                      href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="text-blue-400 font-bold">#ai-centre-uk</span>{' '}
+                    </a>
+                  Slack channel to obtain your personalised link.
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -84,4 +98,11 @@ const AccessDenied = () => {
   );
 };
 
-export default AccessDenied;
+// useSearchParams requires a Suspense boundary in the App Router.
+export default function GetAccessPage() {
+  return (
+    <Suspense fallback={null}>
+      <AccessDenied />
+    </Suspense>
+  );
+}

@@ -55,7 +55,13 @@ export async function middleware(request: NextRequest) {
 
       return response;
     } else {
-      return NextResponse.redirect(new URL('/get-access', request.url));
+      // An expired lite (client) link gets a client-friendly message rather
+      // than the internal "ask in Slack" one.
+      const isExpiredShareLink =
+        (scope === 'lite' || !!exp) && verification.error === 'Link expired';
+      const dest = new URL('/get-access', request.url);
+      if (isExpiredShareLink) dest.searchParams.set('reason', 'expired');
+      return NextResponse.redirect(dest);
     }
   }
 
