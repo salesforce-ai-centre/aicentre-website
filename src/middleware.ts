@@ -72,7 +72,6 @@ export async function middleware(request: NextRequest) {
   }
 
   // If no valid authentication, deny access
-  console.log('❌ No valid authentication found');
   return NextResponse.redirect(new URL('/get-access', request.url));
 }
 

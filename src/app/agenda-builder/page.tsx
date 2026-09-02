@@ -240,7 +240,6 @@ export default function AgendaBuilderPage() {
     selectedOffering: { id: string; title: string; type: string } | null;
   }) => {
     try {
-      console.log('Saving state to storage:', state);
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (error) {
       console.error('Failed to save state to sessionStorage:', error);
@@ -252,7 +251,6 @@ export default function AgendaBuilderPage() {
       const stored = sessionStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsedState = JSON.parse(stored);
-        console.log('Loaded state from storage:', parsedState);
         return parsedState;
       }
     } catch (error) {
@@ -265,7 +263,6 @@ export default function AgendaBuilderPage() {
     // Load saved state first
     const savedState = loadStateFromStorage();
     if (savedState) {
-      console.log('Restoring state from storage');
       if (savedState.agenda && Array.isArray(savedState.agenda) && savedState.agenda.length > 0) {
         setAgenda(savedState.agenda);
       }
@@ -273,7 +270,6 @@ export default function AgendaBuilderPage() {
       setActiveTab(savedState.activeTab || 'keynotes');
       setSelectedOffering(savedState.selectedOffering || null);
     } else {
-      console.log('No saved state found, using default agenda');
       setAgenda(defaultAgenda);
     }
 
@@ -327,11 +323,9 @@ export default function AgendaBuilderPage() {
   // Only save state after initial load is complete
   useEffect(() => {
     if (!isInitialized) {
-      console.log('Skipping save - not yet initialized');
       return;
     }
-    
-    console.log('Auto-saving state after change');
+
     saveStateToStorage({
       agenda,
       usedItems: Array.from(usedItems),
