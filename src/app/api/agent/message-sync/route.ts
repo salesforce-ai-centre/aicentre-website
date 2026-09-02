@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireFullTierApi } from '@/lib/auth-session';
 import { getSalesforceAccessToken, getSalesforceBaseUrl } from '@/lib/salesforce-auth';
 
 interface MessageRequest {
@@ -8,6 +9,9 @@ interface MessageRequest {
 }
 
 export async function POST(request: NextRequest) {
+  const denied = await requireFullTierApi(request);
+  if (denied) return denied;
+
   try {
     const { sessionId, message, sequenceId = 1 }: MessageRequest = await request.json();
     

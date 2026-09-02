@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import AgentforceChat from '@/components/AgentforceChat'
 import { ChatProvider } from '@/contexts/ChatContext'
 import SidebarAwareLayout from '@/components/SidebarAwareLayout'
+import { AccessTierProvider } from '@/contexts/AccessTierContext'
+import { getServerAccessTier } from '@/lib/auth-session'
 import Script from 'next/script'
 
 const inter = Inter({ 
@@ -32,11 +33,12 @@ export const viewport = {
   maximumScale: 5,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const tier = await getServerAccessTier();
   return (
     <html lang="en">
       <head>
@@ -75,11 +77,13 @@ export default function RootLayout({
             </Script>
           </>
         )}
-        <ChatProvider>
-          <SidebarAwareLayout>
-            {children}
-          </SidebarAwareLayout>
-        </ChatProvider>
+        <AccessTierProvider tier={tier}>
+          <ChatProvider>
+            <SidebarAwareLayout>
+              {children}
+            </SidebarAwareLayout>
+          </ChatProvider>
+        </AccessTierProvider>
       </body>
     </html>
   )

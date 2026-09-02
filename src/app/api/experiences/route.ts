@@ -1,5 +1,6 @@
 import type { Experience } from '@/types/content';
-import { NextResponse } from 'next/server';
+import { requireFullTierApi } from '@/lib/auth-session';
+import { NextRequest, NextResponse } from 'next/server';
 import { getSortedRecords } from '@/lib/salesforce-request';
 
 const transformExperience = (object: Record<string, any>): Experience => ({
@@ -14,7 +15,10 @@ const transformExperience = (object: Record<string, any>): Experience => ({
   isHosted: object["Is_Hosted__c"],
 });
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = await requireFullTierApi(request);
+  if (denied) return denied;
+
   try {
     const objects = await getSortedRecords("Immersive_Experience__c", 20, true, "ORDER+BY+Status__c+ASC");
     if (!objects) {

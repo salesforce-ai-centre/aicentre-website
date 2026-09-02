@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hmacAuth } from './lib/hmac-auth';
+import { AUTH_COOKIE, isLitePathAllowed } from './lib/auth-session';
 
 // 	https://ai-centre-uk.my.salesforce-sites.com/services/apexrest/generateOfferingsLink/workshop
-console.log('🚀 Middleware file loaded');
 
 export async function middleware(request: NextRequest) {
   if (process.env.MAINTENANCE_MODE === 'true') {
@@ -10,7 +10,6 @@ export async function middleware(request: NextRequest) {
   }
 
   if (process.env.NODE_ENV === 'development') {
-    console.log('🔧 Development environment detected, skipping auth');
     return NextResponse.next();
   }
 
@@ -18,42 +17,57 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const timestamp = url.searchParams.get('ts');
   const signature = url.searchParams.get('sig');
-  
+
   // Check for existing auth session first
-  const authCookie = request.cookies.get('aicentre-auth');
+  const authCookie = request.cookies.get(AUTH_COOKIE);
   if (authCookie) {
     if (timestamp || signature)
       return NextResponse.redirect(new URL('/', request.url));
+
+    // Enforce the lite tier: a client session may only reach lite-visible
+    // routes; any full-only route bounces back to the lite home.
+    const tier = await hmacAuth.verifyScopeCookie(authCookie.value);
+    if (tier === 'lite' && !isLitePathAllowed(url.pathname)) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
 
     return NextResponse.next();
   }
 
 
   if (timestamp && signature) {
-    console.log('🔐 HMAC signature verification requested');
-    
     // Extract the path (remove leading slash for consistency with the example)
     const path = url.pathname.substring(1);
-    
-    const verification = await hmacAuth.verifySignature(path, timestamp, signature);
-    
+    const scope = url.searchParams.get('scope');
+    const exp = url.searchParams.get('exp');
+
+    const verification = await hmacAuth.verifySignature(path, timestamp, signature, scope, exp);
+
     if (verification.valid) {
-      console.log('✅ HMAC signature verified, setting session cookie');
-      
-      // Set auth cookie for 24 hours
+      const tier = verification.scope ?? 'full';
+      // Lite sessions are shorter-lived than the internal 24h full session.
+      const maxAge = tier === 'lite' ? 7 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
+      // Cookie carries a SIGNED scope so it can't be edited to escalate lite→full.
+      const cookieValue = await hmacAuth.signScopeCookie(tier);
+
       const response = NextResponse.redirect(new URL('/', request.url));
-      response.cookies.set('aicentre-auth', 'authenticated', {
+      response.cookies.set('aicentre-auth', cookieValue, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        maxAge,
         path: '/'
       });
-      
+
       return response;
     } else {
-      console.log('❌ HMAC signature verification failed:', verification.error);
-      return NextResponse.redirect(new URL('/get-access', request.url));
+      // An expired lite (client) link gets a client-friendly message rather
+      // than the internal "ask in Slack" one.
+      const isExpiredShareLink =
+        (scope === 'lite' || !!exp) && verification.error === 'Link expired';
+      const dest = new URL('/get-access', request.url);
+      if (isExpiredShareLink) dest.searchParams.set('reason', 'expired');
+      return NextResponse.redirect(dest);
     }
   }
 

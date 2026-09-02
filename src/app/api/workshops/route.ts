@@ -1,5 +1,6 @@
 import type { Workshop } from '@/types/content';
-import { NextResponse } from 'next/server';
+import { requireFullTierApi } from '@/lib/auth-session';
+import { NextRequest, NextResponse } from 'next/server';
 import { getSortedRecords } from '@/lib/salesforce-request';
 
 const transformWorkshop = (object: Record<string, any>): Workshop => ({
@@ -17,7 +18,10 @@ const transformWorkshop = (object: Record<string, any>): Workshop => ({
   engagementExpectations: object["Engagement_Expectations__c"]?.split("\n")
 });
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = await requireFullTierApi(request);
+  if (denied) return denied;
+
   try {
     const objects = await getSortedRecords("Engagement_Tools__c", 20, true, "ORDER+BY+CreatedDate+ASC");
     if (!objects) {
