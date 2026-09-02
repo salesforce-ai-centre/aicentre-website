@@ -25,12 +25,12 @@ export default function PlanPage() {
       style={
         {
           '--page-gradient':
-            'linear-gradient(150deg, #EAF7F1 0%, #E7F3FE 40%, #90D0FE 100%)',
+            'linear-gradient(0deg, #00B3FF 0%, #90D0FE 21.42%, #EAF5FE 68.72%, #DEF9F3 100%)',
         } as React.CSSProperties
       }
     >
       <Navigation />
-      <div className="flex-1">
+      <div className="flex flex-1 items-center">
         <PlanHero />
       </div>
       <SiteFooter />

@@ -60,6 +60,14 @@ export default function Navigation() {
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
+  // Active nav underline matches the section's colour (Mario's design note):
+  // About = gold, Experiences = purple, Plan = green.
+  const activeColour = (href: string) => {
+    if (href.startsWith('/experiences')) return '#BA02FF';
+    if (href.startsWith('/plan')) return '#09A49A';
+    return '#E4A200'; // About / default
+  };
+
   return (
     <div
       className="fixed top-0 left-0 z-50 section-padding pt-4 transition-all duration-300 ease-in-out"
@@ -73,19 +81,19 @@ export default function Navigation() {
         }`}
       >
         <div className="px-4 sm:px-6">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-24 items-center justify-between">
             <Link
               href="/"
-              className="flex flex-shrink-0 items-center gap-2 transition-opacity duration-200 hover:opacity-80"
+              className="flex flex-shrink-0 items-center gap-3 transition-opacity duration-200 hover:opacity-80"
             >
               <Image
                 src="/images/SalesforceLogo.png"
                 alt="AI Centre"
-                width={36}
-                height={36}
+                width={64}
+                height={64}
                 className="flex-shrink-0 rounded-lg"
               />
-              <span className="font-heading whitespace-nowrap text-lg font-semibold text-brand sm:text-xl">
+              <span className="font-heading whitespace-nowrap text-2xl font-semibold text-brand sm:text-3xl">
                 {siteConfig.siteName}
               </span>
             </Link>
@@ -95,9 +103,10 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
+                  style={isActive(item.href) ? { textDecorationColor: activeColour(item.href) } : undefined}
                   className={`font-sans text-base font-bold transition-colors duration-200 ${
                     isActive(item.href)
-                      ? 'text-gray-800 underline decoration-[#E4A200] decoration-2 underline-offset-8'
+                      ? 'text-gray-800 underline decoration-2 underline-offset-8'
                       : 'text-gray-700 hover:text-gray-800'
                   }`}
                 >

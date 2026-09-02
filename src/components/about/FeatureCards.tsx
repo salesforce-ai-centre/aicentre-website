@@ -65,7 +65,7 @@ function Card({ feature, isPrimary = true }: { feature: Feature; isPrimary?: boo
         {feature.body && (
           <p
             className={
-              `font-sans mt-3 max-w-md text-base ${isPrimary ? "text-white/90" : "text-navy/90"}`
+              `font-sans mt-3 max-w-lg text-base ${isPrimary ? "text-white/90" : "text-navy/90"}`
             }
           >
             {feature.body}

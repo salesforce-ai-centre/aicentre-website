@@ -13,6 +13,7 @@ import AboutHero from '@/components/about/AboutHero';
 import PhotoBand from '@/components/about/PhotoBand';
 import Testimonials from '@/components/about/Testimonials';
 import FeatureCards from '@/components/about/FeatureCards';
+import FindUs from '@/components/about/FindUs';
 import MeetTheTeam from '@/components/about/MeetTheTeam';
 import CtaWell from '@/components/ui/CtaWell';
 import SiteFooter from '@/components/ui/SiteFooter';
@@ -25,6 +26,7 @@ export default function Home() {
       <PhotoBand />
       <Testimonials />
       <FeatureCards />
+      <FindUs />
       <MeetTheTeam />
       <CtaWell
         heading="Explore the magic of the AI Centre"
