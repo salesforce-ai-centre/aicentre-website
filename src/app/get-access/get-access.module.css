@@ -1,0 +1,60 @@
+/* get-access — access-denied / expired-link page, redesigned light theme. */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 1.5rem 4rem;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 34rem;
+  background: #fff;
+  border-radius: var(--radius-card, 16px);
+  box-shadow: var(--shadow-card, 0 18px 40px rgba(0, 30, 91, 0.12));
+  padding: 3rem 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.astro {
+  height: auto;
+  width: 120px;
+}
+
+.heading {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-weight: 600;
+  color: var(--navy, #001e5b);
+  font-size: 2rem;
+  line-height: 1.15;
+}
+
+@media (min-width: 640px) {
+  .heading {
+    font-size: 2.5rem;
+  }
+}
+
+.body {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  color: rgba(0, 30, 91, 0.8);
+  font-size: 1.125rem;
+  max-width: 26rem;
+}
+
+.actions {
+  margin-top: 0.5rem;
+}
