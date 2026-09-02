@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getWorkshops } from '@/lib/content';
+import { SLACK_REQUEST_WORKFLOW_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import type { Workshop } from '@/types/content';
 
@@ -150,8 +151,8 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                 
                 <div className="text-center">
                   <p className="text-sm text-white text-opacity-80 mb-2">Contact us via Slack:</p>
-                  <a 
-                    href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
+                  <a
+                    href={SLACK_REQUEST_WORKFLOW_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-full font-mono text-sm text-white transition-all duration-200 cursor-pointer"

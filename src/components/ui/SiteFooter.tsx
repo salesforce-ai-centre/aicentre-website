@@ -11,10 +11,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Button from './Button';
 import { getSiteConfig } from '@/lib/content';
+import { SLACK_CHANNEL_URL } from '@/lib/constants';
 import styles from './SiteFooter.module.css';
 
-const SLACK_CHANNEL_URL =
-  'https://salesforce.enterprise.slack.com/archives/C080TP9HENQ';
 const DIRECTIONS_URL =
   'https://www.google.com/maps/search/?api=1&query=9+Devonshire+Square+London+EC2M+4YF';
 

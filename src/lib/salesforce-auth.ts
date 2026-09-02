@@ -17,7 +17,7 @@ interface CachedToken {
 // LRU Cache for production - persists across requests in production
 const lruCache = new LRUCache<string, CachedToken>({
   max: 100, // Maximum number of items
-  ttl: 120 * 60 * 1000, // 25 minutes TTL
+  ttl: 25 * 60 * 1000, // 25 minutes TTL (matches per-token expiry)
   updateAgeOnGet: false,
   updateAgeOnHas: false,
 });
