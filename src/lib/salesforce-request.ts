@@ -1,5 +1,4 @@
 import { getSalesforceAccessToken, getSalesforceDomainUrl } from '@/lib/salesforce-auth';
-import { StringLiteral } from 'typescript';
 
 interface QueryOptions {
   kind: string;

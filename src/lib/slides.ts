@@ -47,22 +47,3 @@ export async function loadSlides(keynoteSlug: string): Promise<SlideInfo[]> {
 export function hasSlides(keynoteSlug: string): Promise<boolean> {
   return loadSlides(keynoteSlug).then(slides => slides.length > 0);
 }
-
-export async function getSlideCount(keynoteSlug: string): Promise<number> {
-  const slides = await loadSlides(keynoteSlug);
-  return slides.length;
-}
-
-export function createSlideUrl(keynoteSlug: string, slideIndex: number, extension: string = 'jpg'): string {
-  return `/slides/${keynoteSlug}/slide_${slideIndex}.${extension}`;
-}
-
-export function validateSlideFileName(fileName: string): boolean {
-  const pattern = /^slide_\d+\.(jpg|jpeg|png|webp)$/i;
-  return pattern.test(fileName);
-}
-
-export function extractSlideNumber(fileName: string): number | null {
-  const match = fileName.match(/^slide_(\d+)\./i);
-  return match ? parseInt(match[1], 10) : null;
-}
