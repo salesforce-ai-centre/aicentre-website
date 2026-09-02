@@ -1,7 +1,6 @@
 import type { Workshop } from '@/types/content';
-import { requireFullTierApi } from '@/lib/auth-session';
-import { NextRequest, NextResponse } from 'next/server';
 import { getSortedRecords } from '@/lib/salesforce-request';
+import { createSalesforceRoute } from '@/lib/salesforce-route';
 
 const transformWorkshop = (object: Record<string, any>): Workshop => ({
   id: object["Name"],
@@ -18,28 +17,8 @@ const transformWorkshop = (object: Record<string, any>): Workshop => ({
   engagementExpectations: object["Engagement_Expectations__c"]?.split("\n")
 });
 
-export async function GET(request: NextRequest) {
-  const denied = await requireFullTierApi(request);
-  if (denied) return denied;
-
-  try {
-    const objects = await getSortedRecords("Engagement_Tools__c", 20, true, "ORDER+BY+CreatedDate+ASC");
-    if (!objects) {
-      return NextResponse.json(
-        { error: 'No objects found' },
-        { status: 500 }
-      );
-    }
-    const transforedWorkshops: Workshop[] = objects.map(transformWorkshop);
-    return NextResponse.json({
-      success: true,
-      data: transforedWorkshops,
-    });
-  } catch (error: any) {
-    console.error('Error creating agent session:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
+export const GET = createSalesforceRoute<Workshop>({
+  label: 'workshops',
+  fetcher: () => getSortedRecords("Engagement_Tools__c", 20, true, "ORDER+BY+CreatedDate+ASC"),
+  transform: transformWorkshop,
+});

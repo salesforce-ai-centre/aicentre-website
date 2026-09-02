@@ -1,7 +1,6 @@
 import type { Keynote } from '@/types/content';
-import { requireFullTierApi } from '@/lib/auth-session';
-import { NextRequest, NextResponse } from 'next/server';
 import { getAllRecords } from '@/lib/salesforce-request';
+import { createSalesforceRoute } from '@/lib/salesforce-route';
 
 const transformKeynote = (object: Record<string, any>): Keynote => ({
   id: object["Name"],
@@ -16,28 +15,8 @@ const transformKeynote = (object: Record<string, any>): Keynote => ({
   audience: object["Audience__c"].replace(";", ", ")
 });
 
-export async function GET(request: NextRequest) {
-  const denied = await requireFullTierApi(request);
-  if (denied) return denied;
-
-  try {
-    const objects = await getAllRecords("Executive_Keynote__c", 20, true);
-    if (!objects) {
-      return NextResponse.json(
-        { error: 'No objects found' },
-        { status: 500 }
-      );
-    }
-    const transforedKeynotes: Keynote[] = objects.map(transformKeynote);
-    return NextResponse.json({
-      success: true,
-      data: transforedKeynotes,
-    });
-  } catch (error: any) {
-    console.error('Error creating agent session:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
+export const GET = createSalesforceRoute<Keynote>({
+  label: 'keynotes',
+  fetcher: () => getAllRecords("Executive_Keynote__c", 20, true),
+  transform: transformKeynote,
+});
