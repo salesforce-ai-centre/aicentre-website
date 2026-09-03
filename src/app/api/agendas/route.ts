@@ -1,8 +1,8 @@
 import type { AgendaItem } from '@/types/content';
-import { requireFullTierApi } from '@/lib/auth-session';
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getChildRecords } from '@/lib/salesforce-request';
-import { parse, format } from 'date-fns';
+import { format } from 'date-fns';
+import { createSalesforceRoute } from '@/lib/salesforce-route';
 
 const transformAgenda = (object: Record<string, any>): AgendaItem => {
   const timeString = object["Display_Start_Time__c"];
@@ -19,45 +19,25 @@ const transformAgenda = (object: Record<string, any>): AgendaItem => {
   }
 };
 
-export async function GET(request: NextRequest) {
-  const denied = await requireFullTierApi(request);
-  if (denied) return denied;
-  try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-
-    if (!id) {
-      return NextResponse.json(
-        { error: 'Missing required id parameter' },
-        { status: 400 }
-      );
-    }
- 
-    const objects = await getChildRecords("Agenda_Item__c", id, "Agenda__c", 20, false, "ORDER+BY+Display_Start_Time__c+ASC");
-    if (!objects) {
-      return NextResponse.json(
-        { error: 'No objects found' },
-        { status: 500 }
-      );
-    }
-    const transforedAgenda: AgendaItem[] = objects.map(transformAgenda);
-    
-    // Sort so items without time come last
-    const sortedAgenda = transforedAgenda.sort((a, b) => {
+export const GET = createSalesforceRoute<AgendaItem>({
+  label: 'agendas',
+  // Requires an `id` query param identifying the parent agenda.
+  validate: (request) => {
+    const id = new URL(request.url).searchParams.get('id');
+    return id
+      ? null
+      : NextResponse.json({ error: 'Missing required id parameter' }, { status: 400 });
+  },
+  fetcher: (request) => {
+    const id = new URL(request.url).searchParams.get('id') as string;
+    return getChildRecords("Agenda_Item__c", id, "Agenda__c", 20, false, "ORDER+BY+Display_Start_Time__c+ASC");
+  },
+  transform: transformAgenda,
+  // Items without a time sort last.
+  postProcess: (items) =>
+    items.sort((a, b) => {
       if (a.time === "" && b.time !== "") return 1;
       if (a.time !== "" && b.time === "") return -1;
       return 0;
-    });
-    
-    return NextResponse.json({
-      success: true,
-      data: sortedAgenda,
-    });
-  } catch (error: any) {
-    console.error('Error creating agent session:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
+    }),
+});

@@ -23,6 +23,7 @@ export interface ExperienceCardData {
   image?: string;
   badge?: 'Guided' | 'Self Serve';
   isNew?: boolean;
+  isComingSoon?: boolean;
 }
 
 interface ExperienceSectionProps {
@@ -54,6 +55,7 @@ export default function ExperienceSection({
               imageAlt={item.title}
               badge={item.badge}
               isNew={item.isNew}
+              isComingSoon={item.isComingSoon}
               title={item.title}
               description={item.description}
             />

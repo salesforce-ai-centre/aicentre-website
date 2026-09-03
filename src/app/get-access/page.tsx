@@ -4,11 +4,9 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import Button from '@/components/ui/Button';
+import { SLACK_CHANNEL_URL } from '@/lib/constants';
 import AgentAstro from '../../../public/images/AgentAstro.webp';
 import styles from './get-access.module.css';
-
-const SLACK_CHANNEL_URL =
-  'https://salesforce.enterprise.slack.com/archives/C080TP9HENQ';
 
 const AccessDenied = () => {
   // An expired client share link shows a different, client-appropriate message.

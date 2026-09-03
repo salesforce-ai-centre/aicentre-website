@@ -10,10 +10,8 @@
 
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
+import { SLACK_REQUEST_WORKFLOW_URL } from '@/lib/constants';
 import styles from './PlanHero.module.css';
-
-const SLACK_WORKFLOW_URL =
-  'https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU';
 
 export default function PlanHero() {
   return (
@@ -28,7 +26,7 @@ export default function PlanHero() {
           <p className={styles.subtitle}>
             Head over to our slack workflow to start your request
           </p>
-          <Button href={SLACK_WORKFLOW_URL} variant="outline">
+          <Button href={SLACK_REQUEST_WORKFLOW_URL} variant="outline">
             Request to visit
           </Button>
         </div>

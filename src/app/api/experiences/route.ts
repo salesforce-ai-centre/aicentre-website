@@ -1,7 +1,6 @@
 import type { Experience } from '@/types/content';
-import { requireFullTierApi } from '@/lib/auth-session';
-import { NextRequest, NextResponse } from 'next/server';
 import { getSortedRecords } from '@/lib/salesforce-request';
+import { createSalesforceRoute } from '@/lib/salesforce-route';
 
 const transformExperience = (object: Record<string, any>): Experience => ({
   id: object["Name"],
@@ -15,28 +14,8 @@ const transformExperience = (object: Record<string, any>): Experience => ({
   isHosted: object["Is_Hosted__c"],
 });
 
-export async function GET(request: NextRequest) {
-  const denied = await requireFullTierApi(request);
-  if (denied) return denied;
-
-  try {
-    const objects = await getSortedRecords("Immersive_Experience__c", 20, true, "ORDER+BY+Status__c+ASC");
-    if (!objects) {
-      return NextResponse.json(
-        { error: 'No objects found' },
-        { status: 500 }
-      );
-    }
-    const transforedExperiences: Experience[] = objects.map(transformExperience);
-    return NextResponse.json({
-      success: true,
-      data: transforedExperiences,
-    });
-  } catch (error: any) {
-    console.error('Error creating agent session:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
+export const GET = createSalesforceRoute<Experience>({
+  label: 'experiences',
+  fetcher: () => getSortedRecords("Immersive_Experience__c", 20, true, "ORDER+BY+Status__c+ASC"),
+  transform: transformExperience,
+});

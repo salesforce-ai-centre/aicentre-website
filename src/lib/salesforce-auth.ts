@@ -17,7 +17,7 @@ interface CachedToken {
 // LRU Cache for production - persists across requests in production
 const lruCache = new LRUCache<string, CachedToken>({
   max: 100, // Maximum number of items
-  ttl: 120 * 60 * 1000, // 25 minutes TTL
+  ttl: 25 * 60 * 1000, // 25 minutes TTL (matches per-token expiry)
   updateAgeOnGet: false,
   updateAgeOnHas: false,
 });
@@ -38,15 +38,13 @@ export async function getSalesforceAccessToken(): Promise<string> {
   // Check development cache first (if in development mode)
   if (process.env.NODE_ENV === 'development') {
     if (global.salesforceTokenCache && Date.now() < global.salesforceTokenCache.expiresAt) {
-      console.log('Using cached token from global cache (dev)');
       return global.salesforceTokenCache.token;
     }
   }
-  
+
   // Check LRU cache for production
   const cachedToken = lruCache.get(cacheKey);
   if (cachedToken && Date.now() < cachedToken.expiresAt) {
-    console.log('Using cached token from LRU cache');
     return cachedToken.token;
   }
 
@@ -93,8 +91,7 @@ export async function getSalesforceAccessToken(): Promise<string> {
     if (process.env.NODE_ENV === 'development') {
       global.salesforceTokenCache = newCachedToken;
     }
-    
-    console.log('New token fetched and cached');
+
     return tokenData.access_token;
   } catch (error) {
     console.error('Error getting Salesforce access token:', error);

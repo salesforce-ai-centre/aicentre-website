@@ -1,5 +1,7 @@
 import { getSalesforceAccessToken, getSalesforceDomainUrl } from '@/lib/salesforce-auth';
-import { StringLiteral } from 'typescript';
+
+/** Salesforce REST API version used for all queryAll calls. */
+const SF_API_VERSION = 'v64.0';
 
 interface QueryOptions {
   kind: string;
@@ -39,7 +41,7 @@ function buildQueryUrl({
   parentId = "",
   parentField = "" 
 }: QueryOptions): string {
-  const baseUrl = `${getSalesforceDomainUrl()}/services/data/v64.0/queryAll?q=`;
+  const baseUrl = `${getSalesforceDomainUrl()}/services/data/${SF_API_VERSION}/queryAll?q=`;
   const fields = "SELECT+FIELDS(ALL)";
   const fromClause = `FROM+${kind}`;
   

@@ -1,7 +1,6 @@
 import type { TeamMember } from '@/types/content';
-import { requireFullTierApi } from '@/lib/auth-session';
-import { NextRequest, NextResponse } from 'next/server';
 import { getSortedRecords } from '@/lib/salesforce-request';
+import { createSalesforceRoute } from '@/lib/salesforce-route';
 
 const transformTeamMember = (object: Record<string, any>): TeamMember => ({
   id: object["Id"],
@@ -11,29 +10,9 @@ const transformTeamMember = (object: Record<string, any>): TeamMember => ({
   role: object["Role__c"]
 });
 
-export async function GET(request: NextRequest) {
-  const denied = await requireFullTierApi(request);
-  if (denied) return denied;
-
-  try {
-    // const objects = await getSortedRecords("AI_Team_Member__c", 20, false, "ORDER+BY+Priority__c+ASC");
-    const objects: TeamMember[] = [];
-    if (!objects || objects.length === 0) {
-      return NextResponse.json(
-        { error: 'No objects found' },
-        { status: 500 }
-      );
-    }
-    const transforedTeamMembers: TeamMember[] = objects.map(transformTeamMember);
-    return NextResponse.json({
-      success: true,
-      data: transforedTeamMembers,
-    });
-  } catch (error: any) {
-    console.error('Error creating agent session:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
+export const GET = createSalesforceRoute<TeamMember>({
+  label: 'team_members',
+  // Previously stubbed to [] (always 500). Restored to the real SF fetch.
+  fetcher: () => getSortedRecords("AI_Team_Member__c", 20, false, "ORDER+BY+Priority__c+ASC"),
+  transform: transformTeamMember,
+});

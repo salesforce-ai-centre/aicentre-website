@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Wrench } from 'lucide-react';
+import { SLACK_CHANNEL_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: "We're making some changes | Salesforce AI Centre",
@@ -50,7 +51,7 @@ export default function MaintenancePage() {
             <p className="text-sm text-white text-opacity-60">
               Salesforce employees can reach the team in{' '}
               <a
-                href="https://salesforce.enterprise.slack.com/archives/C080TP9HENQ"
+                href={SLACK_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-300 font-semibold hover:text-purple-200 transition-colors"

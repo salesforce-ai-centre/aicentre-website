@@ -26,12 +26,6 @@
   
   /* Optimize font loading */
   @font-display: swap;
-  
-  /* GPU acceleration only where needed */
-  .gpu-accelerated {
-    transform: translateZ(0);
-    will-change: transform;
-  }
 }
 
 @layer components {
@@ -39,16 +33,7 @@
     @apply bg-white bg-opacity-15 border border-white border-opacity-25 rounded-2xl;
     /* Remove backdrop-filter completely - major performance killer on scroll */
   }
-  
-  .btn-primary {
-    @apply bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200;
-    /* Simplified transitions for better performance */
-  }
-  
-  .btn-secondary {
-    @apply border border-white border-opacity-30 hover:border-opacity-50 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 hover:bg-white hover:bg-opacity-10;
-  }
-  
+
   .section-padding {
     @apply px-4 sm:px-6 lg:px-8;
   }
@@ -96,54 +81,25 @@
     contain: layout style paint;
   }
   
-  /* Text truncation utilities for consistent card heights */
+  /* Text truncation utility for consistent card heights */
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
+
   /* Glass card variations */
   .glass-card-dark {
     @apply bg-black bg-opacity-40 border border-white border-opacity-10 rounded-2xl;
   }
-  
-  /* Custom scrollbar */
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-white bg-opacity-5 rounded-full;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-white bg-opacity-30 rounded-full;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-white bg-opacity-40;
-  }
-  
+
   /* Custom select styles */
   select option {
     @apply bg-black text-white;
   }
-  
+
   select optgroup {
     @apply font-bold text-purple-300;
-  }
-
-  /* Lighter background for Get Started page — matches new body now that body itself is lifted */
-  .page-lighter {
-    background: linear-gradient(135deg, #3A3A5F 0%, #4D3B89 60%, #8585F0 100%);
   }
 }

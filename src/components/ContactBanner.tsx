@@ -1,4 +1,5 @@
 import { getSiteConfig } from '@/lib/content';
+import { SLACK_REQUEST_WORKFLOW_URL } from '@/lib/constants';
 import Image from 'next/image';
 
 export default function ContactBanner() {
@@ -32,8 +33,8 @@ export default function ContactBanner() {
               height={24}
             />
             <span>{siteConfig.contactInfo.slackDescription}:</span>
-            <a 
-              href="https://salesforce.enterprise.slack.com/archives/C08E6SK1TFU"
+            <a
+              href={SLACK_REQUEST_WORKFLOW_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded-full font-mono text-sm transition-all duration-200 cursor-pointer"
