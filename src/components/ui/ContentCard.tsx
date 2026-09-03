@@ -23,6 +23,7 @@ interface ContentCardProps {
   badge?: ReactNode;
   /** Shows a brand-blue "New" pill top-left over the image. */
   isNew?: boolean;
+  isComingSoon?: boolean;
   title?: ReactNode;
   description?: ReactNode;
   /** Extra content rendered in the text area below the description. */
@@ -35,6 +36,7 @@ export default function ContentCard({
   imageAlt = '',
   badge,
   isNew = false,
+  isComingSoon = false,
   title,
   description,
   children,
@@ -59,6 +61,11 @@ export default function ContentCard({
         {isNew && (
           <span className="absolute left-4 top-4 rounded-2xl bg-brand px-4 py-1.5 font-sans text-base font-bold text-white">
             New
+          </span>
+        )}
+        {isComingSoon && (
+          <span className="absolute left-4 top-4 rounded-2xl bg-brand px-4 py-1.5 font-sans text-base font-bold text-white">
+            Coming Soon
           </span>
         )}
         {badge && (

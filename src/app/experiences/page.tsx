@@ -36,6 +36,7 @@ const ACTIVATIONS: ExperienceCardData[] = [
     title: 'Turing Test',
     description:
       'A fast-paced challenge where visitors chat simultaneously with a human and an AI, then try to guess which is which.',
+    image: '/images/Experiences/activations/activation-turing-test.jpg',
     badge: 'Guided',
   },
   {
@@ -51,7 +52,9 @@ const ACTIVATIONS: ExperienceCardData[] = [
     title: 'The Resort',
     description:
       'An immersive, escape-room-style game centered on building an AI Agent. Coming soon!',
+    image: '/images/Experiences/placeholder.png',
     badge: 'Guided',
+    isComingSoon: true,
   },
   // Self Serve
   {
@@ -134,6 +137,7 @@ const WORKSHOPS: ExperienceCardData[] = [
     isNew: true,
     description:
       'A strategic session exploring how organisations can move from AI ideation to enterprise-wide implementation.',
+    image: '/images/Experiences/workshops/workshop-becoming-an-agentic-enterprise.jpeg',
   },
   {
     id: 'agent-flight',
@@ -141,6 +145,7 @@ const WORKSHOPS: ExperienceCardData[] = [
     isNew: true,
     description:
       'A modular, implementation-focused workshop that helps customers move from AI strategy into the practical realities of delivering, scaling, and governing AI agents in the enterprise.',
+    image: '/images/Experiences/placeholder.png',
   },
   {
     id: 'prompt-builder',
