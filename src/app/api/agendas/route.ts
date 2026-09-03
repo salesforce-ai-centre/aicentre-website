@@ -1,5 +1,5 @@
 import type { AgendaItem } from '@/types/content';
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getChildRecords } from '@/lib/salesforce-request';
 import { format } from 'date-fns';
 import { createSalesforceRoute } from '@/lib/salesforce-route';

@@ -103,3 +103,6 @@ When implementing a design:
 The redesign's shared tokens live in `tailwind.config.ts` (colours, gradients, fonts) and
 `globals.css` (component classes). Use the semantic tokens — `text-navy`, `bg-brand`,
 `bg-page-gradient`, `font-heading` — rather than raw hex, so the palette stays single-sourced.
+
+See [`conventions.md`](./conventions.md) for the wider reuse / DRY conventions and the lint
+guardrails that back them.
