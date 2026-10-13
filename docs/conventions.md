@@ -16,7 +16,7 @@ below), partly by review.
 - **Styling**: author new component styles as **CSS Modules** (`*.module.css`)
   co-located with the component, per the CSS-Modules migration (AIC2-173).
   `PhotoBand`, `CtaWell`, `MeetTheTeam`, and the experiences/plan components are
-  the reference pattern.
+  the reference pattern. See [`styling.md`](./styling.md) for the full convention.
 - **Content APIs**: build Salesforce-backed routes with
   `createSalesforceRoute(...)` from `src/lib/salesforce-route.ts` — don't
   re-implement the fetch → guard → map → envelope boilerplate.
