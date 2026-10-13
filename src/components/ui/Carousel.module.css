@@ -1,0 +1,31 @@
+/* Carousel — horizontal scroll-snap carousel (AIC2-134). Converted to CSS Modules (AIC2-176). */
+
+.track {
+  display: flex;
+  cursor: grab;
+  scroll-snap-type: x mandatory;
+  gap: 1.5rem; /* gap-6 */
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 0.5rem; /* pb-2 */
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+.track:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--brand, #022ac0);
+}
+
+.item {
+  flex-shrink: 0;
+}
+
+.snapStart {
+  scroll-snap-align: start;
+}
+
+.snapCenter {
+  scroll-snap-align: center;
+}

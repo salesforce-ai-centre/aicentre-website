@@ -10,6 +10,7 @@
  */
 
 import type { ReactNode } from 'react';
+import styles from './SectionHeading.module.css';
 
 interface SectionHeadingProps {
   title: ReactNode;
@@ -29,16 +30,16 @@ export default function SectionHeading({
   titleClassName = '',
 }: SectionHeadingProps) {
   // Hero titles (h1) are 56px; section titles (h2) are 48px (Mario's spec).
-  const sizeClass = Tag === 'h1' ? 'lg:text-[56px]' : 'lg:text-5xl';
+  const sizeClass = Tag === 'h1' ? styles.titleH1 : styles.titleH2;
   return (
-    <div className={`text-center text-navy ${className}`.trim()}>
+    <div className={`${styles.wrapper} ${className}`.trim()}>
       <Tag
-        className={`font-heading font-semibold leading-tight text-3xl sm:text-4xl ${sizeClass} ${titleClassName}`.trim()}
+        className={`${styles.title} ${sizeClass} ${titleClassName}`.trim()}
       >
         {title}
       </Tag>
       {subtitle && (
-        <p className="font-sans mx-auto mt-4 max-w-xl text-lg sm:text-xl lg:text-2xl text-gray-900/90">
+        <p className={styles.subtitle}>
           {subtitle}
         </p>
       )}

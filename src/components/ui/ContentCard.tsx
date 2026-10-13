@@ -14,6 +14,7 @@
 
 import Image from 'next/image';
 import type { ReactNode } from 'react';
+import styles from './ContentCard.module.css';
 
 interface ContentCardProps {
   /** Image URL. Rendered via next/image with fill inside a fixed-height frame. */
@@ -43,44 +44,42 @@ export default function ContentCard({
   className = '',
 }: ContentCardProps) {
   return (
-    <div
-      className={`flex h-full flex-col overflow-hidden rounded-card bg-white pb-8 ${className}`.trim()}
-    >
-      <div className="relative h-[238px] w-full shrink-0 overflow-hidden">
+    <div className={`${styles.card} ${className}`.trim()}>
+      <div className={styles.imageFrame}>
         {imageSrc ? (
           <Image
             src={imageSrc}
             alt={imageAlt}
             fill
-            className="object-cover"
+            className={styles.image}
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-brand/25 to-brand/5" />
+          <div className={styles.imageFallback} />
         )}
         {isNew && (
-          <span className="absolute left-4 top-4 rounded-2xl bg-brand px-4 py-1.5 font-sans text-base font-bold text-white">
+          <span className={`${styles.badgeBase} ${styles.badgeLeft}`}>
             New
           </span>
         )}
         {isComingSoon && (
-          <span className="absolute left-4 top-4 rounded-2xl bg-brand px-4 py-1.5 font-sans text-base font-bold text-white">
+          <span className={`${styles.badgeBase} ${styles.badgeLeft}`}>
             Coming Soon
           </span>
         )}
         {badge && (
-          <span className="absolute right-4 top-4 rounded-2xl bg-white px-4 py-1.5 font-sans text-base font-bold text-navy">
+          <span className={`${styles.badgeBase} ${styles.badgeRight}`}>
             {badge}
           </span>
         )}
       </div>
 
-      <div className="flex flex-col gap-4 px-8 pt-6 text-navy">
+      <div className={styles.body}>
         {title && (
-          <h3 className="font-heading text-2xl font-semibold">{title}</h3>
+          <h3 className={styles.title}>{title}</h3>
         )}
         {description && (
-          <p className="font-sans text-base text-navy/90">{description}</p>
+          <p className={styles.description}>{description}</p>
         )}
         {children}
       </div>

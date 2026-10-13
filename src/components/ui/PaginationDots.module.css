@@ -1,0 +1,38 @@
+/* PaginationDots — shared paging indicator (AIC2-134). Converted to CSS Modules (AIC2-176). */
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.pill {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 20px;
+}
+
+.dot {
+  height: 0.625rem; /* h-2.5 */
+  width: 0.625rem; /* w-2.5 */
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  background-color: rgba(2, 42, 192, 0.3); /* bg-brand/30 */
+}
+.dot:hover {
+  background-color: rgba(2, 42, 192, 0.5); /* bg-brand/50 */
+}
+.dot:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--brand, #022ac0);
+}
+
+.dotActive {
+  background-color: #00b3ff;
+}
+.dotActive:hover {
+  background-color: #00b3ff;
+}

@@ -34,6 +34,7 @@ import {
   type ReactNode,
 } from 'react';
 import PaginationDots from './PaginationDots';
+import styles from './Carousel.module.css';
 
 interface CarouselProps {
   children: ReactNode;
@@ -337,7 +338,7 @@ export default function Carousel({
         onPointerLeave={endDrag}
         onClickCapture={onClickCapture}
         style={{ overflowY: 'hidden' }}
-        className="flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+        className={styles.track}
       >
         {rendered.map((child, i) => (
           <div
@@ -345,7 +346,7 @@ export default function Carousel({
             ref={(el) => {
               itemRefs.current[i] = el;
             }}
-            className={`shrink-0 ${snapAlign === 'center' ? 'snap-center' : 'snap-start'} ${itemClassName}`}
+            className={`${styles.item} ${snapAlign === 'center' ? styles.snapCenter : styles.snapStart} ${itemClassName}`}
           >
             {child}
           </div>

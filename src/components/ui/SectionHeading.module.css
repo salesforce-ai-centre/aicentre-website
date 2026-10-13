@@ -1,0 +1,49 @@
+/* SectionHeading — centred navy title + optional subtitle (AIC2-132).
+   Converted to CSS Modules (AIC2-176). */
+
+.wrapper {
+  text-align: center;
+  color: var(--navy, #001e5b);
+}
+
+.title {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-weight: 600;
+  line-height: 1.25;
+  font-size: 1.875rem; /* text-3xl */
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: 2.25rem; /* sm:text-4xl */
+  }
+}
+
+@media (min-width: 1024px) {
+  .titleH2 {
+    font-size: 3rem; /* lg:text-5xl */
+  }
+  .titleH1 {
+    font-size: 56px; /* lg:text-[56px] */
+  }
+}
+
+.subtitle {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  margin: 1rem auto 0;
+  max-width: 36rem; /* max-w-xl */
+  font-size: 1.125rem; /* text-lg */
+  color: rgba(17, 24, 39, 0.9); /* text-gray-900/90 */
+}
+
+@media (min-width: 640px) {
+  .subtitle {
+    font-size: 1.25rem; /* sm:text-xl */
+  }
+}
+
+@media (min-width: 1024px) {
+  .subtitle {
+    font-size: 1.5rem; /* lg:text-2xl */
+  }
+}
