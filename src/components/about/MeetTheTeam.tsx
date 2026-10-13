@@ -27,7 +27,7 @@ export default function MeetTheTeam() {
 
         <Carousel
           ariaLabel="AI Centre team members"
-          itemClassName="basis-[70%] sm:basis-1/3 lg:basis-1/4"
+          itemClassName={styles.item}
         >
           {team.map((member) => (
             <div key={member.id} className={styles.card}>

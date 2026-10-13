@@ -114,6 +114,7 @@ export default function PhotoBand() {
                   fill
                   className={styles.image}
                   sizes={`${tile.width}px`}
+                  priority={i === 0}
                 />
               ) : (
                 <div className={styles.placeholder} />

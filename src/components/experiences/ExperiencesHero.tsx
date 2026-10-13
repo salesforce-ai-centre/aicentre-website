@@ -36,7 +36,7 @@ export default function ExperiencesHero() {
         <SectionHeading
           as="h1"
           title="Explore the magic of the AI Centre"
-          titleClassName="lg:leading-[1.15]"
+          titleClassName={styles.title}
         />
         <div className={styles.pills}>
           {SECTIONS.map((s) => (

@@ -60,3 +60,22 @@
   height: 2rem; /* h-8 */
   width: 2rem; /* w-8 */
 }
+
+/* Carousel item width — one card ≈ 85% of the track on mobile, 75% at the
+   sm breakpoint, 40% from lg up (restores the responsive sizing lost when
+   Tailwind's basis-[85%]/sm:basis-3/4/lg:basis-2/5 utilities were removed). */
+.item {
+  flex-basis: 85%;
+}
+
+@media (min-width: 640px) {
+  .item {
+    flex-basis: 75%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .item {
+    flex-basis: 40%;
+  }
+}

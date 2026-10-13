@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import { ChatProvider } from '@/contexts/ChatContext'
 import SidebarAwareLayout from '@/components/SidebarAwareLayout'
@@ -7,11 +8,21 @@ import { AccessTierProvider } from '@/contexts/AccessTierContext'
 import { getServerAccessTier } from '@/lib/auth-session'
 import Script from 'next/script'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   preload: true,
   fallback: ['system-ui', 'arial']
+})
+
+// Self-hosted heading typeface — next/font/local handles preloading and
+// font-display automatically, replacing the manual @font-face in globals.css.
+const avantGarde = localFont({
+  src: '../../public/AvantGardeForSalesforce-Demi.ttf',
+  weight: '600',
+  style: 'normal',
+  display: 'swap',
+  variable: '--font-heading-local',
 })
 
 export const metadata: Metadata = {
@@ -60,7 +71,7 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
         <meta httpEquiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; img-src 'self' data: https:;" />
       </head>
-      <body className={inter.className} suppressHydrationWarning={true}>
+      <body className={`${inter.className} ${avantGarde.variable}`} suppressHydrationWarning={true}>
         {process.env.NODE_ENV === 'production' && (
           <>
             <Script

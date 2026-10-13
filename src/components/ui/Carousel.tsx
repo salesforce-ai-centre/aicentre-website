@@ -58,7 +58,7 @@ const REPEATS = 3; // when looping, render the set this many times
 
 export default function Carousel({
   children,
-  itemClassName = 'basis-[85%] sm:basis-1/2 lg:basis-1/3',
+  itemClassName = '',
   ariaLabel = 'Carousel',
   className = '',
   snapAlign = 'start',

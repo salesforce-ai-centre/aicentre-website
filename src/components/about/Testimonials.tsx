@@ -26,7 +26,7 @@ export default function Testimonials() {
           ariaLabel="What people say about the AI Centre"
           snapAlign="center"
           loop
-          itemClassName="basis-[85%] sm:basis-3/4 lg:basis-2/5"
+          itemClassName={styles.item}
         >
           {testimonials.map((t) => (
             <figure key={t.id} className={styles.figure}>
