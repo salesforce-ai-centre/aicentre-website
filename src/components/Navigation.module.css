@@ -1,0 +1,186 @@
+/* Navigation — redesigned light-theme header (AIC2-130, Figma node 7:50).
+   Converted to CSS Modules (AIC2-178).
+   `--nav-breakpoint` matches Tailwind's custom `nav: 1100px` screen — the
+   point where the header switches from burger menu to full nav. */
+
+.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  padding-top: 1rem; /* pt-4 */
+  transition: all 0.3s ease-in-out;
+}
+
+.nav {
+  border-radius: 1rem; /* rounded-2xl */
+  transition: all 0.3s ease-in-out;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.navScrolled {
+  background-color: #fff;
+  backdrop-filter: blur(12px);
+}
+
+.inner {
+  padding-inline: 1rem; /* px-4 */
+}
+
+@media (min-width: 640px) {
+  .inner {
+    padding-inline: 1.5rem; /* sm:px-6 */
+  }
+}
+
+.row {
+  position: relative;
+  display: flex;
+  height: 6rem; /* h-24 */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoLink {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.75rem; /* gap-3 */
+  transition: opacity 0.2s ease;
+}
+.logoLink:hover {
+  opacity: 0.8;
+}
+
+.logo {
+  flex-shrink: 0;
+  border-radius: 0.5rem; /* rounded-lg */
+}
+
+.wordmark {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  white-space: nowrap;
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600;
+  color: var(--brand, #022ac0);
+}
+
+@media (min-width: 640px) {
+  .wordmark {
+    font-size: 1.875rem; /* sm:text-3xl */
+  }
+}
+
+.desktopLinks {
+  position: absolute;
+  left: 50%;
+  display: none;
+  align-items: center;
+  gap: 2rem; /* gap-8 */
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+.desktopLinks > * {
+  pointer-events: auto;
+}
+
+@media (min-width: 1100px) {
+  .desktopLinks {
+    display: flex;
+  }
+}
+
+.navLink {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  font-size: 1rem; /* text-base */
+  font-weight: 700;
+  transition: color 0.2s ease;
+  color: #374151; /* gray-700 */
+}
+.navLink:hover {
+  color: #1f2937; /* gray-800 */
+}
+
+.navLinkActive {
+  color: #1f2937; /* gray-800 */
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+}
+
+.desktopCtas {
+  display: none;
+  align-items: center;
+  gap: 0.75rem; /* gap-3 */
+}
+
+@media (min-width: 1100px) {
+  .desktopCtas {
+    display: flex;
+  }
+}
+
+.menuButton {
+  padding: 0.5rem;
+  color: var(--navy, #001e5b);
+}
+
+@media (min-width: 1100px) {
+  .menuButton {
+    display: none;
+  }
+}
+
+.menuIcon {
+  height: 1.5rem; /* h-6 w-6 */
+  width: 1.5rem;
+}
+
+.mobileNav {
+  border-top: 1px solid rgba(0, 30, 91, 0.1); /* border-navy/10 */
+}
+
+@media (min-width: 1100px) {
+  .mobileNav {
+    display: none;
+  }
+}
+
+.mobileList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* space-y-1 */
+  padding: 0.5rem 0.5rem 0.75rem; /* px-2 pb-3 pt-2 */
+}
+
+.mobileLink {
+  display: block;
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 0.5rem 0.75rem; /* px-3 py-2 */
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  font-size: 1rem; /* text-base */
+  font-weight: 700;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  color: #374151; /* gray-700 */
+}
+.mobileLink:hover {
+  background-color: rgba(2, 42, 192, 0.05); /* brand/5 */
+  color: var(--navy, #001e5b);
+}
+
+.mobileLinkActive {
+  background-color: rgba(2, 42, 192, 0.1); /* brand/10 */
+  color: var(--navy, #001e5b);
+}
+
+.mobileCtas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* gap-2 */
+  padding: 0.5rem 0.75rem 0; /* px-3 pt-2 */
+}
+
+.mobileCtaButton {
+  width: 100%;
+}

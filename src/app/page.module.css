@@ -1,0 +1,10 @@
+/* About page (home route) shell — overflow guard for the full-width
+   PhotoBand carousel (AIC2-142). Converted to CSS Modules (AIC2-178). */
+
+.main {
+  overflow-x: hidden;
+}
+
+.cta {
+  margin-top: 3rem; /* mt-12 */
+}

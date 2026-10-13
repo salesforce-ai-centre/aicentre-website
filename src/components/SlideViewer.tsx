@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Grid3X3, Download, Maximize } from 'lucide-react';
+import styles from './SlideViewer.module.css';
 
 interface SlideViewerProps {
   keynoteSlug: string;
@@ -110,48 +111,48 @@ export default function SlideViewer({ keynoteSlug, className = '' }: SlideViewer
 
   if (loading) {
     return (
-      <div className={`flex items-center justify-center h-96 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 ${className}`}>
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+      <div className={`${styles.statusShell} ${className}`}>
+        <div className={styles.spinner}></div>
       </div>
     );
   }
 
   if (error || slides.length === 0) {
     return (
-      <div className={`flex items-center justify-center h-96 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 ${className}`}>
-        <div className="text-center text-gray-300">
-          <div className="text-lg mb-2">No slides available</div>
-          <div className="text-sm">Add slides to `/public/slides/{keynoteSlug}/`</div>
+      <div className={`${styles.statusShell} ${className}`}>
+        <div className={styles.emptyState}>
+          <div className={styles.emptyTitle}>No slides available</div>
+          <div className={styles.emptyHint}>Add slides to `/public/slides/{keynoteSlug}/`</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className={`relative bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 overflow-hidden ${className}`}>
+    <div className={`${styles.shell} ${className}`}>
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-white/20">
-        <div className="text-white font-medium">
+      <div className={styles.header}>
+        <div className={styles.headerTitle}>
           Slide {currentSlide + 1} of {slides.length}
         </div>
-        <div className="flex items-center gap-2">
+        <div className={styles.headerActions}>
           <button
             onClick={() => setShowThumbnails(!showThumbnails)}
-            className="p-2 text-white/85 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+            className={styles.iconButton}
             title="Toggle thumbnails"
           >
             <Grid3X3 size={16} />
           </button>
           <button
             onClick={downloadSlide}
-            className="p-2 text-white/85 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+            className={styles.iconButton}
             title="Download slide"
           >
             <Download size={16} />
           </button>
           <button
             onClick={() => setFullscreen(!fullscreen)}
-            className="p-2 text-white/85 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+            className={styles.iconButton}
             title="Fullscreen"
           >
             <Maximize size={16} />
@@ -161,22 +162,22 @@ export default function SlideViewer({ keynoteSlug, className = '' }: SlideViewer
 
       {/* Thumbnails */}
       {showThumbnails && (
-        <div className="p-4 border-b border-white/20 bg-black/20">
-          <div className="flex gap-2 overflow-x-auto">
+        <div className={styles.thumbnails}>
+          <div className={styles.thumbnailRow}>
             {slides.map((slide, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`flex-shrink-0 relative ${
-                  index === currentSlide ? 'ring-2 ring-purple-500' : ''
+                className={`${styles.thumbnailButton} ${
+                  index === currentSlide ? styles.thumbnailActive : ''
                 }`}
               >
                 <img
                   src={slide.src}
                   alt={slide.alt}
-                  className="w-20 h-12 object-cover rounded border border-white/20"
+                  className={styles.thumbnailImage}
                 />
-                <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs px-1 rounded-tl">
+                <div className={styles.thumbnailIndex}>
                   {index + 1}
                 </div>
               </button>
@@ -186,43 +187,43 @@ export default function SlideViewer({ keynoteSlug, className = '' }: SlideViewer
       )}
 
       {/* Main slide display */}
-      <div 
-        className={`relative ${fullscreen ? 'fixed inset-0 z-50 bg-black' : 'aspect-video'}`}
+      <div
+        className={`${styles.stage} ${fullscreen ? styles.stageFullscreen : ''}`}
         onKeyDown={handleKeyPress}
         tabIndex={0}
       >
         <img
           src={slides[currentSlide].src}
           alt={slides[currentSlide].alt}
-          className="w-full h-full object-contain"
+          className={styles.stageImage}
         />
-        
+
         {/* Navigation arrows */}
         <button
           onClick={prevSlide}
           disabled={slides.length <= 1}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className={`${styles.navArrow} ${styles.navArrowLeft}`}
         >
           <ChevronLeft size={20} />
         </button>
-        
+
         <button
           onClick={nextSlide}
           disabled={slides.length <= 1}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className={`${styles.navArrow} ${styles.navArrowRight}`}
         >
           <ChevronRight size={20} />
         </button>
 
         {/* Slide indicator dots */}
         {slides.length > 1 && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+          <div className={styles.dots}>
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  index === currentSlide ? 'bg-white' : 'bg-white/50'
+                className={`${styles.dot} ${
+                  index === currentSlide ? styles.dotActive : ''
                 }`}
               />
             ))}
@@ -233,7 +234,7 @@ export default function SlideViewer({ keynoteSlug, className = '' }: SlideViewer
         {fullscreen && (
           <button
             onClick={() => setFullscreen(false)}
-            className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-lg"
+            className={styles.fullscreenExit}
           >
             ✕
           </button>
@@ -241,7 +242,7 @@ export default function SlideViewer({ keynoteSlug, className = '' }: SlideViewer
       </div>
 
       {/* Footer with navigation info */}
-      <div className="p-4 bg-black/20 text-center text-sm text-white/85">
+      <div className={styles.footer}>
         Use arrow keys to navigate • Click thumbnails to jump to slide
       </div>
     </div>

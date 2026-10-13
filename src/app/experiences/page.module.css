@@ -1,0 +1,10 @@
+/* Experiences page shell (AIC2-148, Figma frame 14:446).
+   Converted to CSS Modules (AIC2-178). */
+
+.main {
+  overflow-x: hidden;
+}
+
+.cta {
+  margin-top: 3rem; /* mt-12 */
+}

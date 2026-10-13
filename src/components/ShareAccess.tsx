@@ -81,8 +81,8 @@ export default function ShareAccess() {
 
   return (
     <>
-      <Button type="button" variant="outline" onClick={() => setOpen(true)} className="gap-2">
-        <Share2 className="h-5 w-5" />
+      <Button type="button" variant="outline" onClick={() => setOpen(true)} className={styles.triggerButton}>
+        <Share2 className={styles.triggerIcon} />
         Share
       </Button>
 
@@ -101,7 +101,7 @@ export default function ShareAccess() {
               onClick={closeModal}
               aria-label="Close"
             >
-              <X className="h-5 w-5" />
+              <X className={styles.closeIcon} />
             </button>
 
             {!shareUrl ? (
@@ -148,12 +148,12 @@ export default function ShareAccess() {
                     type="button"
                     variant="outline"
                     onClick={handleCopy}
-                    className="!px-3 !py-2 !text-base"
+                    className={styles.copyButton}
                   >
                     {copied ? (
-                      <Check className="h-4 w-4" />
+                      <Check className={styles.copyIcon} />
                     ) : (
-                      <Copy className="h-4 w-4" />
+                      <Copy className={styles.copyIcon} />
                     )}
                   </Button>
                 </div>
@@ -163,7 +163,7 @@ export default function ShareAccess() {
                   <button
                     type="button"
                     onClick={reset}
-                    className="font-bold text-brand underline"
+                    className={styles.resetLink}
                   >
                     Create another link
                   </button>

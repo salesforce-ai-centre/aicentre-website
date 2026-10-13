@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation';
 import ContactBanner from '@/components/ContactBanner';
 import SlideViewer from '@/components/SlideViewer';
 import { hasSlides } from '@/lib/slides';
+import styles from './page.module.css';
 
 // Force dynamic rendering to avoid build timeouts
 export const dynamic = 'force-dynamic';
@@ -41,83 +42,83 @@ export default async function KeynotePage({ params }: { params: Promise<{ slug: 
   const slidesExist = await hasSlides(slug);
 
   return (
-    <main className="min-h-screen">
+    <main className={styles.page}>
       <Navigation />
-      
+
       {/* Hero Section */}
-      <section className="pt-32 pb-20 section-padding">
+      <section className={`section-padding ${styles.hero}`}>
         <div className="container-max">
-          <div className="max-w-4xl mx-auto">
+          <div className={styles.wrap}>
             {/* Breadcrumb */}
-            <nav className="flex items-center space-x-2 text-sm text-white text-opacity-80 mb-8">
-              <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <nav className={styles.breadcrumb}>
+              <Link href="/" className={styles.breadcrumbLink}>Home</Link>
               <span>/</span>
-              <Link href="/#keynotes" className="hover:text-white transition-colors">Keynotes</Link>
+              <Link href="/#keynotes" className={styles.breadcrumbLink}>Keynotes</Link>
               <span>/</span>
-              <span className="text-white">{keynote.title}</span>
+              <span className={styles.breadcrumbCurrent}>{keynote.title}</span>
             </nav>
 
             {/* Main Content */}
-            <div className="glass-card p-8 lg:p-12">
+            <div className={`glass-card ${styles.card}`}>
               {/* Header */}
-              <div className="mb-8">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                  <span className="text-purple-200 font-medium text-sm uppercase tracking-wider">
+              <div className={styles.header}>
+                <div className={styles.badgeRow}>
+                  <div className={styles.badgeDot}></div>
+                  <span className={styles.badgeLabel}>
                     Executive Keynote
                   </span>
                 </div>
-                <h1 className="text-3xl lg:text-4xl font-black text-white mb-4">
+                <h1 className={styles.title}>
                   {keynote.title}
                 </h1>
-                <p className="text-xl text-white text-opacity-90 leading-relaxed">
+                <p className={styles.description}>
                   {keynote.description}
                 </p>
               </div>
 
               {/* Details Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <div className={styles.detailsGrid}>
                 {/* Presenter */}
-                <div className="bg-white bg-opacity-5 rounded-xl p-6 border border-white border-opacity-10">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <div className="w-8 h-8 bg-purple-500 bg-opacity-30 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">👤</span>
+                <div className={styles.detailCard}>
+                  <div className={styles.detailHeadRow}>
+                    <div className={`${styles.detailIcon} ${styles.detailIconPurple}`}>
+                      <span className={styles.detailIconEmoji}>👤</span>
                     </div>
-                    <h3 className="font-semibold text-white">Presenter</h3>
+                    <h3 className={styles.detailHeading}>Presenter</h3>
                   </div>
-                  <p className="text-white font-medium mb-1">{keynote.presenter}</p>
-                  <p className="text-white text-opacity-85 text-sm">{keynote.presenterRole}</p>
+                  <p className={styles.detailPrimary}>{keynote.presenter}</p>
+                  <p className={styles.detailSecondary}>{keynote.presenterRole}</p>
                 </div>
 
                 {/* Duration & Audience */}
-                <div className="bg-white bg-opacity-5 rounded-xl p-6 border border-white border-opacity-10">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <div className="w-8 h-8 bg-indigo-500 bg-opacity-30 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">⏱️</span>
+                <div className={styles.detailCard}>
+                  <div className={styles.detailHeadRow}>
+                    <div className={`${styles.detailIcon} ${styles.detailIconIndigo}`}>
+                      <span className={styles.detailIconEmoji}>⏱️</span>
                     </div>
-                    <h3 className="font-semibold text-white">Session Details</h3>
+                    <h3 className={styles.detailHeading}>Session Details</h3>
                   </div>
-                  <p className="text-white font-medium mb-1">{keynote.duration}</p>
-                  <p className="text-white text-opacity-85 text-sm">{keynote.audienceSize}</p>
+                  <p className={styles.detailPrimary}>{keynote.duration}</p>
+                  <p className={styles.detailSecondary}>{keynote.audienceSize}</p>
                 </div>
 
                 {/* Focus Area */}
-                <div className="bg-white bg-opacity-5 rounded-xl p-6 border border-white border-opacity-10">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <div className="w-8 h-8 bg-green-500 bg-opacity-30 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">🎯</span>
+                <div className={styles.detailCard}>
+                  <div className={styles.detailHeadRow}>
+                    <div className={`${styles.detailIcon} ${styles.detailIconGreen}`}>
+                      <span className={styles.detailIconEmoji}>🎯</span>
                     </div>
-                    <h3 className="font-semibold text-white">Focus Area</h3>
+                    <h3 className={styles.detailHeading}>Focus Area</h3>
                   </div>
-                  <p className="text-white font-medium">{keynote.focusArea}</p>
+                  <p className={styles.detailPrimary}>{keynote.focusArea}</p>
                 </div>
               </div>
 
               {/* Target Audience */}
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-white mb-4">Target Audience</h3>
-                <div className="bg-white bg-opacity-5 rounded-xl p-6 border border-white border-opacity-10">
-                  <p className="text-white text-opacity-90 leading-relaxed">
+              <div className={styles.audienceBlock}>
+                <h3 className={styles.blockHeading}>Target Audience</h3>
+                <div className={styles.audienceCard}>
+                  <p className={styles.audienceText}>
                     {keynote.audience}
                   </p>
                 </div>
@@ -125,13 +126,13 @@ export default async function KeynotePage({ params }: { params: Promise<{ slug: 
 
               {/* Topics Covered */}
               {keynote.topics && keynote.topics.length > 0 && (
-                <div className="mb-8">
-                  <h3 className="text-xl font-bold text-white mb-4">Key Topics</h3>
-                  <div className="flex flex-wrap gap-3">
+                <div className={styles.topicsBlock}>
+                  <h3 className={styles.blockHeading}>Key Topics</h3>
+                  <div className={styles.topicsRow}>
                     {keynote.topics.map((topic, index) => (
                       <span
                         key={index}
-                        className="px-4 py-2 bg-purple-500 bg-opacity-20 border border-purple-500 border-opacity-30 rounded-xl text-white font-medium"
+                        className={styles.topicPill}
                       >
                         {topic}
                       </span>
@@ -142,31 +143,31 @@ export default async function KeynotePage({ params }: { params: Promise<{ slug: 
 
               {/* Slide Viewer */}
               {slidesExist && (
-                <div className="mb-8">
-                  <h3 className="text-xl font-bold text-white mb-4">Presentation Slides</h3>
+                <div className={styles.slidesBlock}>
+                  <h3 className={styles.blockHeading}>Presentation Slides</h3>
                   <SlideViewer keynoteSlug={slug} />
                 </div>
               )}
 
               {/* Booking CTA */}
-              <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl p-8 text-center">
-                <h3 className="text-xl font-bold text-white mb-3">
+              <div className={styles.bookingCard}>
+                <h3 className={styles.bookingTitle}>
                   Ready to Book This Keynote?
                 </h3>
-                <p className="text-white text-opacity-90 mb-6">
+                <p className={styles.bookingBody}>
                   Start with our planning guide to ensure a successful customer engagement
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className={styles.bookingActions}>
                   <Link
                     href="/plan-engagement"
-                    className="inline-flex items-center justify-center space-x-2 bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+                    className={`${styles.bookingButton} ${styles.bookingButtonWhite}`}
                   >
                     <span>Plan Customer Engagement</span>
                     <span>→</span>
                   </Link>
                   <Link
                     href="/agenda-builder"
-                    className="inline-flex items-center justify-center space-x-2 bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700 transition-colors"
+                    className={`${styles.bookingButton} ${styles.bookingButtonGreen}`}
                   >
                     <span>Build Custom Agenda</span>
                     <span>→</span>

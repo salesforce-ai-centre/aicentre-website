@@ -11,6 +11,7 @@
 import Navigation from '@/components/Navigation';
 import PlanHero from '@/components/plan/PlanHero';
 import SiteFooter from '@/components/ui/SiteFooter';
+import styles from './page.module.css';
 
 export const metadata = {
   title: 'Plan your visit | AI Centre',
@@ -21,7 +22,7 @@ export const metadata = {
 export default function PlanPage() {
   return (
     <main
-      className="page-gradient flex min-h-screen flex-col overflow-x-hidden"
+      className={`page-gradient ${styles.main}`}
       style={
         {
           '--page-gradient':
@@ -30,7 +31,7 @@ export default function PlanPage() {
       }
     >
       <Navigation />
-      <div className="flex flex-1 items-center">
+      <div className={styles.heroWrap}>
         <PlanHero />
       </div>
       <SiteFooter />

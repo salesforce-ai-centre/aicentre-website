@@ -357,7 +357,7 @@ export default function Carousel({
         count={pageCount}
         active={activePage}
         onSelect={scrollToPage}
-        className="mt-6"
+        className={styles.dots}
       />
     </div>
   );

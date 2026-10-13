@@ -7,6 +7,7 @@ import { getExperiences } from '@/lib/content';
 import { SLACK_REQUEST_WORKFLOW_URL } from '@/lib/constants';
 import Navigation from '@/components/Navigation';
 import type { Experience } from '@/types/content';
+import styles from './page.module.css';
 
 interface ExperienceDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -35,64 +36,64 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
 
   if (!experience) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+      <div className={styles.loading}>
+        <div className={styles.spinner}></div>
       </div>
     );
   }
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'orange': return 'bg-orange-500';
-      case 'green': return 'bg-green-500';
-      case 'red': return 'bg-red-500';
-      default: return 'bg-purple-500';
+      case 'orange': return styles.categoryOrange;
+      case 'green': return styles.categoryGreen;
+      case 'red': return styles.categoryRed;
+      default: return styles.categoryPurple;
     }
   };
 
   return (
-    <main className="min-h-screen">
+    <main className={styles.page}>
       <Navigation />
-      
+
       {/* Hero Section */}
-      <section className="pt-32 pb-16 section-padding">
+      <section className={`section-padding ${styles.hero}`}>
         <div className="container-max">
           {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-sm text-white text-opacity-80 mb-8">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <nav className={styles.breadcrumb}>
+            <Link href="/" className={styles.breadcrumbLink}>Home</Link>
             <span>/</span>
-            <Link href="/#experiences" className="hover:text-white transition-colors">Immersive Experiences</Link>
+            <Link href="/#experiences" className={styles.breadcrumbLink}>Immersive Experiences</Link>
             <span>/</span>
-            <span className="text-white">{experience.title}</span>
+            <span className={styles.breadcrumbCurrent}>{experience.title}</span>
           </nav>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className={styles.grid}>
             {/* Main Content */}
-            <div className="lg:col-span-2">
-              <div className="glass-card p-8 mb-8">
-                <div className="flex items-center mb-6">
-                  <span className={`inline-block w-4 h-4 rounded-full mr-3 ${getCategoryColor(experience.category)}`}></span>
-                  <span className="text-white text-opacity-90 uppercase text-sm font-semibold tracking-wide">
+            <div className={styles.mainCol}>
+              <div className={`glass-card ${styles.mainCard}`}>
+                <div className={styles.typeRow}>
+                  <span className={`${styles.categoryDot} ${getCategoryColor(experience.category)}`}></span>
+                  <span className={styles.typeLabel}>
                     {experience.type} Experience
                   </span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl font-black mb-6 text-white">
+                <h1 className={styles.title}>
                   {experience.title}
                 </h1>
 
-                <p className="text-xl text-white text-opacity-90 leading-relaxed mb-8">
+                <p className={styles.description}>
                   {experience.description}
                 </p>
 
                 {/* Experience Details */}
-                <div className="prose prose-invert max-w-none">
-                  <h2 className="text-2xl font-bold text-white mb-4">Experience Overview</h2>
-                  <div className="space-y-4 text-white text-opacity-90">
+                <div className={styles.detail}>
+                  <h2 className={styles.sectionHeading}>Experience Overview</h2>
+                  <div className={styles.sectionBody}>
                     {experience.type === 'interactive' && (
                       <div>
-                        <h3 className="text-lg font-semibold text-white mb-2">Interactive Features</h3>
-                        <ul className="space-y-2">
+                        <h3 className={styles.subHeading}>Interactive Features</h3>
+                        <ul className={styles.bulletList}>
                           <li>• Hands-on exploration of AI capabilities</li>
                           <li>• Real-time demonstrations tailored to your industry</li>
                           <li>• Interactive tools and simulations</li>
@@ -103,8 +104,8 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
                     )}
                     {experience.type === 'demo' && (
                       <div>
-                        <h3 className="text-lg font-semibold text-white mb-2">Demonstration Highlights</h3>
-                        <ul className="space-y-2">
+                        <h3 className={styles.subHeading}>Demonstration Highlights</h3>
+                        <ul className={styles.bulletList}>
                           <li>• Live showcases of cutting-edge AI technology</li>
                           <li>• Real-world use case presentations</li>
                           <li>• Behind-the-scenes look at AI development</li>
@@ -115,8 +116,8 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
                     )}
                     {experience.type === 'immersive' && (
                       <div>
-                        <h3 className="text-lg font-semibold text-white mb-2">Immersive Elements</h3>
-                        <ul className="space-y-2">
+                        <h3 className={styles.subHeading}>Immersive Elements</h3>
+                        <ul className={styles.bulletList}>
                           <li>• Full sensory engagement with AI scenarios</li>
                           <li>• Realistic business simulation environments</li>
                           <li>• Role-playing exercises and challenges</li>
@@ -127,12 +128,12 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
                     )}
                   </div>
 
-                  <h2 className="text-2xl font-bold text-white mb-4 mt-8">What Makes This Special</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <h2 className={styles.sectionHeadingSpaced}>What Makes This Special</h2>
+                  <div className={styles.formatGrid}>
                     {experience.tags.map((tag, index) => (
-                      <div key={index} className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
-                        <h3 className="font-semibold text-white mb-2">{tag}</h3>
-                        <p className="text-white text-opacity-90 text-sm">
+                      <div key={index} className={styles.formatCard}>
+                        <h3 className={styles.formatCardTitle}>{tag}</h3>
+                        <p className={styles.formatCardBodySm}>
                           {tag === 'Interactive' && 'Engage directly with AI tools and see immediate results'}
                           {tag === 'Demo' && 'Watch live demonstrations of AI capabilities in action'}
                           {tag === 'Industry-specific' && 'Tailored examples relevant to your business context'}
@@ -167,15 +168,15 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
                     ))}
                   </div>
 
-                  <h2 className="text-2xl font-bold text-white mb-4 mt-8">Experience Format</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
-                      <h3 className="font-semibold text-white mb-2">Duration</h3>
-                      <p className="text-white text-opacity-90">{experience.duration}</p>
+                  <h2 className={styles.sectionHeadingSpaced}>Experience Format</h2>
+                  <div className={styles.formatGrid}>
+                    <div className={styles.formatCard}>
+                      <h3 className={styles.formatCardTitle}>Duration</h3>
+                      <p className={styles.formatCardBody}>{experience.duration}</p>
                     </div>
-                    <div className="bg-purple-500 bg-opacity-20 p-4 rounded-lg">
-                      <h3 className="font-semibold text-white mb-2">Audience Size</h3>
-                      <p className="text-white text-opacity-90">{experience.audienceSize}</p>
+                    <div className={styles.formatCard}>
+                      <h3 className={styles.formatCardTitle}>Audience Size</h3>
+                      <p className={styles.formatCardBody}>{experience.audienceSize}</p>
                     </div>
                   </div>
                 </div>
@@ -183,45 +184,45 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
             </div>
 
             {/* Sidebar */}
-            <div className="lg:col-span-1">
-              <div className="glass-card p-6 sticky top-24">
-                <h3 className="text-xl font-bold text-white mb-4">Ready to Experience?</h3>
-                <p className="text-white text-opacity-90 mb-6">
+            <div className={styles.sidebarCol}>
+              <div className={`glass-card ${styles.sidebarCard}`}>
+                <h3 className={styles.sidebarTitle}>Ready to Experience?</h3>
+                <p className={styles.sidebarBody}>
                   Combine this immersive experience with a standard offering for maximum impact.
                 </p>
-                
-                <Link 
+
+                <Link
                   href="/plan-engagement"
-                  className="block w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl mb-4 text-center"
+                  className={`${styles.ctaButton} ${styles.ctaPurple}`}
                 >
                   Plan Customer Engagement
                 </Link>
-                
-                <Link 
+
+                <Link
                   href="/agenda-builder"
-                  className="block w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 shadow-lg hover:shadow-xl mb-4 text-center"
+                  className={`${styles.ctaButton} ${styles.ctaGreen}`}
                 >
                   Build Custom Agenda
                 </Link>
-                
-                <div className="text-center">
-                  <p className="text-sm text-white text-opacity-80 mb-2">Contact us via Slack:</p>
+
+                <div className={styles.slackBlock}>
+                  <p className={styles.slackLabel}>Contact us via Slack:</p>
                   <a
                     href={SLACK_REQUEST_WORKFLOW_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-2 rounded-full font-mono text-sm text-white transition-all duration-200 cursor-pointer"
+                    className={styles.slackLink}
                   >
                     #ai-centre-uk
                   </a>
                 </div>
 
-                <div className="mt-6 pt-6 border-t border-white border-opacity-20">
-                  <h4 className="font-semibold text-white mb-2">Experience Details</h4>
-                  <div className="space-y-2 text-sm text-white text-opacity-90">
-                    <div>Type: <span className="capitalize text-white">{experience.type}</span></div>
-                    <div>Duration: <span className="text-white">{experience.duration}</span></div>
-                    <div>Participants: <span className="text-white">{experience.audienceSize}</span></div>
+                <div className={styles.detailsBlock}>
+                  <h4 className={styles.detailsTitle}>Experience Details</h4>
+                  <div className={styles.detailsList}>
+                    <div>Type: <span className={`${styles.capitalize} ${styles.white}`}>{experience.type}</span></div>
+                    <div>Duration: <span className={styles.white}>{experience.duration}</span></div>
+                    <div>Participants: <span className={styles.white}>{experience.audienceSize}</span></div>
                   </div>
                 </div>
               </div>

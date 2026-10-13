@@ -23,6 +23,7 @@ import { X, Maximize2, Minimize2, Send, Sparkles, ArrowLeft, ArrowRight, PanelRi
 import Image from 'next/image';
 import FormattedText from './FormattedText';
 import { usePathname } from 'next/navigation';
+import styles from './AgentforceChat.module.css';
 
 // Type definition for chat messages
 interface Message {
@@ -349,23 +350,23 @@ export default function AgentforceChat() {
    */
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className={styles.floatingWrapper}>
         <button
           ref={floatingButtonRef}
           onClick={() => transitionToMode('compact')}
-          className="group relative bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+          className={styles.floatingButton}
           aria-label="Open Agent Eric"
         >
           {/* Online status indicators */}
-          <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full"></div>
-          <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full"></div>
-          <Sparkles size={24} className="group-hover:rotate-12 transition-transform duration-300" />
+          <div className={styles.floatingBadge}></div>
+          <div className={styles.floatingBadge}></div>
+          <Sparkles size={24} className={styles.floatingIcon} />
         </button>
-        
+
         {/* Hover tooltip */}
-        <div className="absolute bottom-16 right-0 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+        <div className={styles.tooltip}>
           Hi! I&apos;m Agent Eric - Ask me about AI Centre offerings! 💜
-          <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+          <div className={styles.tooltipArrow}></div>
         </div>
       </div>
     );
@@ -380,55 +381,55 @@ export default function AgentforceChat() {
     return (
       <>
         {/* Sidebar panel - no backdrop, allows interaction with main site */}
-        <div 
+        <div
           ref={chatContainerRef}
-          className={`fixed top-0 z-50 h-full w-80 lg:w-96 bg-gray-900 shadow-2xl flex flex-col agentforce-chat border border-gray-700 transition-all duration-300 ease-in-out ${
-            sidebarSide === 'left' 
-              ? 'left-0' 
-              : 'right-0'
-          } ${isAnimating ? 'opacity-90' : 'opacity-100'}`}
+          className={`${styles.sidebarPanel} agentforce-chat ${
+            sidebarSide === 'left'
+              ? styles.sidebarLeft
+              : styles.sidebarRight
+          } ${isAnimating ? styles.animating : styles.notAnimating}`}
         >
           {/* Sidebar header with navigation controls */}
-          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-600 to-indigo-600 border-b border-gray-700">
-            <div className="flex items-center space-x-3">
+          <div className={`${styles.headerBar} ${styles.sidebarHeader}`}>
+            <div className={styles.headerIdentity}>
               {/* AI avatar with online indicator */}
-              <div className="relative">
-                <div className="w-8 h-8 rounded-full overflow-hidden">
-                  <Image 
-                    src="/images/Avatars.png" 
-                    alt="Agent Eric" 
-                    width={32} 
-                    height={32} 
-                    className="w-full h-full object-cover"
+              <div className={styles.avatarWrapper}>
+                <div className={styles.headerAvatarCircle}>
+                  <Image
+                    src="/images/Avatars.png"
+                    alt="Agent Eric"
+                    width={32}
+                    height={32}
+                    className={styles.headerAvatarImage}
                     style={{ width: 'auto', height: 'auto' }}
                   />
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border border-white"></div>
+                <div className={styles.onlineDot}></div>
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-white">Agent Eric</h3>
-                <p className="text-xs text-white/90">AI Centre Helper</p>
+                <h3 className={styles.headerName}>Agent Eric</h3>
+                <p className={styles.headerSubtitle}>AI Centre Helper</p>
               </div>
             </div>
             {/* Action buttons */}
-            <div className="flex items-center space-x-1">
+            <div className={styles.headerActions}>
               <button
                 onClick={() => setSidebarSide(sidebarSide === 'left' ? 'right' : 'left')}
-                className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+                className={styles.headerIconButton}
                 title={`Move to ${sidebarSide === 'left' ? 'right' : 'left'} side`}
               >
                 {sidebarSide === 'left' ? <ArrowRight size={16} /> : <ArrowLeft size={16} />}
               </button>
               <button
                 onClick={() => transitionToMode('fullscreen')}
-                className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+                className={styles.headerIconButton}
                 title="Expand to fullscreen"
               >
                 <Maximize2 size={16} />
               </button>
               <button
                 onClick={() => transitionToMode('compact')}
-                className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+                className={styles.headerIconButton}
                 title="Close"
               >
                 <X size={16} />
@@ -437,46 +438,46 @@ export default function AgentforceChat() {
           </div>
 
           {/* Sidebar messages area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-800">
+          <div className={styles.sidebarMessages}>
             {/* Welcome state when no messages */}
             {messages.length === 0 && (
-              <div className="text-center mt-6">
-                <div className="mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Sparkles size={24} className="text-white" />
+              <div className={styles.welcomeBlock}>
+                <div className={styles.welcomeIntro}>
+                  <div className={`${styles.welcomeIconCircle} ${styles.welcomeIconSm}`}>
+                    <Sparkles size={24} className={styles.welcomeIcon} />
                   </div>
                   {isConnecting ? (
                     <>
-                      <h4 className="text-lg font-semibold text-white mb-2">Connecting...</h4>
-                      <p className="text-white/85 text-sm">Setting up your AI assistant</p>
+                      <h4 className={styles.welcomeHeadingSm}>Connecting...</h4>
+                      <p className={styles.welcomeBodySm}>Setting up your AI assistant</p>
                     </>
                   ) : connectionError ? (
                     <>
-                      <h4 className="text-lg font-semibold text-red-400 mb-2">Connection Error</h4>
-                      <p className="text-white/85 text-sm mb-3">Unable to connect to AI system</p>
+                      <h4 className={styles.welcomeHeadingError}>Connection Error</h4>
+                      <p className={styles.welcomeBodySmMb}>Unable to connect to AI system</p>
                       <button
                         onClick={retryConnection}
-                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-all duration-200"
+                        className={`${styles.retryButton} ${styles.retryButtonSm}`}
                       >
                         Retry Connection
                       </button>
                     </>
                   ) : (
                     <>
-                      <h4 className="text-lg font-semibold text-white mb-2">How can I help?</h4>
-                      <p className="text-white/85 text-sm">I&apos;m Agent Eric, ask me about AI Centre offerings</p>
+                      <h4 className={styles.welcomeHeadingSm}>How can I help?</h4>
+                      <p className={styles.welcomeBodySm}>I&apos;m Agent Eric, ask me about AI Centre offerings</p>
                     </>
                   )}
                 </div>
                 {/* Preset buttons stacked vertically for sidebar */}
                 {!connectionError && (
-                  <div className="space-y-2">
+                  <div className={styles.presetListVertical}>
                     {presetMessages.map((message) => (
                       <button
                         key={message}
                         onClick={() => handlePresetClick(message)}
                         disabled={isConnecting || !sessionId}
-                        className="w-full bg-gray-700 hover:bg-gray-600 border border-gray-600 text-white px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 text-left disabled:opacity-50 disabled:cursor-not-allowed"
+                        className={`${styles.presetButton} ${styles.presetButtonSm}`}
                       >
                         {message}
                       </button>
@@ -485,41 +486,41 @@ export default function AgentforceChat() {
                 )}
               </div>
             )}
-            
+
             {/* Render all messages */}
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                className={`${styles.messageRow} ${message.isUser ? styles.messageRowUser : styles.messageRowBot}`}
               >
                 <div
-                  className={`max-w-[85%] p-3 rounded-xl text-sm ${
+                  className={`${styles.bubble} ${styles.bubbleSm} ${
                     message.isUser
-                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg'
-                      : 'bg-gray-700 border border-gray-600 text-white'
+                      ? styles.bubbleUser
+                      : styles.bubbleBot
                   }`}
                 >
                   {message.isUser ? (
-                    <p className="leading-relaxed">{message.text}</p>
+                    <p className={styles.bubbleText}>{message.text}</p>
                   ) : (
                     <FormattedText text={message.text} />
                   )}
-                  <p className={`text-xs mt-2 ${message.isUser ? 'text-white/85' : 'text-white/75'}`}>
+                  <p className={`${styles.timestamp} ${styles.timestampSm} ${message.isUser ? styles.timestampUser : styles.timestampBot}`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
               </div>
             ))}
-            
+
             {/* Typing indicator */}
             {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-gray-700 border border-gray-600 text-white p-3 rounded-xl">
-                  <div className="flex space-x-1 items-center">
-                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    <span className="ml-2 text-xs text-white/85">Thinking...</span>
+              <div className={styles.messageRowBot}>
+                <div className={`${styles.typingBubble} ${styles.typingBubbleSm}`}>
+                  <div className={styles.typingRow}>
+                    <div className={`${styles.typingDot} ${styles.typingDotSm}`}></div>
+                    <div className={`${styles.typingDot} ${styles.typingDotSm}`}></div>
+                    <div className={`${styles.typingDot} ${styles.typingDotSm}`}></div>
+                    <span className={`${styles.typingLabel} ${styles.typingLabelSm}`}>Thinking...</span>
                   </div>
                 </div>
               </div>
@@ -529,19 +530,19 @@ export default function AgentforceChat() {
           </div>
 
           {/* Sidebar input area */}
-          <div className="p-4 bg-gray-800 border-t border-gray-700">
-            <form onSubmit={handleSubmit} className="flex space-x-2">
+          <div className={styles.sidebarInputArea}>
+            <form onSubmit={handleSubmit} className={styles.sidebarInputForm}>
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask me anything..."
-                className="flex-1 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-400 text-sm"
+                className={`${styles.textInput} ${styles.textInputSm}`}
               />
               <button
                 type="submit"
                 disabled={!inputValue.trim() || !sessionId || isConnecting}
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-3 py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                className={`${styles.sendButton} ${styles.sendButtonSm}`}
               >
                 <Send size={16} />
               </button>
@@ -559,105 +560,105 @@ export default function AgentforceChat() {
    */
   if (isExpanded) {
     return (
-      <div className={`fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4 agentforce-chat transition-opacity duration-300 ${isAnimating ? 'opacity-90' : 'opacity-100'}`}>
-        <div 
+      <div className={`${styles.fullscreenOverlay} agentforce-chat ${isAnimating ? styles.animating : styles.notAnimating}`}>
+        <div
           ref={chatContainerRef}
-          className={`w-full max-w-4xl h-[85vh] bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-opacity duration-300 ease-in-out ${isAnimating ? 'opacity-90' : 'opacity-100'}`}
+          className={`${styles.fullscreenModal} ${isAnimating ? styles.animating : styles.notAnimating}`}
         >
           {/* Fullscreen header */}
-          <div className="flex items-center justify-between p-3 md:p-6 bg-gradient-to-r from-purple-600 to-indigo-600 border-b border-gray-700">
-            <div className="flex items-center space-x-2 md:space-x-4">
+          <div className={`${styles.headerBar} ${styles.fullscreenHeader}`}>
+            <div className={styles.fullscreenIdentity}>
               {/* AI avatar and info */}
-              <div className="relative">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden">
-                  <Image 
-                    src="/images/Avatars.png" 
-                    alt="Agent Eric" 
-                    width={40} 
-                    height={40} 
-                    className="w-full h-full object-cover"
+              <div className={styles.avatarWrapper}>
+                <div className={styles.fullscreenAvatarCircle}>
+                  <Image
+                    src="/images/Avatars.png"
+                    alt="Agent Eric"
+                    width={40}
+                    height={40}
+                    className={styles.headerAvatarImage}
                     style={{ width: 'auto', height: 'auto' }}
                   />
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 md:w-4 md:h-4 bg-green-400 rounded-full border-2 border-white"></div>
+                <div className={styles.fullscreenOnlineDot}></div>
               </div>
               <div>
-                <h3 className="text-sm md:text-lg font-semibold text-white">Agent Eric</h3>
-                <p className="text-xs md:text-sm text-white/90 hidden sm:block">Here to help with customer engagements</p>
+                <h3 className={styles.fullscreenName}>Agent Eric</h3>
+                <p className={styles.fullscreenSubtitle}>Here to help with customer engagements</p>
               </div>
             </div>
             {/* Navigation controls */}
-            <div className="flex items-center space-x-1 md:space-x-2">
+            <div className={styles.fullscreenActions}>
               <button
                 onClick={() => setSidebarSide(sidebarSide === 'left' ? 'right' : 'left')}
-                className="hidden md:flex text-white/90 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
+                className={`${styles.hiddenMdFlex} ${styles.fullscreenIconButton}`}
                 title={`Sidebar will open on ${sidebarSide === 'left' ? 'right' : 'left'} side`}
               >
-                {sidebarSide === 'left' ? <ArrowRight className="w-4 h-4 md:w-5 md:h-5" /> : <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />}
+                {sidebarSide === 'left' ? <ArrowRight className={styles.fullscreenIcon} /> : <ArrowLeft className={styles.fullscreenIcon} />}
               </button>
               <button
                 onClick={() => transitionToMode('sidebar')}
-                className="hidden md:flex text-white/90 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
+                className={`${styles.hiddenMdFlex} ${styles.fullscreenIconButton}`}
                 title="Open as sidebar"
               >
-                {sidebarSide === 'left' ? <PanelRightOpen className="w-4 h-4 md:w-5 md:h-5" /> : <PanelLeftOpen className="w-4 h-4 md:w-5 md:h-5" />}
+                {sidebarSide === 'left' ? <PanelRightOpen className={styles.fullscreenIcon} /> : <PanelLeftOpen className={styles.fullscreenIcon} />}
               </button>
               <button
                 onClick={() => transitionToMode('compact')}
-                className="text-white/90 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
+                className={styles.fullscreenIconButton}
                 title="Minimize"
               >
-                <Minimize2 className="w-4 h-4 md:w-5 md:h-5" />
+                <Minimize2 className={styles.fullscreenIcon} />
               </button>
               <button
                 onClick={() => transitionToMode('closed')}
-                className="text-white/90 hover:text-white p-1 md:p-2 hover:bg-white/10 rounded-full transition-all duration-200"
+                className={styles.fullscreenIconButton}
                 title="Close"
               >
-                <X className="w-4 h-4 md:w-5 md:h-5" />
+                <X className={styles.fullscreenIcon} />
               </button>
             </div>
           </div>
 
           {/* Fullscreen messages area */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-800">
+          <div className={styles.fullscreenMessages}>
             {/* Welcome state for fullscreen */}
             {messages.length === 0 && (
-              <div className="text-center mt-8">
-                <div className="mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Sparkles size={32} className="text-white" />
+              <div className={styles.welcomeBlockLg}>
+                <div className={styles.welcomeIntroLg}>
+                  <div className={`${styles.welcomeIconCircle} ${styles.welcomeIconLg}`}>
+                    <Sparkles size={32} className={styles.welcomeIcon} />
                   </div>
                   {isConnecting ? (
                     <>
-                      <h4 className="text-xl font-semibold text-white mb-2">Connecting to AI Assistant...</h4>
-                      <p className="text-white/85">Setting up your conversation</p>
+                      <h4 className={styles.welcomeHeadingLg}>Connecting to AI Assistant...</h4>
+                      <p className={styles.welcomeBodyLg}>Setting up your conversation</p>
                     </>
                   ) : connectionError ? (
                     <>
-                      <h4 className="text-xl font-semibold text-red-400 mb-2">Connection Error</h4>
-                      <p className="text-white/85 mb-4">Unable to connect to our AI system</p>
+                      <h4 className={styles.welcomeHeadingErrorLg}>Connection Error</h4>
+                      <p className={styles.welcomeBodyLgMb}>Unable to connect to our AI system</p>
                       <button
                         onClick={retryConnection}
-                        className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl text-sm transition-all duration-200"
+                        className={`${styles.retryButton} ${styles.retryButtonLg}`}
                       >
                         Retry Connection
                       </button>
                     </>
                   ) : (
                     <>
-                      <h4 className="text-xl font-semibold text-white mb-2">How can I help you today?</h4>
-                      <p className="text-white/85">I&apos;m here to assist with AI Centre customer engagements</p>
+                      <h4 className={styles.welcomeHeadingLg}>How can I help you today?</h4>
+                      <p className={styles.welcomeBodyLg}>I&apos;m here to assist with AI Centre customer engagements</p>
                     </>
                   )}
                 </div>
                 {/* Preset buttons in grid layout for fullscreen */}
-                <div className="flex flex-wrap justify-center gap-3">
+                <div className={styles.presetGrid}>
                   {presetMessages.map((message) => (
                     <button
                       key={message}
                       onClick={() => handlePresetClick(message)}
-                      className="bg-gray-700 hover:bg-gray-600 border border-gray-600 text-white px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200"
+                      className={`${styles.presetButton} ${styles.presetButtonLg}`}
                     >
                       {message}
                     </button>
@@ -665,41 +666,41 @@ export default function AgentforceChat() {
                 </div>
               </div>
             )}
-            
+
             {/* Render all messages with more spacing */}
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                className={`${styles.messageRow} ${message.isUser ? styles.messageRowUser : styles.messageRowBot}`}
               >
                 <div
-                  className={`max-w-[75%] p-4 rounded-2xl ${
+                  className={`${styles.bubble} ${styles.bubbleLg} ${
                     message.isUser
-                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg'
-                      : 'bg-gray-700 border border-gray-600 text-white'
+                      ? styles.bubbleUser
+                      : styles.bubbleBot
                   }`}
                 >
                   {message.isUser ? (
-                    <p className="leading-relaxed">{message.text}</p>
+                    <p className={styles.bubbleText}>{message.text}</p>
                   ) : (
                     <FormattedText text={message.text} />
                   )}
-                  <p className={`text-xs mt-2 ${message.isUser ? 'text-white/85' : 'text-white/75'}`}>
+                  <p className={`${styles.timestamp} ${message.isUser ? styles.timestampUser : styles.timestampBot}`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
               </div>
             ))}
-            
+
             {/* Typing indicator for fullscreen */}
             {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-gray-700 border border-gray-600 text-white p-4 rounded-2xl">
-                  <div className="flex space-x-1 items-center">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <span className="ml-2 text-sm text-white/85">Agent Eric is thinking...</span>
+              <div className={styles.messageRowBot}>
+                <div className={`${styles.typingBubble} ${styles.typingBubbleLg}`}>
+                  <div className={styles.typingRow}>
+                    <div className={`${styles.typingDot} ${styles.typingDotLg}`}></div>
+                    <div className={`${styles.typingDot} ${styles.typingDotLg}`}></div>
+                    <div className={`${styles.typingDot} ${styles.typingDotLg}`}></div>
+                    <span className={`${styles.typingLabel} ${styles.typingLabelLg}`}>Agent Eric is thinking...</span>
                   </div>
                 </div>
               </div>
@@ -709,19 +710,19 @@ export default function AgentforceChat() {
           </div>
 
           {/* Fullscreen input area */}
-          <div className="p-6 bg-gray-800 border-t border-gray-700">
-            <form onSubmit={handleSubmit} className="flex space-x-3">
+          <div className={styles.fullscreenInputArea}>
+            <form onSubmit={handleSubmit} className={styles.fullscreenInputForm}>
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask me about workshops, bookings, or customer engagements..."
-                className="flex-1 p-4 bg-gray-700 border border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-400"
+                className={`${styles.textInput} ${styles.textInputLg}`}
               />
               <button
                 type="submit"
                 disabled={!inputValue.trim()}
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-4 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                className={`${styles.sendButton} ${styles.sendButtonLg}`}
               >
                 <Send size={20} />
               </button>
@@ -738,61 +739,61 @@ export default function AgentforceChat() {
    * Provides quick access and preset buttons
    */
   return (
-    <div 
+    <div
       ref={chatContainerRef}
-      className={`fixed bottom-6 z-50 agentforce-chat transition-all duration-300 ease-in-out w-full px-4 md:w-auto md:max-w-md md:right-6 md:left-auto md:px-0 ${isAnimating ? 'opacity-90' : 'opacity-100'}`}
+      className={`${styles.compactWrapper} agentforce-chat ${isAnimating ? styles.animating : styles.notAnimating}`}
     >
-      <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
+      <div className={styles.compactCard}>
         {/* Compact widget header */}
-        <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-600 to-indigo-600">
-          <div className="flex items-center space-x-3">
+        <div className={`${styles.headerBar} ${styles.compactHeader}`}>
+          <div className={styles.headerIdentity}>
             {/* AI avatar */}
-            <div className="relative">
-              <div className="w-8 h-8 rounded-full overflow-hidden">
-                <Image 
-                  src="/images/Avatars.png" 
-                  alt="Agent Eric" 
-                  width={32} 
-                  height={32} 
-                  className="w-full h-full object-cover"
+            <div className={styles.avatarWrapper}>
+              <div className={styles.headerAvatarCircle}>
+                <Image
+                  src="/images/Avatars.png"
+                  alt="Agent Eric"
+                  width={32}
+                  height={32}
+                  className={styles.headerAvatarImage}
                 />
               </div>
-              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border border-white"></div>
+              <div className={styles.onlineDot}></div>
             </div>
             <div>
-              <span className="text-white font-medium text-sm">Agent Eric</span>
-              <p className="text-white/85 text-xs">Ask me anything!</p>
+              <span className={styles.compactLabel}>Agent Eric</span>
+              <p className={styles.compactSubtitle}>Ask me anything!</p>
             </div>
           </div>
           {/* Compact widget controls */}
-          <div className="flex items-center space-x-1">
+          <div className={styles.headerActions}>
             <button
               onClick={() => {
                 const newSide = sidebarSide === 'left' ? 'right' : 'left';
                 setSidebarSide(newSide);
               }}
-              className="hidden md:flex text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+              className={`${styles.hiddenMdFlex} ${styles.headerIconButton}`}
               title={`Move to ${sidebarSide === 'left' ? 'right' : 'left'} side`}
             >
               {sidebarSide === 'left' ? <ArrowRight size={16} /> : <ArrowLeft size={16} />}
             </button>
             <button
               onClick={() => transitionToMode('sidebar')}
-              className="hidden md:flex text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+              className={`${styles.hiddenMdFlex} ${styles.headerIconButton}`}
               title="Open as sidebar"
             >
               {sidebarSide === 'left' ? <PanelRightOpen size={16} /> : <PanelLeftOpen size={16} />}
             </button>
             <button
               onClick={() => transitionToMode('fullscreen')}
-              className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+              className={styles.headerIconButton}
               title="Expand"
             >
               <Maximize2 size={16} />
             </button>
             <button
               onClick={() => transitionToMode('closed')}
-              className="text-white/90 hover:text-white p-1 hover:bg-white/10 rounded transition-all duration-200"
+              className={styles.headerIconButton}
               title="Close"
             >
               <X size={16} />
@@ -801,32 +802,32 @@ export default function AgentforceChat() {
         </div>
 
         {/* Compact widget content */}
-        <div className="p-4">
+        <div className={styles.compactBody}>
           {/* Input form */}
-          <form onSubmit={handleSubmit} className="flex space-x-2 mb-3">
+          <form onSubmit={handleSubmit} className={styles.compactInputForm}>
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="How can I help you?"
-              className="flex-1 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-400 text-sm"
+              className={`${styles.textInput} ${styles.textInputSm}`}
             />
             <button
               type="submit"
               disabled={!inputValue.trim()}
-              className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-3 py-3 rounded-lg disabled:opacity-50 transition-all duration-200"
+              className={`${styles.sendButton} ${styles.sendButtonSm}`}
             >
               <Send size={16} />
             </button>
           </form>
 
           {/* Quick action preset buttons in 2x2 grid */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className={styles.compactPresetGrid}>
             {presetMessages.slice(0, 4).map((message) => (
               <button
                 key={message}
                 onClick={() => handlePresetClick(message)}
-                className="bg-gray-700 hover:bg-gray-600 border border-gray-600 text-white px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 text-left"
+                className={`${styles.presetButton} ${styles.compactPresetButton}`}
               >
                 {message}
               </button>

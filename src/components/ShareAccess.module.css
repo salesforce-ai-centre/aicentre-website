@@ -1,5 +1,35 @@
 /* ShareAccess — "Share access" button + email-share modal (full-tier only). */
 
+.triggerButton {
+  gap: 0.5rem; /* gap-2 */
+}
+
+.triggerIcon {
+  height: 1.25rem; /* h-5 w-5 */
+  width: 1.25rem;
+}
+
+.closeIcon {
+  height: 1.25rem; /* h-5 w-5 */
+  width: 1.25rem;
+}
+
+.copyButton {
+  padding: 0.5rem 0.75rem !important; /* !px-3 !py-2 */
+  font-size: 1rem !important; /* !text-base */
+}
+
+.copyIcon {
+  height: 1rem; /* h-4 w-4 */
+  width: 1rem;
+}
+
+.resetLink {
+  font-weight: 700;
+  color: var(--brand, #022ac0);
+  text-decoration-line: underline;
+}
+
 .overlay {
   position: fixed;
   inset: 0;

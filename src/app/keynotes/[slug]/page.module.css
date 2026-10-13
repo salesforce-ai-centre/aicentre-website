@@ -1,0 +1,271 @@
+/* Keynote detail page — legacy dark theme. Converted to CSS Modules (AIC2-178). */
+
+.page {
+  min-height: 100vh;
+}
+
+.hero {
+  padding-top: 8rem; /* pt-32 */
+  padding-bottom: 5rem; /* pb-20 */
+}
+
+.wrap {
+  max-width: 56rem; /* max-w-4xl */
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* space-x-2 */
+  margin-bottom: 2rem; /* mb-8 */
+  font-size: 0.875rem; /* text-sm */
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.breadcrumbLink {
+  transition: color 0.2s ease;
+}
+.breadcrumbLink:hover {
+  color: #fff;
+}
+
+.breadcrumbCurrent {
+  color: #fff;
+}
+
+.card {
+  padding: 2rem; /* p-8 */
+}
+
+@media (min-width: 1024px) {
+  .card {
+    padding: 3rem; /* lg:p-12 */
+  }
+}
+
+.header {
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* space-x-3 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.badgeDot {
+  height: 0.75rem; /* w-3 h-3 */
+  width: 0.75rem;
+  border-radius: 9999px;
+  background-color: #a855f7; /* purple-500 */
+}
+
+.badgeLabel {
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  letter-spacing: 0.05em; /* tracking-wider */
+  text-transform: uppercase;
+  color: #e9d5ff; /* purple-200 */
+}
+
+.title {
+  margin-bottom: 1rem; /* mb-4 */
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 900;
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: 2.25rem; /* lg:text-4xl */
+  }
+}
+
+.description {
+  font-size: 1.25rem; /* text-xl */
+  line-height: 1.625; /* leading-relaxed */
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem; /* gap-6 */
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+@media (min-width: 768px) {
+  .detailsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .detailsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.detailCard {
+  border-radius: 0.75rem; /* rounded-xl */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem; /* p-6 */
+}
+
+.detailHeadRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* space-x-3 */
+  margin-bottom: 0.75rem; /* mb-3 */
+}
+
+.detailIcon {
+  display: flex;
+  height: 2rem; /* w-8 h-8 */
+  width: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+}
+
+.detailIconPurple {
+  background-color: rgba(168, 85, 247, 0.3); /* purple-500/30 */
+}
+
+.detailIconIndigo {
+  background-color: rgba(99, 102, 241, 0.3); /* indigo-500/30 */
+}
+
+.detailIconGreen {
+  background-color: rgba(34, 197, 94, 0.3); /* green-500/30 */
+}
+
+.detailIconEmoji {
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 700;
+  color: #fff;
+}
+
+.detailHeading {
+  font-weight: 600;
+  color: #fff;
+}
+
+.detailPrimary {
+  margin-bottom: 0.25rem; /* mb-1 */
+  font-weight: 500;
+  color: #fff;
+}
+
+.detailSecondary {
+  font-size: 0.875rem; /* text-sm */
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.audienceBlock {
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+.blockHeading {
+  margin-bottom: 1rem; /* mb-4 */
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 700;
+  color: #fff;
+}
+
+.audienceCard {
+  border-radius: 0.75rem; /* rounded-xl */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem; /* p-6 */
+}
+
+.audienceText {
+  line-height: 1.625;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.topicsBlock {
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+.topicsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem; /* gap-3 */
+}
+
+.topicPill {
+  border-radius: 0.75rem; /* rounded-xl */
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  background-color: rgba(168, 85, 247, 0.2);
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  font-weight: 500;
+  color: #fff;
+}
+
+.slidesBlock {
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+.bookingCard {
+  border-radius: 0.75rem; /* rounded-xl */
+  background-image: linear-gradient(to right, #9333ea, #4f46e5); /* purple-600 -> indigo-600 */
+  padding: 2rem; /* p-8 */
+  text-align: center;
+}
+
+.bookingTitle {
+  margin-bottom: 0.75rem; /* mb-3 */
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 700;
+  color: #fff;
+}
+
+.bookingBody {
+  margin-bottom: 1.5rem; /* mb-6 */
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.bookingActions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem; /* gap-4 */
+}
+
+@media (min-width: 640px) {
+  .bookingActions {
+    flex-direction: row;
+  }
+}
+
+.bookingButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* space-x-2 */
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem; /* px-6 py-3 */
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.bookingButtonWhite {
+  background-color: #fff;
+  color: #9333ea; /* purple-600 */
+}
+.bookingButtonWhite:hover {
+  background-color: #f3f4f6; /* gray-100 */
+}
+
+.bookingButtonGreen {
+  background-color: #16a34a; /* green-600 */
+  color: #fff;
+}
+.bookingButtonGreen:hover {
+  background-color: #15803d; /* green-700 */
+}

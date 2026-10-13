@@ -17,10 +17,11 @@ import FindUs from '@/components/about/FindUs';
 import MeetTheTeam from '@/components/about/MeetTheTeam';
 import CtaWell from '@/components/ui/CtaWell';
 import SiteFooter from '@/components/ui/SiteFooter';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <main className="page-gradient overflow-x-hidden">
+    <main className={`page-gradient ${styles.main}`}>
       <Navigation />
       <AboutHero />
       <PhotoBand />
@@ -33,7 +34,7 @@ export default function Home() {
         body="Immerse yourself in the world of AI and explore what the AI Centre has to offer"
         buttonLabel="Explore the centre"
         href="/experiences"
-        className="mt-12"
+        className={styles.cta}
       />
       <SiteFooter />
     </main>

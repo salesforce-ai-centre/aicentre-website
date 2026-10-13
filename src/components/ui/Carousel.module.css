@@ -29,3 +29,7 @@
 .snapCenter {
   scroll-snap-align: center;
 }
+
+.dots {
+  margin-top: 1.5rem; /* mt-6 */
+}
