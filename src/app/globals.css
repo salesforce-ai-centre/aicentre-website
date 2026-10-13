@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS custom-property token layer (AIC2-174) — canonical values ported from
+   tailwind.config.ts. Both Tailwind utilities and CSS Modules read these
+   during the Tailwind → CSS Modules migration (AIC2-173). */
+:root {
+  --brand: #022ac0;
+  --brand-dark: #001e5b;
+  --navy: #001e5b;
+  --font-heading: 'Avant Garde For Salesforce', 'Salesforce Sans', system-ui, sans-serif;
+  --font-sans: 'Salesforce Sans', system-ui, sans-serif;
+  --radius-card: 16px;
+  --shadow-card: 0 8px 30px rgba(0, 30, 91, 0.08);
+  --page-gradient: linear-gradient(180deg, #FBF3E0 0%, #EAF5FE 35%, #90D0FE 78%, #00B3FF 100%);
+}
+
 /* Heading typeface — self-hosted from /public. Only the Demi weight is
    supplied, so it covers the heading/font-heading token used across the
    redesigned light pages. */
