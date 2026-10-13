@@ -8,14 +8,15 @@
  */
 
 import SectionHeading from '@/components/ui/SectionHeading';
+import styles from './AboutHero.module.css';
 
 export default function AboutHero() {
   return (
-    <section className="section-padding pt-32 sm:pt-40">
+    <section className={`section-padding ${styles.hero}`}>
       <div className="container-max">
         <SectionHeading
           as="h1"
-          titleClassName="lg:leading-[1.15]"
+          titleClassName={styles.title}
           title={
             <>
               Let&apos;s unlock your

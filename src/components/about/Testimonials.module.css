@@ -1,0 +1,62 @@
+/* Testimonials — speech-bubble quote carousel (AIC2-139).
+   Converted to CSS Modules (AIC2-177). */
+
+.section {
+  padding-top: 4rem; /* py-16 */
+  padding-bottom: 4rem;
+}
+
+.figure {
+  position: relative;
+  height: 100%;
+  padding-bottom: 1.25rem; /* pb-5 */
+}
+
+.bubble {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  gap: 1rem;
+  border-radius: 1.5rem; /* rounded-3xl */
+  background-color: #fff;
+  padding: 2rem; /* p-8 */
+}
+
+.quoteMark {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-size: 3.75rem; /* text-6xl */
+  font-weight: 700;
+  line-height: 1;
+  color: #fbbf24; /* amber-400 */
+}
+
+.body {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.quote {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  flex: 1;
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600;
+  color: var(--navy, #001e5b);
+}
+
+.attribution {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  margin-top: 1.25rem; /* mt-5 */
+  font-size: 0.875rem; /* text-sm */
+  color: rgba(0, 30, 91, 0.7); /* text-navy/70 */
+}
+
+.tail {
+  position: absolute;
+  bottom: 0.25rem; /* bottom-1 */
+  right: 4rem; /* right-16 */
+  height: 2rem; /* h-8 */
+  width: 2rem; /* w-8 */
+}

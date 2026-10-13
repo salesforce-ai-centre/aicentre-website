@@ -1,0 +1,86 @@
+/* FeatureCards — two side-by-side feature cards (AIC2-140).
+   Converted to CSS Modules (AIC2-177). */
+
+.section {
+  padding-top: 4rem; /* py-16 */
+  padding-bottom: 4rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem; /* gap-6 */
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
+  }
+  .colSpan2 {
+    grid-column: span 2 / span 2; /* lg:col-span-2 */
+  }
+  .colSpan1 {
+    grid-column: span 1 / span 1; /* lg:col-span-1 */
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  min-height: 320px;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-radius: var(--radius-card, 16px);
+  padding: 2rem; /* p-8 */
+  box-shadow: var(--shadow-card, 0 8px 30px rgba(0, 30, 91, 0.08));
+}
+
+.brandFill {
+  position: absolute;
+  inset: 0;
+  background-color: var(--brand, #022ac0);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.content {
+  position: relative;
+}
+
+.title {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: 2.25rem; /* lg:text-4xl */
+  }
+}
+
+.titlePrimary {
+  color: #fff;
+}
+
+.titleSecondary {
+  color: var(--navy, #001e5b);
+}
+
+.body {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  margin-top: 0.75rem; /* mt-3 */
+  max-width: 32rem; /* max-w-lg */
+  font-size: 1rem; /* text-base */
+}
+
+.bodyPrimary {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.bodySecondary {
+  color: rgba(0, 30, 91, 0.9); /* text-navy/90 */
+}

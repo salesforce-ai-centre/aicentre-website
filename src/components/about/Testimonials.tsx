@@ -13,13 +13,14 @@
 
 import Carousel from '@/components/ui/Carousel';
 import { getTestimonials } from '@/lib/content';
+import styles from './Testimonials.module.css';
 
 export default function Testimonials() {
   const testimonials = getTestimonials();
   if (testimonials.length === 0) return null;
 
   return (
-    <section className="section-padding py-16">
+    <section className={`section-padding ${styles.section}`}>
       <div className="container-max">
         <Carousel
           ariaLabel="What people say about the AI Centre"
@@ -28,27 +29,21 @@ export default function Testimonials() {
           itemClassName="basis-[85%] sm:basis-3/4 lg:basis-2/5"
         >
           {testimonials.map((t) => (
-            <figure key={t.id} className="relative h-full pb-5">
-              <div style={{gap: "1rem"}} className="relative flex h-full flex-row rounded-3xl bg-white p-8">
-                <span
-                  aria-hidden
-                  className="font-heading text-6xl font-bold leading-none text-amber-400"
-                >
+            <figure key={t.id} className={styles.figure}>
+              <div className={styles.bubble}>
+                <span aria-hidden className={styles.quoteMark}>
                   &ldquo;
                 </span>
-                <div className="relative flex h-full flex-col">
-                  <blockquote className="font-heading flex-1 text-xl font-semibold text-navy">
+                <div className={styles.body}>
+                  <blockquote className={styles.quote}>
                     {t.quote}
                   </blockquote>
-                  <figcaption className="font-sans mt-5 text-sm text-navy/70">
+                  <figcaption className={styles.attribution}>
                     {t.attribution}
                   </figcaption>
                 </div>
               </div>
-              <div
-                aria-hidden
-                className="absolute bottom-1 right-16 h-8 w-8"
-              >
+              <div aria-hidden className={styles.tail}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
                   <path d="M96 71L0 0H96V71Z" fill="white"/>
                 </svg>

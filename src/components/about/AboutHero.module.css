@@ -1,0 +1,18 @@
+/* AboutHero — hero for the redesigned About page (AIC2-137).
+   Converted to CSS Modules (AIC2-177). */
+
+.hero {
+  padding-top: 8rem; /* pt-32 */
+}
+
+@media (min-width: 640px) {
+  .hero {
+    padding-top: 10rem; /* sm:pt-40 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    line-height: 1.15; /* lg:leading-[1.15] */
+  }
+}
