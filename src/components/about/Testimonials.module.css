@@ -8,14 +8,14 @@
 
 .figure {
   position: relative;
-  height: 100%;
+  height: stretch;
   padding-bottom: 1.25rem; /* pb-5 */
 }
 
 .bubble {
   position: relative;
   display: flex;
-  height: 100%;
+  height: stretch;
   flex-direction: row;
   gap: 1rem;
   border-radius: 1.5rem; /* rounded-3xl */
@@ -34,16 +34,16 @@
 .body {
   position: relative;
   display: flex;
-  height: 100%;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .quote {
   font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
-  flex: 1;
   font-size: 1.25rem; /* text-xl */
   font-weight: 600;
   color: var(--navy, #001e5b);
+  margin: 0;
 }
 
 .attribution {

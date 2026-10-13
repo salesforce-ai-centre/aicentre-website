@@ -25,6 +25,24 @@ body {
   /* Remove background-attachment: fixed - major performance killer */
 }
 
+a {
+  text-decoration: none;
+}
+
+/* Button reset — Tailwind Preflight used to strip native button chrome
+   (border/padding/background/font/appearance) globally; restore the
+   equivalent here since every component already styles buttons itself. */
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  cursor: pointer;
+}
+
 .glass-card {
   background-color: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.25);
