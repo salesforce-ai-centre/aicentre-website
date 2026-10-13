@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import Button from './ui/Button';
+import ShareAccess from './ShareAccess';
 import { useChat } from '@/contexts/ChatContext';
 import { useIsLite } from '@/contexts/AccessTierContext';
 import { isLitePathAllowed } from '@/lib/auth-session';
@@ -81,7 +82,7 @@ export default function Navigation() {
         }`}
       >
         <div className="px-4 sm:px-6">
-          <div className="flex h-24 items-center justify-between">
+          <div className="relative flex h-24 items-center justify-between">
             <Link
               href="/"
               className="flex flex-shrink-0 items-center gap-3 transition-opacity duration-200 hover:opacity-80"
@@ -98,7 +99,7 @@ export default function Navigation() {
               </span>
             </Link>
 
-            <div className="hidden items-center gap-8 md:flex">
+            <div className="pointer-events-none absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 nav:flex [&>*]:pointer-events-auto">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
@@ -115,19 +116,23 @@ export default function Navigation() {
               ))}
             </div>
 
-            {/* Desktop CTA — internal, hidden for lite sessions */}
-            {siteConfig.ctaButton && !isLite && (
-              <div className="hidden md:block">
-                <Button href={siteConfig.ctaButton.href}>
-                  {siteConfig.ctaButton.name}
-                </Button>
+            {/* Desktop CTAs — internal, hidden for lite sessions */}
+            {!isLite && (
+              <div className="hidden items-center gap-3 nav:flex">
+                {/* Share the client-safe (lite) site with someone by email */}
+                <ShareAccess />
+                {siteConfig.ctaButton && (
+                  <Button href={siteConfig.ctaButton.href}>
+                    {siteConfig.ctaButton.name}
+                  </Button>
+                )}
               </div>
             )}
 
             {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-navy md:hidden"
+              className="p-2 text-navy nav:hidden"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
@@ -137,7 +142,7 @@ export default function Navigation() {
 
           {/* Mobile nav */}
           {isOpen && (
-            <div className="border-t border-navy/10 md:hidden">
+            <div className="border-t border-navy/10 nav:hidden">
               <div className="space-y-1 px-2 pb-3 pt-2">
                 {navItems.map((item) => (
                   <Link
@@ -153,15 +158,18 @@ export default function Navigation() {
                     {item.name}
                   </Link>
                 ))}
-                {siteConfig.ctaButton && !isLite && (
-                  <div className="px-3 pt-2">
-                    <Button
-                      href={siteConfig.ctaButton.href}
-                      className="w-full"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {siteConfig.ctaButton.name}
-                    </Button>
+                {!isLite && (
+                  <div className="flex flex-col gap-2 px-3 pt-2">
+                    <ShareAccess />
+                    {siteConfig.ctaButton && (
+                      <Button
+                        href={siteConfig.ctaButton.href}
+                        className="w-full"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {siteConfig.ctaButton.name}
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>

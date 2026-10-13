@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        // Breakpoint at which the header switches from burger menu to full nav.
+        nav: '1100px',
+      },
       colors: {
         primary: {
           50: '#f0f9ff',

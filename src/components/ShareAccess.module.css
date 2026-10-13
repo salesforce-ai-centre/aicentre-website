@@ -1,0 +1,116 @@
+/* ShareAccess — "Share access" button + email-share modal (full-tier only). */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(0, 30, 91, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.dialog {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  background: #fff;
+  border-radius: var(--radius-card, 16px);
+  box-shadow: 0 24px 60px rgba(0, 30, 91, 0.25);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: rgba(0, 30, 91, 0.6);
+  padding: 0.25rem;
+  line-height: 0;
+  border-radius: 6px;
+}
+
+.close:hover {
+  color: var(--navy, #001e5b);
+  background: rgba(0, 30, 91, 0.06);
+}
+
+.heading {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-weight: 600;
+  color: var(--navy, #001e5b);
+  font-size: 1.5rem;
+}
+
+.body {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  color: rgba(0, 30, 91, 0.8);
+  font-size: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.input {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  font-size: 1rem;
+  color: var(--navy, #001e5b);
+  background: #fff;
+  border: 1px solid rgba(0, 30, 91, 0.25);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #022ac0;
+  box-shadow: 0 0 0 3px rgba(2, 42, 192, 0.15);
+}
+
+.error {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  color: #b3261e;
+  font-size: 0.9375rem;
+}
+
+/* Generated-link result */
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.linkRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.linkField {
+  flex: 1;
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  font-size: 0.875rem;
+  color: var(--navy, #001e5b);
+  background: rgba(0, 30, 91, 0.04);
+  border: 1px solid rgba(0, 30, 91, 0.15);
+  border-radius: 8px;
+  padding: 0.625rem 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hint {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  color: rgba(0, 30, 91, 0.6);
+  font-size: 0.8125rem;
+}

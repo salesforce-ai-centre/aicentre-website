@@ -38,7 +38,7 @@ export default function MeetTheTeam() {
                   alt={member.name}
                   fill
                   className={styles.image}
-                  sizes="(max-width: 640px) 70vw, 25vw"
+                  sizes="(max-width: 640px) 70vw, (max-width: 1024px) 33vw, 25vw"
                 />
                 <div className={styles.fade} />
               </div>

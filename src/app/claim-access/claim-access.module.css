@@ -1,0 +1,110 @@
+/* claim-access — recipient enters their email to redeem an email-bound lite
+   share link. Mirrors the get-access page shell. */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 1.5rem 4rem;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 34rem;
+  background: #fff;
+  border-radius: var(--radius-card, 16px);
+  box-shadow: var(--shadow-card, 0 18px 40px rgba(0, 30, 91, 0.12));
+  padding: 2.75rem 2.5rem 3rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.astro {
+  height: auto;
+  width: 104px;
+}
+
+.heading {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-weight: 600;
+  color: var(--navy, #001e5b);
+  font-size: 1.875rem;
+  line-height: 1.15;
+}
+
+@media (min-width: 640px) {
+  .heading {
+    font-size: 2.25rem;
+  }
+}
+
+.body {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  color: rgba(0, 30, 91, 0.75);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  max-width: 24rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  width: 100%;
+  max-width: 22rem;
+  text-align: left;
+  margin-top: 0.25rem;
+}
+
+.label {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--navy, #001e5b);
+}
+
+.input {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  font-size: 1rem;
+  color: var(--navy, #001e5b);
+  background: #fff;
+  border: 1px solid rgba(0, 30, 91, 0.25);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input::placeholder {
+  color: rgba(0, 30, 91, 0.4);
+}
+
+.input:focus {
+  outline: none;
+  border-color: #022ac0;
+  box-shadow: 0 0 0 3px rgba(2, 42, 192, 0.15);
+}
+
+/* Full-width submit so the CTA fills the form column cleanly. */
+.submit {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.error {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  color: #b3261e;
+  font-size: 0.9375rem;
+  text-align: left;
+}
