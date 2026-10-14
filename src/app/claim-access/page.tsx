@@ -18,13 +18,15 @@
 import { Suspense, useState, type FormEvent } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Ban } from 'lucide-react';
 import Button from '@/components/ui/Button';
-import AgentAstro from '../../../public/images/AgentAstro.webp';
+import { getSiteConfig } from '@/lib/content';
 import styles from './claim-access.module.css';
 
 const ClaimAccess = () => {
   const router = useRouter();
   const params = useSearchParams();
+  const siteConfig = getSiteConfig();
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -38,6 +40,12 @@ const ClaimAccess = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (submitting) return;
+
+    if (!email.trim()) {
+      setError('Enter your email address to continue.');
+      return;
+    }
+
     setError(null);
     setSubmitting(true);
 
@@ -80,44 +88,59 @@ const ClaimAccess = () => {
         } as React.CSSProperties
       }
     >
+      <div className={styles.header}>
+        <Image
+          src="/images/SalesforceLogo.png"
+          alt=""
+          width={40}
+          height={40}
+          className={styles.headerLogo}
+        />
+        <span className={styles.headerWordmark}>{siteConfig.siteName}</span>
+      </div>
+
       <section className={styles.hero}>
         <div className={styles.card}>
-          <Image src={AgentAstro} alt="" className={styles.astro} priority />
-
           {linkComplete ? (
             <>
-              <h1 className={styles.heading}>Confirm your email</h1>
+              <h1 className={styles.heading}>Welcome to the {siteConfig.siteName}</h1>
               <p className={styles.body}>
-                This link was shared with you to explore the AI Centre. Enter the
-                email address it was sent to, to continue.
+                A Salesforce colleague shared this link with you. Enter the
+                email address it was sent to and you&rsquo;ll get access.
               </p>
               <form className={styles.form} onSubmit={handleSubmit} noValidate>
                 <label className={styles.label} htmlFor="claim-email">
-                  Email address
+                  Your email address
                 </label>
-                <input
-                  id="claim-email"
-                  type="email"
-                  className={styles.input}
-                  placeholder="you@company.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                  required
-                />
+                <div
+                  className={`${styles.inputWrapper} ${error ? styles.inputWrapperError : ''}`}
+                >
+                  {error && <Ban className={styles.errorIcon} aria-hidden="true" />}
+                  <input
+                    id="claim-email"
+                    type="email"
+                    className={`${styles.input} ${error ? styles.inputError : ''}`}
+                    placeholder="name@company.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    required
+                    aria-invalid={error ? true : undefined}
+                  />
+                </div>
                 {error && <p className={styles.error}>{error}</p>}
                 <Button
                   type="submit"
                   className={styles.submit}
                   disabled={submitting || !email.trim()}
                 >
-                  {submitting ? 'Checking…' : 'Continue'}
+                  {submitting ? 'Checking…' : `Learn about the ${siteConfig.siteName}`}
                 </Button>
               </form>
             </>
           ) : (
             <>
-              <h1 className={styles.heading}>This link isn’t valid</h1>
+              <h1 className={styles.heading}>This link isn&rsquo;t valid</h1>
               <p className={styles.body}>
                 This access link is incomplete. Please ask the person who shared
                 it with you for a new link.
