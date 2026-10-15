@@ -1,7 +1,5 @@
 /* ShareAccess — "Share access" button + email-share modal (full-tier only). */
 
-<<<<<<< HEAD
-=======
 .triggerButton {
   gap: 0.5rem; /* gap-2 */
 }
@@ -69,7 +67,6 @@
   text-decoration-line: underline;
 }
 
->>>>>>> 2c718c6da650a675d12b1ba098605184787a6eca
 .overlay {
   position: fixed;
   inset: 0;
