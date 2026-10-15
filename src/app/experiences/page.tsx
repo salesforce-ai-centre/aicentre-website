@@ -20,6 +20,7 @@ import ExperienceSection, {
 } from '@/components/experiences/ExperienceSection';
 import CtaWell from '@/components/ui/CtaWell';
 import SiteFooter from '@/components/ui/SiteFooter';
+import styles from './page.module.css';
 
 const ACTIVATIONS: ExperienceCardData[] = [
   // Guided
@@ -274,7 +275,7 @@ const SPACES: ExperienceCardData[] = [
 export default function ExperiencesPage() {
   return (
     <main
-      className="page-gradient overflow-x-hidden"
+      className={`page-gradient ${styles.main}`}
       style={{ '--page-gradient': 'linear-gradient(0deg, #00B3FF 0%, #90D0FE 21.42%, #EAF5FE 68.72%, #F9F0FF 100%)' } as React.CSSProperties}
     >
       <Navigation />
@@ -287,7 +288,7 @@ export default function ExperiencesPage() {
         body="Follow our three simple steps to plan your visit with us."
         buttonLabel="Plan your visit"
         href="/plan-engagement"
-        className="mt-12"
+        className={styles.cta}
       />
       <SiteFooter />
     </main>

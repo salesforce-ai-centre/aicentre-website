@@ -1,16 +1,17 @@
 import { getSiteConfig } from '@/lib/content';
 import { SLACK_REQUEST_WORKFLOW_URL } from '@/lib/constants';
 import Image from 'next/image';
+import styles from './ContactBanner.module.css';
 
 export default function ContactBanner() {
   const siteConfig = getSiteConfig();
-  
+
   return (
-    <div className="bg-gradient-to-r from-purple-600 to-purple-500 py-5 relative overflow-hidden">
+    <div className={styles.banner}>
       {/* Diagonal stripe pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div 
-          className="absolute inset-0"
+      <div className={styles.stripeLayer}>
+        <div
+          className={styles.stripes}
           style={{
             background: `repeating-linear-gradient(
               45deg,
@@ -22,14 +23,14 @@ export default function ContactBanner() {
           }}
         />
       </div>
-      
-      <div className="container-max section-padding relative z-10">
-        <div className="text-center text-white">
-          <div className="text-lg font-semibold flex items-center justify-center space-x-3">
-            <Image 
-              src="/images/SlackLogo.webp" 
-              alt="Slack Logo" 
-              width={24} 
+
+      <div className={`container-max section-padding ${styles.content}`}>
+        <div className={styles.inner}>
+          <div className={styles.row}>
+            <Image
+              src="/images/SlackLogo.webp"
+              alt="Slack Logo"
+              width={24}
               height={24}
             />
             <span>{siteConfig.contactInfo.slackDescription}:</span>
@@ -37,12 +38,12 @@ export default function ContactBanner() {
               href={SLACK_REQUEST_WORKFLOW_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded-full font-mono text-sm transition-all duration-200 cursor-pointer"
+              className={styles.link}
             >
               {siteConfig.contactInfo.slackChannel}
             </a>
           </div>
-          <div className="text-sm opacity-90 mt-1">
+          <div className={styles.support}>
             {siteConfig.contactInfo.supportDescription}
           </div>
         </div>

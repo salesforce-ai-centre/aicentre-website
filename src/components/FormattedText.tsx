@@ -12,6 +12,7 @@
  */
 
 import React from 'react';
+import styles from './FormattedText.module.css';
 
 interface FormattedTextProps {
   text: string;
@@ -49,20 +50,20 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
           // Multi-line code block
           const code = codeBlock.slice(3, -3).trim();
           result.push(
-            <pre 
-              key={`${key}-code-${index}`} 
-              className="bg-gray-800 border border-gray-600 rounded-lg p-3 my-2 text-sm font-mono overflow-x-auto"
+            <pre
+              key={`${key}-code-${index}`}
+              className={styles.codeBlock}
             >
-              <code className="text-gray-100">{code}</code>
+              <code className={styles.codeBlockText}>{code}</code>
             </pre>
           );
         } else {
           // Inline code
           const code = codeBlock.slice(1, -1);
           result.push(
-            <code 
-              key={`${key}-inline-${index}`} 
-              className="bg-gray-700 text-purple-300 px-1.5 py-0.5 rounded text-sm font-mono"
+            <code
+              key={`${key}-inline-${index}`}
+              className={styles.inlineCode}
             >
               {code}
             </code>
@@ -125,7 +126,7 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
           href={cleanedUrl} 
           target="_blank" 
           rel="noopener noreferrer"
-          className="text-blue-400 hover:text-blue-300 underline decoration-blue-400/50 hover:decoration-blue-300 transition-colors duration-200"
+          className={styles.link}
         >
           {cleanedUrl}
         </a>
@@ -172,7 +173,7 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
                   href={cleanUrl(url)} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 underline decoration-blue-400/50 hover:decoration-blue-300 transition-colors duration-200"
+                  className={styles.link}
                 >
                   {linkText}
                 </a>
@@ -215,7 +216,7 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
         <a 
           key={`${key}-email-${emailIndex}`}
           href={`mailto:${email}`}
-          className="text-blue-400 hover:text-blue-300 underline decoration-blue-400/50 hover:decoration-blue-300 transition-colors duration-200"
+          className={styles.link}
         >
           {email}
         </a>
@@ -244,31 +245,31 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
     
     if (isList) {
       return (
-        <div key={`para-${index}`} className="space-y-1">
+        <div key={`para-${index}`} className={styles.list}>
           {lines.map((line, lineIndex) => {
             const trimmedLine = line.trim();
             if (!trimmedLine) return null;
-            
+
             // Bullet point
             if (/^\s*[-*•]\s/.test(line)) {
               const content = line.replace(/^\s*[-*•]\s/, '');
               return (
-                <div key={`${index}-${lineIndex}`} className="flex items-start space-x-2">
-                  <span className="text-purple-400 mt-0.5">•</span>
-                  <span className="flex-1">{formatTextSegment(content, `${index}-${lineIndex}`)}</span>
+                <div key={`${index}-${lineIndex}`} className={styles.listRow}>
+                  <span className={styles.bullet}>•</span>
+                  <span className={styles.listContent}>{formatTextSegment(content, `${index}-${lineIndex}`)}</span>
                 </div>
               );
             }
-            
+
             // Numbered list
             if (/^\s*\d+\.\s/.test(line)) {
               const match = line.match(/^\s*(\d+)\.\s(.*)$/);
               if (match) {
                 const [, number, content] = match;
                 return (
-                  <div key={`${index}-${lineIndex}`} className="flex items-start space-x-2">
-                    <span className="text-purple-400 mt-0.5 font-medium">{number}.</span>
-                    <span className="flex-1">{formatTextSegment(content, `${index}-${lineIndex}`)}</span>
+                  <div key={`${index}-${lineIndex}`} className={styles.listRow}>
+                    <span className={styles.number}>{number}.</span>
+                    <span className={styles.listContent}>{formatTextSegment(content, `${index}-${lineIndex}`)}</span>
                   </div>
                 );
               }
@@ -297,14 +298,14 @@ export function FormattedText({ text, className = '' }: FormattedTextProps) {
     }).filter(Boolean);
     
     return (
-      <p key={`para-${index}`} className="leading-relaxed">
+      <p key={`para-${index}`} className={styles.paragraph}>
         {formattedLines}
       </p>
     );
   };
-  
+
   return (
-    <div className={`space-y-3 ${className}`}>
+    <div className={`${styles.wrapper} ${className}`}>
       {paragraphs.map((paragraph, index) => {
         if (!paragraph.trim()) return null;
         return formatParagraph(paragraph, index);

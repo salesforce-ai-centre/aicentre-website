@@ -46,7 +46,11 @@ export async function POST(request: NextRequest) {
     if (!verification.valid) {
       const expired = verification.error === 'Link expired';
       return NextResponse.json(
-        { error: expired ? 'This link has expired.' : 'This link is invalid.' },
+        {
+          error: expired
+            ? 'This link has expired. Ask for a new one.'
+            : 'This link is invalid.',
+        },
         { status: expired ? 410 : 400 },
       );
     }
@@ -55,7 +59,10 @@ export async function POST(request: NextRequest) {
     const enteredHash = await hmacAuth.hashEmail(email);
     if (!hmacAuth.constantTimeEquals(enteredHash, eh)) {
       return NextResponse.json(
-        { error: "That email doesn't match this invite. Please check and try again." },
+        {
+          error:
+            "That email doesn't match this link. Use the address it was sent to, or ask them for a new link.",
+        },
         { status: 403 },
       );
     }

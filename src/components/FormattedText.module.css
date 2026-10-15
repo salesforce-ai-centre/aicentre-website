@@ -1,0 +1,74 @@
+/* FormattedText — chat message formatting (links, code, lists).
+   Converted to CSS Modules (AIC2-178). */
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* space-y-3 */
+}
+
+.codeBlock {
+  overflow-x: auto;
+  margin: 0.5rem 0; /* my-2 */
+  border: 1px solid #4b5563; /* gray-600 */
+  border-radius: 0.5rem; /* rounded-lg */
+  background-color: #1f2937; /* gray-800 */
+  padding: 0.75rem; /* p-3 */
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.875rem; /* text-sm */
+}
+
+.codeBlockText {
+  color: #f3f4f6; /* gray-100 */
+}
+
+.inlineCode {
+  border-radius: 0.25rem;
+  background-color: #374151; /* gray-700 */
+  padding: 0.125rem 0.375rem; /* px-1.5 py-0.5 */
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.875rem; /* text-sm */
+  color: #d8b4fe; /* purple-300 */
+}
+
+.link {
+  color: #60a5fa; /* blue-400 */
+  text-decoration-line: underline;
+  text-decoration-color: rgba(96, 165, 250, 0.5);
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+.link:hover {
+  color: #93c5fd; /* blue-300 */
+  text-decoration-color: #93c5fd;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* space-y-1 */
+}
+
+.listRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem; /* space-x-2 */
+}
+
+.bullet {
+  margin-top: 0.125rem; /* mt-0.5 */
+  color: #c084fc; /* purple-400 */
+}
+
+.number {
+  margin-top: 0.125rem; /* mt-0.5 */
+  font-weight: 500;
+  color: #c084fc; /* purple-400 */
+}
+
+.listContent {
+  flex: 1;
+}
+
+.paragraph {
+  line-height: 1.625; /* leading-relaxed */
+}

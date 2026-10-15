@@ -17,7 +17,7 @@
  */
 
 import { useState, type FormEvent } from 'react';
-import { Share2, X, Check, Copy } from 'lucide-react';
+import { Share2, X, Check, Link as LinkIcon } from 'lucide-react';
 import Button from './ui/Button';
 import styles from './ShareAccess.module.css';
 
@@ -81,8 +81,8 @@ export default function ShareAccess() {
 
   return (
     <>
-      <Button type="button" variant="outline" onClick={() => setOpen(true)} className="gap-2">
-        <Share2 className="h-5 w-5" />
+      <Button type="button" variant="outline" onClick={() => setOpen(true)} className={styles.triggerButton}>
+        <Share2 className={styles.triggerIcon} />
         Share
       </Button>
 
@@ -101,40 +101,48 @@ export default function ShareAccess() {
               onClick={closeModal}
               aria-label="Close"
             >
-              <X className="h-5 w-5" />
+              <X className={styles.closeIcon} />
             </button>
 
             {!shareUrl ? (
               <>
-                <h2 className={styles.heading}>Share the AI Centre</h2>
+                <h2 className={styles.heading}>Share with a customer</h2>
                 <p className={styles.body}>
-                  Enter an email address to create a private link. When they open
-                  it, they’ll confirm this email and get access to the client
-                  version of the site.
+                  Enter their email address and we&rsquo;ll create a private
+                  link just for them. They&rsquo;ll need to confirm this email
+                  to open it.
                 </p>
                 <form className={styles.form} onSubmit={handleGenerate} noValidate>
+                  <label className={styles.label} htmlFor="share-email">
+                    Customer&rsquo;s email address
+                  </label>
                   <input
+                    id="share-email"
                     type="email"
                     className={styles.input}
-                    placeholder="colleague@company.com"
+                    placeholder="name@company.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     autoComplete="off"
                     required
-                    aria-label="Recipient email address"
                   />
                   {error && <p className={styles.error}>{error}</p>}
-                  <Button type="submit" disabled={submitting || !email.trim()}>
-                    {submitting ? 'Creating link…' : 'Create share link'}
+                  <Button
+                    type="submit"
+                    className={styles.submit}
+                    disabled={submitting || !email.trim()}
+                  >
+                    {submitting ? 'Creating link…' : 'Create link'}
                   </Button>
                 </form>
               </>
             ) : (
               <div className={styles.result}>
-                <h2 className={styles.heading}>Link ready</h2>
+                <h2 className={styles.heading}>Your link is ready</h2>
                 <p className={styles.body}>
-                  Send this link to <strong>{email.trim()}</strong>. It’s valid
-                  for 30 days and only works for that email address.
+                  Send this link to <strong>{email.trim()}</strong>. It works
+                  for 30 days and only for this email address. They&rsquo;ll
+                  see the customer version of the site.
                 </p>
                 <div className={styles.linkRow}>
                   <input
@@ -144,18 +152,23 @@ export default function ShareAccess() {
                     onFocus={(e) => e.currentTarget.select()}
                     aria-label="Generated share link"
                   />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleCopy}
-                    className="!px-3 !py-2 !text-base"
-                  >
-                    {copied ? (
-                      <Check className="h-4 w-4" />
-                    ) : (
-                      <Copy className="h-4 w-4" />
-                    )}
-                  </Button>
+                  <span className={styles.copyWrapper}>
+                    <button
+                      type="button"
+                      onClick={handleCopy}
+                      className={styles.copyButton}
+                      aria-label="Copy link"
+                    >
+                      {copied ? (
+                        <Check className={styles.copyIcon} />
+                      ) : (
+                        <LinkIcon className={styles.copyIcon} />
+                      )}
+                    </button>
+                    <span className={styles.tooltip} role="tooltip">
+                      {copied ? 'Copied!' : 'Copy link'}
+                    </span>
+                  </span>
                 </div>
                 {error && <p className={styles.error}>{error}</p>}
                 <p className={styles.hint}>
@@ -163,7 +176,7 @@ export default function ShareAccess() {
                   <button
                     type="button"
                     onClick={reset}
-                    className="font-bold text-brand underline"
+                    className={styles.resetLink}
                   >
                     Create another link
                   </button>

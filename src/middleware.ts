@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.rewrite(new URL('/maintenance', request.url));
   }
 
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV !== 'production') {
     return NextResponse.next();
   }
 

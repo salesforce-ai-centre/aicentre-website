@@ -2,6 +2,7 @@
 
 import { useChat } from '@/contexts/ChatContext';
 import { ReactNode, useEffect, useState } from 'react';
+import styles from './SidebarAwareLayout.module.css';
 
 interface SidebarAwareLayoutProps {
   children: ReactNode;
@@ -35,8 +36,8 @@ export default function SidebarAwareLayout({ children }: SidebarAwareLayoutProps
   };
 
   return (
-    <div 
-      className="transition-all duration-300 ease-in-out"
+    <div
+      className={styles.wrapper}
       style={getMargin()}
     >
       {children}

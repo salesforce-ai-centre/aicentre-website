@@ -1,0 +1,205 @@
+/* SlideViewer — keynote slide deck viewer. Converted to CSS Modules (AIC2-178). */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem; /* rounded-xl */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+.statusShell {
+  display: flex;
+  height: 24rem; /* h-96 */
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+.spinner {
+  height: 2rem; /* h-8 w-8 */
+  width: 2rem;
+  border-radius: 9999px;
+  border-bottom: 2px solid #a855f7; /* purple-500 */
+  animation: spin 1s linear infinite;
+}
+
+.emptyState {
+  text-align: center;
+  color: #d1d5db; /* gray-300 */
+}
+
+.emptyTitle {
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem; /* text-lg */
+}
+
+.emptyHint {
+  font-size: 0.875rem; /* text-sm */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem; /* p-4 */
+}
+
+.headerTitle {
+  font-weight: 500;
+  color: #fff;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+}
+
+.iconButton {
+  border-radius: 0.5rem; /* rounded-lg */
+  padding: 0.5rem; /* p-2 */
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.iconButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.thumbnails {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1rem; /* p-4 */
+}
+
+.thumbnailRow {
+  display: flex;
+  gap: 0.5rem; /* gap-2 */
+  overflow-x: auto;
+}
+
+.thumbnailButton {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.thumbnailActive {
+  box-shadow: 0 0 0 2px #a855f7; /* ring-2 ring-purple-500 */
+}
+
+.thumbnailImage {
+  height: 3rem; /* h-12 */
+  width: 5rem; /* w-20 */
+  border-radius: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  object-fit: cover;
+}
+
+.thumbnailIndex {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-top-left-radius: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 0 0.25rem;
+  font-size: 0.75rem; /* text-xs */
+  color: #fff;
+}
+
+.stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+.stageFullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background-color: #000;
+}
+
+.stageImage {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 9999px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.75rem; /* p-3 */
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+.navArrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.navArrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.navArrowLeft {
+  left: 1rem; /* left-4 */
+}
+
+.navArrowRight {
+  right: 1rem; /* right-4 */
+}
+
+.dots {
+  position: absolute;
+  bottom: 1rem; /* bottom-4 */
+  left: 50%;
+  display: flex;
+  gap: 0.5rem; /* gap-2 */
+  transform: translateX(-50%);
+}
+
+.dot {
+  height: 0.5rem; /* w-2 h-2 */
+  width: 0.5rem;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.dotActive {
+  background-color: #fff;
+}
+
+.fullscreenExit {
+  position: absolute;
+  top: 1rem; /* top-4 */
+  right: 1rem; /* right-4 */
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+  color: #fff;
+}
+.fullscreenExit:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.footer {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1rem; /* p-4 */
+  text-align: center;
+  font-size: 0.875rem; /* text-sm */
+  color: rgba(255, 255, 255, 0.85);
+}

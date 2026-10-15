@@ -46,7 +46,7 @@ export default function ExperienceSection({
 
         <Carousel
           ariaLabel={title}
-          itemClassName="basis-[85%] sm:basis-1/2 lg:basis-1/3"
+          itemClassName={styles.item}
         >
           {items.map((item) => (
             <ContentCard
