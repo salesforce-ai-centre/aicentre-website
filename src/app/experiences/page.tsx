@@ -20,6 +20,7 @@ import ExperienceSection, {
 } from '@/components/experiences/ExperienceSection';
 import CtaWell from '@/components/ui/CtaWell';
 import SiteFooter from '@/components/ui/SiteFooter';
+import { getServerAccessTier } from '@/lib/auth-session';
 import styles from './page.module.css';
 
 const ACTIVATIONS: ExperienceCardData[] = [
@@ -192,6 +193,25 @@ const WORKSHOPS: ExperienceCardData[] = [
   },
 ];
 
+// Lite (client-safe) sessions see generic stock photography instead of the
+// internal workshop photos — same cards, swapped images only.
+const LITE_WORKSHOP_IMAGES = [
+  '/images/Experiences/LiteWorkshops/lite-workshop-01.jpeg',
+  '/images/Experiences/LiteWorkshops/lite-workshop-02.jpeg',
+  '/images/Experiences/LiteWorkshops/lite-workshop-03.jpeg',
+  '/images/Experiences/LiteWorkshops/lite-workshop-04.jpeg',
+  '/images/Experiences/LiteWorkshops/lite-workshop-05.jpeg',
+  '/images/Experiences/LiteWorkshops/lite-workshop-06.jpeg',
+  '/images/Experiences/LiteWorkshops/lite-workshop-07.jpeg',
+  '/images/Experiences/LiteWorkshops/lite-workshop-08.jpeg',
+  '/images/Experiences/LiteWorkshops/lite-workshop-09.jpeg',
+];
+
+const WORKSHOPS_LITE: ExperienceCardData[] = WORKSHOPS.map((workshop, i) => ({
+  ...workshop,
+  image: LITE_WORKSHOP_IMAGES[i] ?? workshop.image,
+}));
+
 const SPACES: ExperienceCardData[] = [
   {
     id: 'exhibition-road',
@@ -272,7 +292,10 @@ const SPACES: ExperienceCardData[] = [
   },
 ];
 
-export default function ExperiencesPage() {
+export default async function ExperiencesPage() {
+  const tier = await getServerAccessTier();
+  const workshops = tier === 'lite' ? WORKSHOPS_LITE : WORKSHOPS;
+
   return (
     <main
       className={`page-gradient ${styles.main}`}
@@ -281,7 +304,7 @@ export default function ExperiencesPage() {
       <Navigation />
       <ExperiencesHero />
       <ExperienceSection id="activations" title="Activations" items={ACTIVATIONS} />
-      <ExperienceSection id="workshops" title="Workshops" items={WORKSHOPS} />
+      <ExperienceSection id="workshops" title="Workshops" items={workshops} />
       <ExperienceSection id="spaces" title="Spaces" items={SPACES} />
       <CtaWell
         heading="Plan your visit to the AI Centre"

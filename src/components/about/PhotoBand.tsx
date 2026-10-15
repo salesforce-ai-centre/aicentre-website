@@ -23,7 +23,9 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import Button from '@/components/ui/Button';
+import { useIsLite } from '@/contexts/AccessTierContext';
 import gallery from '../../../content/gallery.json';
+import galleryLite from '../../../content/gallery-lite.json';
 import styles from './PhotoBand.module.css';
 
 const PLACEHOLDER_COUNT = 12;
@@ -48,7 +50,8 @@ function tileForWidth(vw: number) {
 }
 
 export default function PhotoBand() {
-  const images = (gallery.images as string[]) ?? [];
+  const isLite = useIsLite();
+  const images = ((isLite ? galleryLite.images : gallery.images) as string[]) ?? [];
   const hasImages = images.length > 0;
   const count = hasImages ? images.length : PLACEHOLDER_COUNT;
   const anglePer = 360 / count;
