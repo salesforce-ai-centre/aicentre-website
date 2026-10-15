@@ -45,10 +45,13 @@ export class HMACAuthenticator {
     baseUrl: string,
     options: SignedUrlOptions = {},
   ): Promise<string> {
-    const timestamp = Date.now();
+    // ts/exp travel as Unix epoch SECONDS (not ms) to keep the query string
+    // short — shaves a digit off every timestamp without losing precision we
+    // need (links are valid for minutes/days, never sub-second).
+    const timestamp = Math.floor(Date.now() / 1000);
     const scope: AccessTier = options.scope ?? 'full';
     // expiresAt: 0 means "use the freshness window" (legacy short-lived link).
-    const expiresAt = options.ttlMs ? timestamp + options.ttlMs : 0;
+    const expiresAt = options.ttlMs ? timestamp + Math.floor(options.ttlMs / 1000) : 0;
     const emailHash = options.emailHash ?? '';
     const signature = await this.generateSignature(path, timestamp, scope, expiresAt, emailHash);
 
@@ -105,7 +108,13 @@ export class HMACAuthenticator {
     return email.trim().toLowerCase();
   }
 
-  /** Raw HMAC-SHA256 hex digest of a message using the shared secret. */
+  /**
+   * HMAC-SHA256 digest of a message using the shared secret, base64url-encoded
+   * (not hex) — ~43 chars instead of 64, and URL-safe (no `+`/`/`/`=`) so it
+   * drops straight into a query string. Only ever compared byte-for-byte via
+   * constantTimeStringCompare, never decoded, so the encoding is opaque to
+   * every caller.
+   */
   private async hmac(message: string): Promise<string> {
     const encoder = new TextEncoder();
     const key = await crypto.subtle.importKey(
@@ -116,9 +125,15 @@ export class HMACAuthenticator {
       ['sign']
     );
     const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(message));
-    return Array.from(new Uint8Array(signature))
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('');
+    return this.toBase64Url(new Uint8Array(signature));
+  }
+
+  /** Base64url encode (RFC 4648 §5) without relying on Node's Buffer, so this
+   *  also works in the Edge runtime (middleware). */
+  private toBase64Url(bytes: Uint8Array): string {
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+    return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   }
 
   /**
@@ -130,7 +145,7 @@ export class HMACAuthenticator {
    * @param timestamp - `ts` query parameter
    * @param signature - `sig` query parameter
    * @param scope - `scope` query parameter (absent → legacy full link)
-   * @param exp - `exp` query parameter (absolute expiry ms; absent → freshness window)
+   * @param exp - `exp` query parameter (absolute expiry, Unix epoch SECONDS; absent → freshness window)
    * @param emailHash - `eh` query parameter (hashed recipient email; absent → not email-bound)
    */
   async verifySignature(
@@ -145,6 +160,8 @@ export class HMACAuthenticator {
       return { valid: false, error: 'Missing signature or timestamp' };
     }
 
+    // ts/exp are Unix epoch SECONDS (see generateSignedUrl); convert to ms
+    // for the freshness/expiry comparisons below, which work in ms.
     const ts = parseInt(timestamp, 10);
     if (isNaN(ts)) {
       return { valid: false, error: 'Invalid timestamp format' };
@@ -162,12 +179,12 @@ export class HMACAuthenticator {
 
     // Expiry: scoped links carry an absolute expiry; legacy links use the
     // short freshness window around the signing time.
-    const now = Date.now();
+    const nowMs = Date.now();
     if (expiresAt) {
-      if (now > expiresAt) {
+      if (nowMs > expiresAt * 1000) {
         return { valid: false, error: 'Link expired' };
       }
-    } else if (Math.abs(now - ts) > this.timeoutMs) {
+    } else if (Math.abs(nowMs - ts * 1000) > this.timeoutMs) {
       return { valid: false, error: 'Timestamp expired or invalid' };
     }
 

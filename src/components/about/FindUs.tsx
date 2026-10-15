@@ -14,7 +14,7 @@ import Button from '@/components/ui/Button';
 import styles from './FindUs.module.css';
 
 const DIRECTIONS_URL =
-  'https://www.google.com/maps/search/?api=1&query=9+Devonshire+Square+London+EC2M+4YF';
+  'https://maps.app.goo.gl/UtxB99x7YyZHj2Ab9';
 const BUILDING_IMAGE = '/images/About/Other/ai-centre-external.webp';
 
 export default function FindUs() {

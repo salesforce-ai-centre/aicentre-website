@@ -17,6 +17,7 @@
  */
 
 import { useState, type FormEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { Share2, X, Check, Link as LinkIcon, Ban } from 'lucide-react';
 import Button from './ui/Button';
 import styles from './ShareAccess.module.css';
@@ -85,7 +86,7 @@ export default function ShareAccess() {
         Share Externally
       </Button>
 
-      {open && (
+      {open && createPortal(
         <div
           className={styles.overlay}
           role="dialog"
@@ -189,7 +190,8 @@ export default function ShareAccess() {
               </div>
             )}
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

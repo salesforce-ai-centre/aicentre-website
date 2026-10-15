@@ -53,14 +53,18 @@ export async function getAccessTier(cookies: CookieStore): Promise<AccessTier | 
 
 /**
  * Server-side tier read for use in Server Components / layouts (via
- * next/headers cookies()). In development, middleware skips auth so there's no
- * cookie — default to `full` there so local dev sees the full experience.
+ * next/headers cookies()). A real signed cookie always wins — e.g. a lite
+ * session minted by /claim-access while STAGING_MODE is on, so staging can
+ * still preview the lite experience. Only falls back to `full` when there's
+ * no cookie at all, which is the dev-environment case (middleware skips auth
+ * entirely there, so local dev sees the full experience by default).
  */
 export async function getServerAccessTier(): Promise<AccessTier | null> {
-  if (isDevEnvironment()) return 'full';
   const { cookies } = await import('next/headers');
   const store = await cookies();
-  return hmacAuth.verifyScopeCookie(store.get(AUTH_COOKIE)?.value);
+  const tier = await hmacAuth.verifyScopeCookie(store.get(AUTH_COOKIE)?.value);
+  if (tier) return tier;
+  return isDevEnvironment() ? 'full' : null;
 }
 
 /**

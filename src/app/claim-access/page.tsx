@@ -21,7 +21,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Ban } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { getSiteConfig } from '@/lib/content';
-import AgentAstro from '../../../public/images/AgentAstro.webp';
+import AgentAstro from '../../../public/images/AgentAstroWelcome.png';
 import styles from './claim-access.module.css';
 
 const ClaimAccess = () => {

@@ -15,7 +15,7 @@ import styles from './ExperienceVideo.module.css';
 const VIDEO_SRC =
   'https://res.cloudinary.com/iboost/video/upload/v1792060088/AI_Centre_Tour.mp4';
 const POSTER_SRC =
-  'https://res.cloudinary.com/iboost/video/upload/q_auto/v1792060088/AI_Centre_Tour.jpg';
+  'https://res.cloudinary.com/iboost/video/upload/so_39,q_auto/v1792060088/AI_Centre_Tour.jpg';
 
 export default function ExperienceVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);

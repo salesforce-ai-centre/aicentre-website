@@ -146,16 +146,17 @@ export default function Navigation() {
                 ))}
                 {!isLite && (
                   <div className={styles.mobileCtas}>
-                    <ShareAccess />
                     {siteConfig.ctaButton && (
                       <Button
                         href={siteConfig.ctaButton.href}
                         className={styles.mobileCtaButton}
                         onClick={() => setIsOpen(false)}
+                        variant="outline"
                       >
                         {siteConfig.ctaButton.name}
                       </Button>
                     )}
+                    <ShareAccess />
                   </div>
                 )}
               </div>

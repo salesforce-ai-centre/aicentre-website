@@ -43,22 +43,26 @@
   border-radius: 999px 999px 20px 20px;
   box-shadow: var(--shadow-card, 0 18px 40px rgba(0, 30, 91, 0.12));
   padding: 2.5rem;
+  padding-top: 6rem;
   text-align: left;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-/* The astro mascot sits inside the arch, above the copy. */
+/* The astro mascot floats above the arch, overlapping the top curve. */
 .dome {
+  position: absolute;
+  top: -4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
-  padding-top: 1.5rem;
 }
 
 .astro {
   height: auto;
-  width: 220px;
+  width: 280px;
 }
 
 .heading {
