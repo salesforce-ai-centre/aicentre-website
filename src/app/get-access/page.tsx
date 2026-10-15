@@ -2,15 +2,14 @@
 
 import { Suspense } from 'react';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
-import Button from '@/components/ui/Button';
+import Link from 'next/link';
 import { SLACK_CHANNEL_URL } from '@/lib/constants';
-import AgentAstro from '../../../public/images/AgentAstro.webp';
+import { getSiteConfig } from '@/lib/content';
+import AgentAstroFlying from '../../../public/images/AgentAstroFlying.png';
 import styles from './get-access.module.css';
 
 const AccessDenied = () => {
-  // An expired client share link shows a different, client-appropriate message.
-  const expired = useSearchParams().get('reason') === 'expired';
+  const siteConfig = getSiteConfig();
 
   return (
     <main
@@ -22,45 +21,57 @@ const AccessDenied = () => {
         } as React.CSSProperties
       }
     >
+      <div className={styles.header}>
+        <Image
+          src="/images/SalesforceLogo.png"
+          alt=""
+          width={40}
+          height={40}
+          className={styles.headerLogo}
+        />
+        <span className={styles.headerWordmark}>{siteConfig.siteName}</span>
+      </div>
+
       <section className={styles.hero}>
         <div className={styles.card}>
-          <Image src={AgentAstro} alt="" className={styles.astro} priority />
+          <div className={styles.dome}>
+            <Image src={AgentAstroFlying} alt="" className={styles.astro} priority />
+          </div>
 
-          <h1 className={styles.heading}>
-            {expired ? 'This link has expired' : 'This link isn’t valid'}
-          </h1>
+          <h1 className={styles.heading}>Welcome to the {siteConfig.siteName}</h1>
+          <p className={styles.body}>
+            Thanks for your interest in the Salesforce {siteConfig.siteName}.
+          </p>
 
-          {expired ? (
+          <div className={styles.section}>
+            <p className={styles.sectionTitle}>For customers and partners</p>
             <p className={styles.body}>
-              Your access link to the AI Centre has expired. Please ask the
-              person who shared it with you for a new link.
+              Ask your Salesforce account team for a personal link. They can
+              create one for your email address in a few seconds.
             </p>
-          ) : (
-            <>
-              <p className={styles.body}>
-                It looks like you have an invalid link to this page. If you are
-                a Salesforce employee, request your personalised link in the
-                #ai-centre-uk Slack channel.
-              </p>
-              <div className={styles.actions}>
-                <Button
-                  href={SLACK_CHANNEL_URL}
-                  variant="outline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open #ai-centre-uk
-                </Button>
-              </div>
-            </>
-          )}
+          </div>
+
+          <div className={styles.section}>
+            <p className={styles.sectionTitle}>For Salesforce employees</p>
+            <p className={styles.body}>
+              Join{' '}
+              <Link
+                href={SLACK_CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.slackLink}
+              >
+                #ai-centre-uk
+              </Link>{' '}
+              on Slack to get access.
+            </p>
+          </div>
         </div>
       </section>
     </main>
   );
 };
 
-// useSearchParams requires a Suspense boundary in the App Router.
 export default function GetAccessPage() {
   return (
     <Suspense fallback={null}>

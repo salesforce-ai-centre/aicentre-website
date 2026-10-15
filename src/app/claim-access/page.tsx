@@ -21,6 +21,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Ban } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { getSiteConfig } from '@/lib/content';
+import AgentAstro from '../../../public/images/AgentAstro.webp';
 import styles from './claim-access.module.css';
 
 const ClaimAccess = () => {
@@ -101,6 +102,9 @@ const ClaimAccess = () => {
 
       <section className={styles.hero}>
         <div className={styles.card}>
+          <div className={styles.dome}>
+            <Image src={AgentAstro} alt="" className={styles.astro} priority />
+          </div>
           {linkComplete ? (
             <>
               <h1 className={styles.heading}>Welcome to the {siteConfig.siteName}</h1>

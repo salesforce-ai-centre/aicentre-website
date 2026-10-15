@@ -1,4 +1,4 @@
-/* get-access — access-denied / expired-link page, redesigned light theme. */
+/* get-access — access-denied landing page, redesigned light theme. */
 
 .main {
   display: flex;
@@ -6,55 +6,93 @@
   min-height: 100vh;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 2.5rem 0;
+}
+
+.headerLogo {
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  object-fit: contain;
+}
+
+.headerWordmark {
+  font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
+  font-weight: 600;
+  color: var(--brand, #022ac0);
+  font-size: 1.5rem;
+}
+
 .hero {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8rem 1.5rem 4rem;
+  padding: 4rem 1.5rem;
 }
 
 .card {
   position: relative;
   width: 100%;
-  max-width: 34rem;
+  max-width: 29rem;
   background: #fff;
-  border-radius: var(--radius-card, 16px);
+  /* Tall arch top, matching the AI Centre access-flow hero shape. */
+  border-radius: 999px 999px 20px 20px;
   box-shadow: var(--shadow-card, 0 18px 40px rgba(0, 30, 91, 0.12));
-  padding: 3rem 2.5rem;
-  text-align: center;
+  padding: 2.5rem;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
+}
+
+/* The astro mascot sits inside the arch, above the copy. */
+.dome {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
 }
 
 .astro {
   height: auto;
-  width: 120px;
+  width: 220px;
 }
 
 .heading {
   font-family: var(--font-heading, 'Avant Garde For Salesforce', sans-serif);
   font-weight: 600;
   color: var(--navy, #001e5b);
-  font-size: 2rem;
-  line-height: 1.15;
-}
-
-@media (min-width: 640px) {
-  .heading {
-    font-size: 2.5rem;
-  }
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin: 0;
 }
 
 .body {
   font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
-  color: rgba(0, 30, 91, 0.8);
-  font-size: 1.125rem;
-  max-width: 26rem;
+  color: rgba(0, 30, 91, 0.75);
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-.actions {
-  margin-top: 0.5rem;
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  font-weight: 700;
+  color: var(--navy, #001e5b);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.slackLink {
+  color: var(--brand, #022ac0);
+  text-decoration: underline;
+  font-weight: 600;
 }

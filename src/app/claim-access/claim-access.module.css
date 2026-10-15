@@ -40,13 +40,26 @@
   width: 100%;
   max-width: 29rem;
   background: #fff;
-  border-radius: var(--radius-card, 16px);
+  /* Tall arch top, matching the AI Centre access-flow hero shape. */
+  border-radius: 999px 999px 20px 20px;
   box-shadow: var(--shadow-card, 0 18px 40px rgba(0, 30, 91, 0.12));
   padding: 2.5rem;
   text-align: left;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+/* The astro mascot sits inside the arch, above the copy. */
+.dome {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+}
+
+.astro {
+  height: auto;
+  width: 220px;
 }
 
 .heading {

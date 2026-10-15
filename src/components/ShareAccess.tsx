@@ -17,7 +17,7 @@
  */
 
 import { useState, type FormEvent } from 'react';
-import { Share2, X, Check, Link as LinkIcon } from 'lucide-react';
+import { Share2, X, Check, Link as LinkIcon, Ban } from 'lucide-react';
 import Button from './ui/Button';
 import styles from './ShareAccess.module.css';
 
@@ -81,9 +81,8 @@ export default function ShareAccess() {
 
   return (
     <>
-      <Button type="button" variant="outline" onClick={() => setOpen(true)} className={styles.triggerButton}>
-        <Share2 className={styles.triggerIcon} />
-        Share
+      <Button type="button" onClick={() => setOpen(true)} className={styles.triggerButton}>
+        Share Externally
       </Button>
 
       {open && (
@@ -116,16 +115,22 @@ export default function ShareAccess() {
                   <label className={styles.label} htmlFor="share-email">
                     Customer&rsquo;s email address
                   </label>
-                  <input
-                    id="share-email"
-                    type="email"
-                    className={styles.input}
-                    placeholder="name@company.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    autoComplete="off"
-                    required
-                  />
+                  <div
+                    className={`${styles.inputWrapper} ${error ? styles.inputWrapperError : ''}`}
+                  >
+                    {error && <Ban className={styles.errorIcon} aria-hidden="true" />}
+                    <input
+                      id="share-email"
+                      type="email"
+                      className={`${styles.input} ${error ? styles.inputError : ''}`}
+                      placeholder="name@company.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      autoComplete="off"
+                      required
+                      aria-invalid={error ? true : undefined}
+                    />
+                  </div>
                   {error && <p className={styles.error}>{error}</p>}
                   <Button
                     type="submit"

@@ -110,12 +110,12 @@ export default function Navigation() {
             {!isLite && (
               <div className={styles.desktopCtas}>
                 {/* Share the client-safe (lite) site with someone by email */}
-                <ShareAccess />
                 {siteConfig.ctaButton && (
-                  <Button href={siteConfig.ctaButton.href}>
+                  <Button href={siteConfig.ctaButton.href} variant="outline" >
                     {siteConfig.ctaButton.name}
                   </Button>
                 )}
+                <ShareAccess />
               </div>
             )}
 

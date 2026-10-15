@@ -11,6 +11,7 @@
   font-weight: 600;
   line-height: 1.25;
   font-size: 1.875rem; /* text-3xl */
+  margin-top: 0;
 }
 
 @media (min-width: 640px) {

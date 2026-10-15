@@ -12,6 +12,7 @@
 
 import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/ui/SectionHeading';
+import ExperienceVideo from './ExperienceVideo';
 import styles from './ExperiencesHero.module.css';
 
 const SECTIONS = [
@@ -38,6 +39,7 @@ export default function ExperiencesHero() {
           title="Explore the magic of the AI Centre"
           titleClassName={styles.title}
         />
+        <ExperienceVideo />
         <div className={styles.pills}>
           {SECTIONS.map((s) => (
             <Button

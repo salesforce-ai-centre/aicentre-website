@@ -139,6 +139,21 @@
   margin-top: 0.5rem;
 }
 
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.errorIcon {
+  position: absolute;
+  left: 0.875rem;
+  height: 1.125rem;
+  width: 1.125rem;
+  color: #b3261e;
+  pointer-events: none;
+}
+
 .input {
   font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
   font-size: 1rem;
@@ -147,6 +162,8 @@
   border: 1px solid rgba(0, 30, 91, 0.25);
   border-radius: 8px;
   padding: 0.75rem 1rem;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .input:focus {
@@ -155,10 +172,23 @@
   box-shadow: 0 0 0 3px rgba(2, 42, 192, 0.15);
 }
 
+/* Error state — pink field + icon, mirrors the claim-access pattern. */
+.inputWrapperError .input,
+.inputError {
+  background: #fce8ea;
+  border-color: #c5172e;
+  color: var(--navy, #001e5b);
+  padding-left: 2.5rem;
+}
+
+.inputWrapperError .input:focus {
+  box-shadow: 0 0 0 3px rgba(197, 23, 46, 0.15);
+}
+
 .error {
   font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
-  color: #b3261e;
-  font-size: 0.9375rem;
+  color: #c5172e;
+  font-size: 0.875rem;
 }
 
 /* Generated-link result */
