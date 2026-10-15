@@ -1,0 +1,60 @@
+/* Button — shared primary CTA (AIC2-131). Converted to CSS Modules (AIC2-176). */
+
+.base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans, 'Salesforce Sans', sans-serif);
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.base:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.base:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--brand, #022ac0);
+}
+
+.solid {
+  background-color: var(--brand, #022ac0);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1.125rem;
+}
+.solid:hover {
+  background-color: var(--brand-dark, #001e5b);
+}
+
+.outline {
+  background-color: #fff;
+  color: var(--brand, #022ac0);
+  border: 1px solid var(--brand, #022ac0);
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1.125rem;
+}
+.outline:hover {
+  background-color: var(--brand, #022ac0);
+  color: #fff;
+}
+
+.pill {
+  border-radius: 9999px;
+  border: 1px solid var(--brand, #022ac0);
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  color: var(--brand, #022ac0);
+}
+.pill:hover {
+  background-color: rgba(2, 42, 192, 0.1);
+}
+.pill[data-active='true'] {
+  background-color: var(--brand, #022ac0);
+  color: #fff;
+}

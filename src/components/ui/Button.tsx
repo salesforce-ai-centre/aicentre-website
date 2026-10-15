@@ -11,23 +11,17 @@
 
 import Link from 'next/link';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import styles from './Button.module.css';
 
 type Variant = 'solid' | 'outline' | 'pill';
 
-const base =
-  'inline-flex items-center justify-center font-sans font-bold whitespace-nowrap ' +
-  'transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 ' +
-  'focus-visible:ring-brand focus-visible:ring-offset-2 disabled:opacity-50 ' +
-  'disabled:cursor-not-allowed';
-
 const variants: Record<Variant, string> = {
   // Solid brand-blue pill with white label (Figma node 7:60).
-  solid: 'bg-brand text-white hover:bg-brand-dark rounded-[8px] px-5 py-2 text-lg',
+  solid: styles.solid,
   // White with brand border + brand label — inverted CTA (Figma node 27:1335).
-  outline:
-    'bg-white text-brand border border-brand hover:bg-brand hover:text-white rounded-[8px] px-5 py-2 text-lg',
+  outline: styles.outline,
   // Rounded filter pill used by the Experiences section switcher.
-  pill: 'rounded-full border border-brand px-5 py-2 text-base data-[active=true]:bg-brand data-[active=true]:text-white text-brand hover:bg-brand/10',
+  pill: styles.pill,
 };
 
 type CommonProps = {
@@ -50,7 +44,7 @@ export type ButtonProps = AnchorProps | NativeButtonProps;
 
 export default function Button(props: ButtonProps) {
   const { variant = 'solid', children, className = '', active, ...rest } = props;
-  const classes = `${base} ${variants[variant]} ${className}`.trim();
+  const classes = `${styles.base} ${variants[variant]} ${className}`.trim();
 
   if (props.href !== undefined) {
     const { href, ...anchorRest } = rest as AnchorProps;

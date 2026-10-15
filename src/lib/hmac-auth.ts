@@ -15,6 +15,11 @@ interface SignedUrlOptions {
   /** Absolute link lifetime in ms. Overrides the freshness window when set —
    *  used for long-lived client (lite) share links (AIC2-158). */
   ttlMs?: number;
+  /** Hashed recipient email (see `hashEmail`). When set, the link is bound to
+   *  that address: the recipient must re-enter their email on redemption. Used
+   *  for the email-share flow — the hash is folded into the signed message so
+   *  the binding can't be stripped or swapped client-side. */
+  emailHash?: string;
 }
 
 export class HMACAuthenticator {
@@ -44,7 +49,8 @@ export class HMACAuthenticator {
     const scope: AccessTier = options.scope ?? 'full';
     // expiresAt: 0 means "use the freshness window" (legacy short-lived link).
     const expiresAt = options.ttlMs ? timestamp + options.ttlMs : 0;
-    const signature = await this.generateSignature(path, timestamp, scope, expiresAt);
+    const emailHash = options.emailHash ?? '';
+    const signature = await this.generateSignature(path, timestamp, scope, expiresAt, emailHash);
 
     const url = new URL(`/${encodeURIComponent(path)}`, baseUrl);
     url.searchParams.set('ts', timestamp.toString());
@@ -55,6 +61,8 @@ export class HMACAuthenticator {
       url.searchParams.set('scope', scope);
       if (expiresAt) url.searchParams.set('exp', expiresAt.toString());
     }
+    // Email-bound share links carry the recipient's hashed address as `eh`.
+    if (emailHash) url.searchParams.set('eh', emailHash);
 
     return url.toString();
   }
@@ -63,19 +71,38 @@ export class HMACAuthenticator {
    * HMAC signature over the signed message. Legacy links signed only
    * `path:timestamp`; scoped links sign `path:timestamp:scope:expiresAt`.
    * When scope is 'full' and expiresAt is 0 we sign the legacy message so old
-   * links continue to verify.
+   * links continue to verify. Email-bound share links append the recipient's
+   * hashed email so it can't be stripped/swapped without breaking the sig.
    */
   async generateSignature(
     path: string,
     timestamp: number,
     scope: AccessTier = 'full',
     expiresAt: number = 0,
+    emailHash: string = '',
   ): Promise<string> {
-    const message =
+    const base =
       scope === 'full' && expiresAt === 0
         ? `${path}:${timestamp}`
         : `${path}:${timestamp}:${scope}:${expiresAt}`;
+    const message = emailHash ? `${base}:${emailHash}` : base;
     return this.hmac(message);
+  }
+
+  /**
+   * Deterministic HMAC of a normalised email, hex-encoded. Used to bind a lite
+   * share link to a recipient without putting their address in the URL: the
+   * link carries this hash, and on redemption the recipient re-enters their
+   * email which we hash and compare. Because it's keyed by SIGNED_URL_SECRET,
+   * a plain email→hash dictionary attack isn't possible without the secret.
+   */
+  async hashEmail(email: string): Promise<string> {
+    return this.hmac(`email:${this.normaliseEmail(email)}`);
+  }
+
+  /** Lower-cased, trimmed email so casing/whitespace don't change the hash. */
+  private normaliseEmail(email: string): string {
+    return email.trim().toLowerCase();
   }
 
   /** Raw HMAC-SHA256 hex digest of a message using the shared secret. */
@@ -104,6 +131,7 @@ export class HMACAuthenticator {
    * @param signature - `sig` query parameter
    * @param scope - `scope` query parameter (absent → legacy full link)
    * @param exp - `exp` query parameter (absolute expiry ms; absent → freshness window)
+   * @param emailHash - `eh` query parameter (hashed recipient email; absent → not email-bound)
    */
   async verifySignature(
     path: string,
@@ -111,6 +139,7 @@ export class HMACAuthenticator {
     signature: string,
     scope?: string | null,
     exp?: string | null,
+    emailHash?: string | null,
   ): Promise<SignatureVerificationResult> {
     if (!timestamp || !signature) {
       return { valid: false, error: 'Missing signature or timestamp' };
@@ -142,8 +171,10 @@ export class HMACAuthenticator {
       return { valid: false, error: 'Timestamp expired or invalid' };
     }
 
-    // The signature must cover scope + expiry, so neither can be tampered with.
-    const expectedSignature = await this.generateSignature(path, ts, scopeValue, expiresAt);
+    // The signature must cover scope + expiry (+ email hash when present), so
+    // none of them can be tampered with.
+    const emailHashValue = emailHash ?? '';
+    const expectedSignature = await this.generateSignature(path, ts, scopeValue, expiresAt, emailHashValue);
     if (!this.constantTimeStringCompare(signature, expectedSignature)) {
       return { valid: false, error: 'Invalid signature' };
     }
@@ -174,6 +205,11 @@ export class HMACAuthenticator {
     const expected = await this.hmac(`cookie:${scope}`);
     if (!this.constantTimeStringCompare(sig, expected)) return null;
     return scope;
+  }
+
+  /** Public timing-safe equality (e.g. comparing an entered email hash to `eh`). */
+  constantTimeEquals(a: string, b: string): boolean {
+    return this.constantTimeStringCompare(a, b);
   }
 
   /**

@@ -8,6 +8,7 @@ import Navigation from '@/components/Navigation';
 import ContactBanner from '@/components/ContactBanner';
 import { ChevronDown, X, ExternalLink, Copy, Check } from 'lucide-react';
 import Link from 'next/link';
+import styles from './page.module.css';
 
 interface DraggableItemProps {
   item: Keynote | Experience;
@@ -38,46 +39,46 @@ function DraggableItem({ item, type, isUsed }: DraggableItemProps) {
       style={style}
       {...listeners}
       {...attributes}
-      className={`p-4 rounded-xl transition-colors relative group ${
-        isUsed 
-          ? 'opacity-40 cursor-not-allowed glass-card-dark' 
-          : type === 'keynote' 
-            ? 'glass-card bg-gradient-to-br from-blue-600/20 to-indigo-600/20 hover:from-blue-600/30 hover:to-indigo-600/30 cursor-move' 
-            : 'glass-card bg-gradient-to-br from-green-600/20 to-emerald-600/20 hover:from-green-600/30 hover:to-emerald-600/30 cursor-move'
-      } ${isDragging ? 'opacity-50' : ''}`}
+      className={`${styles.draggable} ${
+        isUsed
+          ? `${styles.draggableUsed} glass-card-dark`
+          : type === 'keynote'
+            ? `glass-card ${styles.draggableKeynote}`
+            : `glass-card ${styles.draggableExperience}`
+      } ${isDragging ? styles.draggableDragging : ''}`}
     >
-      <div className="flex justify-between items-start">
-        <div className="flex-1">
-          <h3 className="font-semibold text-white text-sm line-clamp-2 pr-2">{item.title}</h3>
-          <p className="text-xs text-white/85 mt-1">
+      <div className={styles.draggableHeadRow}>
+        <div className={styles.draggableBody}>
+          <h3 className={styles.draggableTitle}>{item.title}</h3>
+          <p className={styles.draggableSubtitle}>
             {type === 'keynote' ? (item as Keynote).presenter : `${(item as Experience).type} Experience`}
           </p>
           {type === 'experience' && (item as Experience).tags && (
-            <div className="flex flex-wrap gap-1 mt-2">
+            <div className={styles.tagRow}>
               {(item as Experience).tags.slice(0, 2).map((tag, index) => (
                 <span
                   key={index}
-                  className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/90 capitalize"
+                  className={styles.tagPill}
                 >
                   {tag.toLowerCase()}
                 </span>
               ))}
               {(item as Experience).tags.length > 2 && (
-                <span className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/80">
+                <span className={styles.tagPillMuted}>
                   +{(item as Experience).tags.length - 2}
                 </span>
               )}
             </div>
           )}
         </div>
-        
+
         {type === 'experience' && (
           <Link
             href={`/experiences/${item.id}`}
             onClick={(e) => e.stopPropagation()}
-            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-white/20 rounded"
+            className={styles.externalLink}
           >
-            <ExternalLink className="w-4 h-4 text-white/85 hover:text-white" />
+            <ExternalLink className={styles.externalLinkIcon} />
           </Link>
         )}
       </div>
@@ -96,70 +97,71 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
   return (
     <div
       ref={setNodeRef}
-      className={`relative overflow-hidden rounded-xl transition-all duration-300 ${
-        slot.type === 'Session' 
-          ? 'glass-card-dark' 
+      className={`${styles.slot} ${
+        slot.type === 'Session'
+          ? 'glass-card-dark'
           : slot.filled
             ? 'glass-card'
-            : 'glass-card-dark border-2 border-dashed ' + 
-              (slot.type === 'Keynote' 
-                ? 'border-blue-500/50' 
-                : slot.type === 'Experience' 
-                  ? 'border-green-500/50' 
-                  : 'border-purple-500/50')
-      } ${isOver && canDrop ? 'ring-2 ring-white scale-[1.02]' : ''}`}
+            : `glass-card-dark ${
+              slot.type === 'Keynote'
+                ? styles.slotDashedBlue
+                : slot.type === 'Experience'
+                  ? styles.slotDashedGreen
+                  : styles.slotDashedPurple
+            }`
+      } ${isOver && canDrop ? styles.slotOver : ''}`}
     >
-      <div className="p-6">
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <div className="flex items-center space-x-3 mb-2">
+      <div className={styles.slotBody}>
+        <div className={styles.slotHeadRow}>
+          <div className={styles.slotMain}>
+            <div className={styles.slotMetaRow}>
               {slot.time.length > 0 && (
-                <p className="text-sm text-white/80 font-medium">{slot.time}</p>
+                <p className={styles.slotTime}>{slot.time}</p>
               )}
               {slot.type === 'Keynote' && !slot.filled && (
-                <span className="px-2 py-1 bg-blue-500/20 rounded-full text-xs text-blue-300">Keynote Slot</span>
+                <span className={`${styles.slotBadge} ${styles.slotBadgeBlue}`}>Keynote Slot</span>
               )}
               {slot.type === 'Experience' && !slot.filled && (
-                <span className="px-2 py-1 bg-green-500/20 rounded-full text-xs text-green-300">Experience Slot</span>
+                <span className={`${styles.slotBadge} ${styles.slotBadgeGreen}`}>Experience Slot</span>
               )}
               {slot.type === 'Open Slot' && !slot.filled && (
-                <span className="px-2 py-1 bg-purple-500/20 rounded-full text-xs text-purple-300">Keynote or Experience</span>
+                <span className={`${styles.slotBadge} ${styles.slotBadgePurple}`}>Keynote or Experience</span>
               )}
             </div>
             {slot.filled ? (
               <>
-                <div className="flex justify-between items-start mb-2">
-                  <div className="flex-1">
-                    <h3 className="font-bold text-white text-lg mb-1">{slot.filled.title}</h3>
-                    <p className="text-sm text-white/85">
-                      {slot.filledType === 'keynote' 
-                        ? (slot.filled as Keynote).presenter 
+                <div className={styles.filledHeadRow}>
+                  <div className={styles.slotMain}>
+                    <h3 className={styles.filledTitle}>{slot.filled.title}</h3>
+                    <p className={styles.filledSubtitle}>
+                      {slot.filledType === 'keynote'
+                        ? (slot.filled as Keynote).presenter
                         : `${(slot.filled as Experience).type} Experience`}
                     </p>
                   </div>
-                  
+
                   {slot.filledType === 'experience' && (
                     <Link
                       href={`/experiences/${slot.filled.id}`}
-                      className="p-1 hover:bg-white/20 rounded transition-colors"
+                      className={styles.slotLinkButton}
                     >
-                      <ExternalLink className="w-4 h-4 text-white/85 hover:text-white" />
+                      <ExternalLink className={styles.externalLinkIcon} />
                     </Link>
                   )}
                 </div>
-                
+
                 {slot.filledType === 'experience' && (slot.filled as Experience).tags && (
-                  <div className="flex flex-wrap gap-1 mb-2">
+                  <div className={styles.slotTagRow}>
                     {(slot.filled as Experience).tags.slice(0, 3).map((tag, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/90 capitalize"
+                        className={styles.tagPill}
                       >
                         {tag.toLowerCase()}
                       </span>
                     ))}
                     {(slot.filled as Experience).tags.length > 3 && (
-                      <span className="px-2 py-1 bg-white/10 rounded-full text-xs text-white/80">
+                      <span className={styles.tagPillMuted}>
                         +{(slot.filled as Experience).tags.length - 3}
                       </span>
                     )}
@@ -168,14 +170,14 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
               </>
             ) : (
               <>
-                <h3 className="font-semibold text-white/90">{slot.title}</h3>
+                <h3 className={styles.emptyTitle}>{slot.title}</h3>
                 {canDrop && (
-                  <p className="text-xs text-white/80 mt-1">
+                  <p className={styles.emptyHint}>
                     Drag a {
-                      slot.type === 'Keynote' 
-                        ? 'keynote' 
-                        : slot.type === 'Experience' 
-                          ? 'experience' 
+                      slot.type === 'Keynote'
+                        ? 'keynote'
+                        : slot.type === 'Experience'
+                          ? 'experience'
                           : 'keynote or experience'
                     } here
                   </p>
@@ -186,20 +188,20 @@ function DroppableSlot({ slot, onRemove }: DroppableSlotProps) {
           {slot.filled && canDrop && (
             <button
               onClick={() => onRemove(slot.id)}
-              className="ml-2 p-2 bg-red-500/20 hover:bg-red-500/30 rounded-lg transition-colors"
+              className={styles.removeButton}
               aria-label="Remove item"
             >
-              <X className="w-4 h-4 text-red-300" />
+              <X className={styles.removeIcon} />
             </button>
           )}
         </div>
       </div>
       {/* Gradient overlay for filled slots */}
       {slot.filled && (
-        <div className={`absolute inset-0 opacity-10 pointer-events-none ${
-          slot.filledType === 'keynote' 
-            ? 'bg-gradient-to-br from-blue-500 to-indigo-500' 
-            : 'bg-gradient-to-br from-green-500 to-emerald-500'
+        <div className={`${styles.slotOverlay} ${
+          slot.filledType === 'keynote'
+            ? styles.slotOverlayKeynote
+            : styles.slotOverlayExperience
         }`} />
       )}
     </div>
@@ -527,55 +529,55 @@ export default function AgendaBuilderPage() {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className={styles.page}>
       <Navigation />
-      
-      <DndContext 
+
+      <DndContext
         collisionDetection={closestCenter}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
         {/* Hero Section */}
-        <section className="pt-32 pb-16 section-padding">
+        <section className={`section-padding ${styles.hero}`}>
           <div className="container-max">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
+            <div className={styles.heroHead}>
+              <h1 className={styles.heroTitle}>
                 Agenda Builder
               </h1>
-              <p className="text-xl text-white/90 max-w-2xl mx-auto mb-6">
+              <p className={styles.heroSubtitle}>
                 Customize your AI Centre experience by dragging keynotes and experiences into flexible time slots
               </p>
               <button
                 onClick={handleCopyToClipboard}
-                className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+                className={styles.exportButton}
               >
                 {isCopied ? (
                   <>
-                    <Check className="w-4 h-4 mr-2" />
+                    <Check className={styles.exportIcon} />
                     Copied to Clipboard!
                   </>
                 ) : (
                   <>
-                    <Copy className="w-4 h-4 mr-2" />
+                    <Copy className={styles.exportIcon} />
                     Export for Slack
                   </>
                 )}
               </button>
             </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 overflow-visible">
+
+            <div className={styles.mainGrid}>
               {/* Agenda Timeline */}
-              <div className="lg:col-span-2">
-                <div className="glass-card p-6 lg:p-8">
+              <div className={styles.timelineCol}>
+                <div className={`glass-card ${styles.timelineCard}`}>
 
                   {/* Title as Dropdown */}
-                  <div className="relative flex items-center">
-                    <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 flex-shrink-0"></span>
+                  <div className={styles.offeringRow}>
+                    <span className={styles.offeringDot}></span>
                     <select
                       value={selectedOffering?.id || ''}
                       onChange={async (e) => await handleOfferingChange(e)}
-                      className="flex-1 text-2xl font-bold text-white bg-transparent appearance-none cursor-pointer focus:outline-none hover:text-white/90 transition-colors pr-10 min-w-0"
-                      style={{ paddingLeft: '0', fontSize: '1.5rem', lineHeight: '2rem' }}
+                      className={styles.offeringSelect}
+                      style={{ paddingLeft: '0' }}
                     >
                       <option value="">Select a Standard Offering</option>
                       {workshops.map(workshop => (
@@ -584,17 +586,17 @@ export default function AgendaBuilderPage() {
                         </option>
                       ))}
                     </select>
-                    <div className="absolute right-0 flex items-center pointer-events-none">
-                      <ChevronDown className="w-6 h-6 text-white/80" />
+                    <div className={styles.offeringChevronWrap}>
+                      <ChevronDown className={styles.offeringChevron} />
                     </div>
                   </div>
                   {agenda.length > 0 && (
-                    <div className="space-y-4 mt-6">
+                    <div className={styles.agendaList}>
                       <span>Use this agenda as a starting point and we look forward to collaborating with you to finalise it.</span>
                       {agenda.map(slot => (
-                        <DroppableSlot 
-                          key={slot.id} 
-                          slot={slot} 
+                        <DroppableSlot
+                          key={slot.id}
+                          slot={slot}
                           onRemove={handleRemove}
                         />
                       ))}
@@ -604,45 +606,41 @@ export default function AgendaBuilderPage() {
               </div>
 
               {/* Palette with Tabs */}
-              <div className="glass-card p-6">
+              <div className={`glass-card ${styles.paletteCard}`}>
                 {/* Tab Navigation */}
-                <div className="flex mb-6 bg-black/20 rounded-lg p-1">
+                <div className={styles.tabRow}>
                   <button
                     onClick={() => setActiveTab('keynotes')}
-                    className={`flex-1 px-4 py-2 rounded-md font-semibold transition-all duration-200 ${
-                      activeTab === 'keynotes'
-                        ? 'bg-blue-600 text-white'
-                        : 'text-white/80 hover:text-white'
+                    className={`${styles.tabButton} ${
+                      activeTab === 'keynotes' ? styles.tabButtonActiveBlue : ''
                     }`}
                   >
-                    <span className="flex items-center justify-center">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                    <span className={styles.tabButtonInner}>
+                      <span className={`${styles.tabDot} ${styles.tabDotBlue}`}></span>
                       Keynotes
                     </span>
                   </button>
                   <button
                     onClick={() => setActiveTab('experiences')}
-                    className={`flex-1 px-4 py-2 rounded-md font-semibold transition-all duration-200 ${
-                      activeTab === 'experiences'
-                        ? 'bg-green-600 text-white'
-                        : 'text-white/80 hover:text-white'
+                    className={`${styles.tabButton} ${
+                      activeTab === 'experiences' ? styles.tabButtonActiveGreen : ''
                     }`}
                   >
-                    <span className="flex items-center justify-center">
-                      <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                    <span className={styles.tabButtonInner}>
+                      <span className={`${styles.tabDot} ${styles.tabDotGreen}`}></span>
                       Experiences
                     </span>
                   </button>
                 </div>
 
                 {/* Tab Content */}
-                <div className="min-h-[400px]">
+                <div className={styles.tabContent}>
                   {activeTab === 'keynotes' ? (
-                    <div className="space-y-3">
+                    <div className={styles.itemList}>
                       {keynotes.length === 0 ? (
-                        <div className="text-center py-16">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-3"></div>
-                          <p className="text-white/80 text-sm">Loading keynotes...</p>
+                        <div className={styles.loadingBlock}>
+                          <div className={`${styles.spinnerSm} ${styles.spinnerBlue}`}></div>
+                          <p className={styles.loadingText}>Loading keynotes...</p>
                         </div>
                       ) : (
                         keynotes.map(keynote => (
@@ -656,11 +654,11 @@ export default function AgendaBuilderPage() {
                       )}
                     </div>
                   ) : (
-                    <div className="space-y-3">
+                    <div className={styles.itemList}>
                       {experiences.length === 0 ? (
-                        <div className="text-center py-16">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 mx-auto mb-3"></div>
-                          <p className="text-white/80 text-sm">Loading experiences...</p>
+                        <div className={styles.loadingBlock}>
+                          <div className={`${styles.spinnerSm} ${styles.spinnerGreen}`}></div>
+                          <p className={styles.loadingText}>Loading experiences...</p>
                         </div>
                       ) : (
                         experiences.map(experience => (
@@ -682,18 +680,18 @@ export default function AgendaBuilderPage() {
 
         <DragOverlay dropAnimation={null}>
           {activeId && getActiveItem() && (
-            <div 
-              className={`p-4 rounded-xl shadow-2xl cursor-grabbing ${
-                activeId.startsWith('keynote') 
-                  ? 'bg-blue-600 border border-blue-400' 
-                  : 'bg-green-600 border border-green-400'
+            <div
+              className={`${styles.overlayCard} ${
+                activeId.startsWith('keynote')
+                  ? styles.overlayKeynote
+                  : styles.overlayExperience
               }`}
               style={{ opacity: 1, position: 'fixed', pointerEvents: 'none', zIndex: 9999 }}
             >
-              <h3 className="font-semibold text-white text-sm line-clamp-2">{getActiveItem()!.title}</h3>
-              <p className="text-xs text-white/90 mt-2">
-                {activeId.startsWith('keynote') 
-                  ? (getActiveItem() as Keynote).presenter 
+              <h3 className={styles.overlayTitle}>{getActiveItem()!.title}</h3>
+              <p className={styles.overlaySubtitle}>
+                {activeId.startsWith('keynote')
+                  ? (getActiveItem() as Keynote).presenter
                   : `${(getActiveItem() as Experience).type} Experience`}
               </p>
             </div>

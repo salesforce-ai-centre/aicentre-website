@@ -27,7 +27,7 @@ export default function MeetTheTeam() {
 
         <Carousel
           ariaLabel="AI Centre team members"
-          itemClassName="basis-[70%] sm:basis-1/3 lg:basis-1/4"
+          itemClassName={styles.item}
         >
           {team.map((member) => (
             <div key={member.id} className={styles.card}>
@@ -38,7 +38,7 @@ export default function MeetTheTeam() {
                   alt={member.name}
                   fill
                   className={styles.image}
-                  sizes="(max-width: 640px) 70vw, 25vw"
+                  sizes="(max-width: 640px) 70vw, (max-width: 1024px) 33vw, 25vw"
                 />
                 <div className={styles.fade} />
               </div>

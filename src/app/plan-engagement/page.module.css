@@ -1,0 +1,15 @@
+/* Plan page shell — full-height flex column, Figma frame 14:712.
+   Converted to CSS Modules (AIC2-178). */
+
+.main {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.heroWrap {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}

@@ -17,9 +17,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import Button from './ui/Button';
+import ShareAccess from './ShareAccess';
 import { useChat } from '@/contexts/ChatContext';
 import { useIsLite } from '@/contexts/AccessTierContext';
 import { isLitePathAllowed } from '@/lib/auth-session';
+import styles from './Navigation.module.css';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,98 +72,90 @@ export default function Navigation() {
 
   return (
     <div
-      className="fixed top-0 left-0 z-50 section-padding pt-4 transition-all duration-300 ease-in-out"
+      className={`section-padding ${styles.bar}`}
       style={{ right: '0', ...getMargin() }}
     >
       <nav
-        className={`container-max rounded-2xl transition-all duration-300 ease-in-out ${
-          scrolled || isOpen
-            ? 'bg-white backdrop-blur-md'
-            : 'bg-transparent shadow-none'
-        }`}
+        className={`container-max ${styles.nav} ${(scrolled || isOpen) ? styles.navScrolled : ''}`}
       >
-        <div className="px-4 sm:px-6">
-          <div className="flex h-24 items-center justify-between">
-            <Link
-              href="/"
-              className="flex flex-shrink-0 items-center gap-3 transition-opacity duration-200 hover:opacity-80"
-            >
+        <div className={styles.inner}>
+          <div className={styles.row}>
+            <Link href="/" className={styles.logoLink}>
               <Image
                 src="/images/SalesforceLogo.png"
                 alt="AI Centre"
                 width={64}
                 height={64}
-                className="flex-shrink-0 rounded-lg"
+                className={styles.logo}
               />
-              <span className="font-heading whitespace-nowrap text-2xl font-semibold text-brand sm:text-3xl">
+              <span className={styles.wordmark}>
                 {siteConfig.siteName}
               </span>
             </Link>
 
-            <div className="hidden items-center gap-8 md:flex">
+            <div className={styles.desktopLinks}>
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   style={isActive(item.href) ? { textDecorationColor: activeColour(item.href) } : undefined}
-                  className={`font-sans text-base font-bold transition-colors duration-200 ${
-                    isActive(item.href)
-                      ? 'text-gray-800 underline decoration-2 underline-offset-8'
-                      : 'text-gray-700 hover:text-gray-800'
-                  }`}
+                  className={`${styles.navLink} ${isActive(item.href) ? styles.navLinkActive : ''}`}
                 >
                   {item.name}
                 </Link>
               ))}
             </div>
 
-            {/* Desktop CTA — internal, hidden for lite sessions */}
-            {siteConfig.ctaButton && !isLite && (
-              <div className="hidden md:block">
-                <Button href={siteConfig.ctaButton.href}>
-                  {siteConfig.ctaButton.name}
-                </Button>
+            {/* Desktop CTAs — internal, hidden for lite sessions */}
+            {!isLite && (
+              <div className={styles.desktopCtas}>
+                {/* Share the client-safe (lite) site with someone by email */}
+                <ShareAccess />
+                {siteConfig.ctaButton && (
+                  <Button href={siteConfig.ctaButton.href}>
+                    {siteConfig.ctaButton.name}
+                  </Button>
+                )}
               </div>
             )}
 
             {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-navy md:hidden"
+              className={styles.menuButton}
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? <X className={styles.menuIcon} /> : <Menu className={styles.menuIcon} />}
             </button>
           </div>
 
           {/* Mobile nav */}
           {isOpen && (
-            <div className="border-t border-navy/10 md:hidden">
-              <div className="space-y-1 px-2 pb-3 pt-2">
+            <div className={styles.mobileNav}>
+              <div className={styles.mobileList}>
                 {navItems.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className={`block rounded-md px-3 py-2 font-sans text-base font-bold transition-colors duration-200 ${
-                      isActive(item.href)
-                        ? 'bg-brand/10 text-navy'
-                        : 'text-gray-700 hover:bg-brand/5 hover:text-navy'
-                    }`}
+                    className={`${styles.mobileLink} ${isActive(item.href) ? styles.mobileLinkActive : ''}`}
                   >
                     {item.name}
                   </Link>
                 ))}
-                {siteConfig.ctaButton && !isLite && (
-                  <div className="px-3 pt-2">
-                    <Button
-                      href={siteConfig.ctaButton.href}
-                      className="w-full"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {siteConfig.ctaButton.name}
-                    </Button>
+                {!isLite && (
+                  <div className={styles.mobileCtas}>
+                    <ShareAccess />
+                    {siteConfig.ctaButton && (
+                      <Button
+                        href={siteConfig.ctaButton.href}
+                        className={styles.mobileCtaButton}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {siteConfig.ctaButton.name}
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>

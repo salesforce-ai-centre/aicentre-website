@@ -23,6 +23,7 @@ https://<host>/?ts=<ms>&sig=<hex>&scope=lite&exp=<ms>
 | `sig`   | HMAC-SHA256 hex digest of the signed message (below).               |
 | `scope` | `lite` (or `full`). Omitted entirely for legacy full links.         |
 | `exp`   | Absolute expiry, Unix epoch **milliseconds**. Link invalid after.   |
+| `eh`    | *(optional)* Hashed recipient email — present only on **email-bound** links (below). |
 
 The path portion signed is the URL pathname **without its leading slash**
 (e.g. `/experiences` → `experiences`; the site root `/` → empty string `""`).
@@ -30,7 +31,7 @@ The path portion signed is the URL pathname **without its leading slash**
 ## Signed message
 
 ```
-message = `${path}:${ts}:${scope}:${exp}`
+message = `${path}:${ts}:${scope}:${exp}`          // + `:${eh}` when email-bound
 sig     = hex( HMAC_SHA256(SIGNED_URL_SECRET, message) )
 ```
 
@@ -41,6 +42,22 @@ Notes:
   short form `` `${path}:${ts}` `` and is validated against a 5-minute freshness
   window instead of `exp`. Lite links MUST always use the four-part message +
   `exp` (they're meant to be long-lived and emailed).
+
+## Email-bound (in-site "Share access") links
+
+A full-tier user can share the lite site with a specific person by email via the
+in-site **Share access** button (`/api/auth/share-lite-link`). These links:
+
+- target `/claim-access` (a page excluded from the auth middleware),
+- carry an extra `eh` param — `hex( HMAC_SHA256(SIGNED_URL_SECRET, "email:" + email.trim().toLowerCase()) )`,
+- fold `eh` into the signed message (appended as a 5th segment), so it can't be
+  stripped or swapped without breaking `sig`.
+
+The recipient's plaintext email is **never** in the URL. On `/claim-access` they
+re-enter their email; the site hashes it and compares (constant-time) against
+`eh`. Only a match mints the lite session cookie (`/api/auth/claim-lite-link`).
+This differs from a plain lite link, which grants a session immediately on
+redemption via middleware.
 
 ## Shared secret
 

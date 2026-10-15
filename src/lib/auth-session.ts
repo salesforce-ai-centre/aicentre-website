@@ -56,7 +56,7 @@ export async function getAccessTier(cookies: CookieStore): Promise<AccessTier | 
  * cookie — default to `full` there so local dev sees the full experience.
  */
 export async function getServerAccessTier(): Promise<AccessTier | null> {
-  if (process.env.NODE_ENV === 'development') return 'full';
+  if (process.env.NODE_ENV !== 'production') return 'full';
   const { cookies } = await import('next/headers');
   const store = await cookies();
   return hmacAuth.verifyScopeCookie(store.get(AUTH_COOKIE)?.value);

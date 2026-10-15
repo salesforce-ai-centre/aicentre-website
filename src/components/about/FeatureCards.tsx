@@ -11,6 +11,8 @@
  * AIC2-140 — part of the About Page epic (AIC2-127).
  */
 
+import styles from './FeatureCards.module.css';
+
 interface Feature {
   title: string;
   body?: string;
@@ -33,7 +35,7 @@ const FEATURES: Feature[] = [
 function Card({ feature, isPrimary = true }: { feature: Feature; isPrimary?: boolean }) {
   return (
     <div
-      className="relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-card p-8 shadow-card"
+      className={styles.card}
       style={
         feature.imageSrc
           ? {
@@ -45,29 +47,19 @@ function Card({ feature, isPrimary = true }: { feature: Feature; isPrimary?: boo
       }
     >
       {/* Brand fill when no image, plus a legibility gradient for the text. */}
-      {!feature.imageSrc && <div className="absolute inset-0 bg-brand" />}
+      {!feature.imageSrc && <div className={styles.brandFill} />}
       <div
-        className="absolute inset-0"
+        className={styles.overlay}
         style={{
           background: isPrimary ? "linear-gradient(39.22deg, #001E5B 12.38%, rgba(2, 42, 192, 0.5) 51.34%, rgba(2, 42, 192, 0) 71.97%)" : "linear-gradient(10.73deg, #ECF5FB 35.05%, rgba(238, 245, 248, 0.90891) 45.68%, rgba(245, 244, 236, 0.5) 59.06%, rgba(236, 245, 251, 0) 71.93%)"
         }}
       />
-      <div className="relative">
-        <h3
-          className={
-            `font-heading text-3xl font-semibold
-            ${isPrimary ? "text-white" : "text-navy"}
-            lg:text-4xl`
-          }
-        >
+      <div className={styles.content}>
+        <h3 className={`${styles.title} ${isPrimary ? styles.titlePrimary : styles.titleSecondary}`}>
           {feature.title}
         </h3>
         {feature.body && (
-          <p
-            className={
-              `font-sans mt-3 max-w-lg text-base ${isPrimary ? "text-white/90" : "text-navy/90"}`
-            }
-          >
+          <p className={`${styles.body} ${isPrimary ? styles.bodyPrimary : styles.bodySecondary}`}>
             {feature.body}
           </p>
         )}
@@ -78,12 +70,12 @@ function Card({ feature, isPrimary = true }: { feature: Feature; isPrimary?: boo
 
 export default function FeatureCards() {
   return (
-    <section className="section-padding py-16">
-      <div className="container-max grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+    <section className={`section-padding ${styles.section}`}>
+      <div className={`container-max ${styles.grid}`}>
+        <div className={styles.colSpan2}>
           <Card feature={FEATURES[0]} />
         </div>
-        <div className="lg:col-span-1">
+        <div className={styles.colSpan1}>
           <Card feature={FEATURES[1]} isPrimary={false} />
         </div>
       </div>

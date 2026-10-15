@@ -1,0 +1,57 @@
+/* ContactBanner — Slack contact strip. Converted to CSS Modules (AIC2-178). */
+
+.banner {
+  position: relative;
+  overflow: hidden;
+  padding-block: 1.25rem; /* py-5 */
+  background-image: linear-gradient(to right, #9333ea, #a855f7); /* purple-600 -> purple-500 */
+}
+
+.stripeLayer {
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+}
+
+.stripes {
+  position: absolute;
+  inset: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+}
+
+.inner {
+  text-align: center;
+  color: #fff;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem; /* space-x-3 */
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600;
+}
+
+.link {
+  cursor: pointer;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.875rem; /* text-sm */
+  transition: background-color 0.2s ease;
+}
+.link:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.support {
+  margin-top: 0.25rem;
+  font-size: 0.875rem; /* text-sm */
+  opacity: 0.9;
+}

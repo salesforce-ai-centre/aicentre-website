@@ -1,0 +1,6 @@
+/* SidebarAwareLayout — margin shift when the Agentforce chat sidebar opens.
+   Converted to CSS Modules (AIC2-178). */
+
+.wrapper {
+  transition: all 0.3s ease-in-out;
+}
