@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hmacAuth } from './lib/hmac-auth';
 import { AUTH_COOKIE, isLitePathAllowed } from './lib/auth-session';
+import { isDevEnvironment } from './lib/env';
 
 // 	https://ai-centre-uk.my.salesforce-sites.com/services/apexrest/generateOfferingsLink/workshop
 
@@ -9,7 +10,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.rewrite(new URL('/maintenance', request.url));
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (isDevEnvironment()) {
     return NextResponse.next();
   }
 
@@ -53,7 +54,7 @@ export async function middleware(request: NextRequest) {
       const response = NextResponse.redirect(new URL('/', request.url));
       response.cookies.set('aicentre-auth', cookieValue, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: !isDevEnvironment(),
         sameSite: 'lax',
         maxAge,
         path: '/'

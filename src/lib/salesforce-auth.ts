@@ -1,4 +1,5 @@
 import { LRUCache } from 'lru-cache';
+import { isDevEnvironment } from './env';
 
 interface TokenResponse {
   access_token: string;
@@ -28,7 +29,7 @@ declare global {
 }
 
 // Initialize global cache in development
-if (process.env.NODE_ENV === 'development') {
+if (isDevEnvironment()) {
   global.salesforceTokenCache = global.salesforceTokenCache || null;
 }
 
@@ -36,7 +37,7 @@ export async function getSalesforceAccessToken(): Promise<string> {
   const cacheKey = 'salesforce-token';
   
   // Check development cache first (if in development mode)
-  if (process.env.NODE_ENV === 'development') {
+  if (isDevEnvironment()) {
     if (global.salesforceTokenCache && Date.now() < global.salesforceTokenCache.expiresAt) {
       return global.salesforceTokenCache.token;
     }
@@ -88,7 +89,7 @@ export async function getSalesforceAccessToken(): Promise<string> {
     // Store in both caches
     lruCache.set(cacheKey, newCachedToken);
     
-    if (process.env.NODE_ENV === 'development') {
+    if (isDevEnvironment()) {
       global.salesforceTokenCache = newCachedToken;
     }
 

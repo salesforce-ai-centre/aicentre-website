@@ -6,6 +6,7 @@ import { ChatProvider } from '@/contexts/ChatContext'
 import SidebarAwareLayout from '@/components/SidebarAwareLayout'
 import { AccessTierProvider } from '@/contexts/AccessTierContext'
 import { getServerAccessTier } from '@/lib/auth-session'
+import { isDevEnvironment } from '@/lib/env'
 import Script from 'next/script'
 
 const inter = Inter({
@@ -72,7 +73,7 @@ export default async function RootLayout({
         <meta httpEquiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; img-src 'self' data: https:;" />
       </head>
       <body className={`${inter.className} ${avantGarde.variable}`} suppressHydrationWarning={true}>
-        {process.env.NODE_ENV === 'production' && (
+        {!isDevEnvironment() && (
           <>
             <Script
               src="https://www.googletagmanager.com/gtag/js?id=G-7G39LQYB9L"

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hmacAuth } from '@/lib/hmac-auth';
 import { AUTH_COOKIE } from '@/lib/auth-session';
+import { isDevEnvironment } from '@/lib/env';
 
 /**
  * Signed-URL generation. This endpoint mints access links, so it MUST require
@@ -15,7 +16,7 @@ import { AUTH_COOKIE } from '@/lib/auth-session';
  * AIC2-159 — part of the Privacy & Sharing epic (AIC2-155).
  */
 async function requireFullTier(request: NextRequest): Promise<NextResponse | null> {
-  if (process.env.NODE_ENV !== 'production') return null;
+  if (isDevEnvironment()) return null;
   // Verify the SIGNED scope cookie (rejects tampered lite→full escalation).
   const tier = await hmacAuth.verifyScopeCookie(request.cookies.get(AUTH_COOKIE)?.value);
   if (tier !== 'full') {

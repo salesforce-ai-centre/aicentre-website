@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hmacAuth } from '@/lib/hmac-auth';
 import { AUTH_COOKIE } from '@/lib/auth-session';
+import { isDevEnvironment } from '@/lib/env';
 
 /**
  * Email-bound lite share links.
@@ -28,7 +29,7 @@ const CLAIM_PATH = 'claim-access';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 async function requireFullTier(request: NextRequest): Promise<NextResponse | null> {
-  if (process.env.NODE_ENV !== 'production') return null;
+  if (isDevEnvironment()) return null;
   const tier = await hmacAuth.verifyScopeCookie(request.cookies.get(AUTH_COOKIE)?.value);
   if (tier !== 'full') {
     return NextResponse.json(

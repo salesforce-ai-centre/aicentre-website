@@ -14,6 +14,7 @@
  */
 
 import { hmacAuth } from './hmac-auth';
+import { isDevEnvironment } from './env';
 
 export type AccessTier = 'full' | 'lite';
 
@@ -56,7 +57,7 @@ export async function getAccessTier(cookies: CookieStore): Promise<AccessTier | 
  * cookie — default to `full` there so local dev sees the full experience.
  */
 export async function getServerAccessTier(): Promise<AccessTier | null> {
-  if (process.env.NODE_ENV !== 'production') return 'full';
+  if (isDevEnvironment()) return 'full';
   const { cookies } = await import('next/headers');
   const store = await cookies();
   return hmacAuth.verifyScopeCookie(store.get(AUTH_COOKIE)?.value);
@@ -73,7 +74,7 @@ export async function getServerAccessTier(): Promise<AccessTier | null> {
 export async function requireFullTierApi(request: {
   cookies: CookieStore;
 }): Promise<Response | null> {
-  if (process.env.NODE_ENV !== 'production') return null;
+  if (isDevEnvironment()) return null;
   const tier = await hmacAuth.verifyScopeCookie(request.cookies.get(AUTH_COOKIE)?.value);
   if (tier !== 'full') {
     return new Response(

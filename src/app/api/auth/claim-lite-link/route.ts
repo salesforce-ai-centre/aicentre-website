@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hmacAuth } from '@/lib/hmac-auth';
+import { isDevEnvironment } from '@/lib/env';
 
 /**
  * Redeem an email-bound lite share link.
@@ -72,7 +73,7 @@ export async function POST(request: NextRequest) {
     const response = NextResponse.json({ success: true });
     response.cookies.set('aicentre-auth', cookieValue, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: !isDevEnvironment(),
       sameSite: 'lax',
       maxAge: LITE_COOKIE_MAX_AGE_MS,
       path: '/',
