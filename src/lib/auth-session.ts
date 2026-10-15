@@ -73,7 +73,7 @@ export async function getServerAccessTier(): Promise<AccessTier | null> {
 export async function requireFullTierApi(request: {
   cookies: CookieStore;
 }): Promise<Response | null> {
-  if (process.env.NODE_ENV === 'development') return null;
+  if (process.env.NODE_ENV !== 'production') return null;
   const tier = await hmacAuth.verifyScopeCookie(request.cookies.get(AUTH_COOKIE)?.value);
   if (tier !== 'full') {
     return new Response(

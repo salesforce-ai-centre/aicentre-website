@@ -28,7 +28,7 @@ const CLAIM_PATH = 'claim-access';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 async function requireFullTier(request: NextRequest): Promise<NextResponse | null> {
-  if (process.env.NODE_ENV === 'development') return null;
+  if (process.env.NODE_ENV !== 'production') return null;
   const tier = await hmacAuth.verifyScopeCookie(request.cookies.get(AUTH_COOKIE)?.value);
   if (tier !== 'full') {
     return NextResponse.json(
