@@ -10,12 +10,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from './Button';
+import { AccessTier } from '@/lib/auth-session';
 import { getSiteConfig } from '@/lib/content';
 import { SLACK_CHANNEL_URL } from '@/lib/constants';
 import styles from './SiteFooter.module.css';
 
 interface SiteFooterProps {
-  tier?: 'lite' | 'full';
+  tier?: AccessTier | null;
 }
 
 const DIRECTIONS_URL =
