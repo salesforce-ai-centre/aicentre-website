@@ -31,15 +31,17 @@ export default async function Home() {
       <Testimonials />
       <FeatureCards />
       <FindUs />
-      <MeetTheTeam />
       {tier !== 'lite' && (
-        <CtaWell
-          heading="Explore the magic of the AI Centre"
-          body="Immerse yourself in the world of AI and explore what the AI Centre has to offer"
-          buttonLabel="Explore the centre"
-          href="/experiences"
-          className={styles.cta}
-        />
+        <>
+          <MeetTheTeam />
+          <CtaWell
+            heading="Explore the magic of the AI Centre"
+            body="Immerse yourself in the world of AI and explore what the AI Centre has to offer"
+            buttonLabel="Explore the centre"
+            href="/experiences"
+            className={styles.cta}
+          />
+        </>
       )}
       <SiteFooter tier={tier} />
     </main>
