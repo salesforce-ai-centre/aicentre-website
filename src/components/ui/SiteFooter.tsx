@@ -14,10 +14,16 @@ import { getSiteConfig } from '@/lib/content';
 import { SLACK_CHANNEL_URL } from '@/lib/constants';
 import styles from './SiteFooter.module.css';
 
+interface SiteFooterProps {
+  tier?: 'lite' | 'full';
+}
+
 const DIRECTIONS_URL =
   'https://maps.app.goo.gl/UtxB99x7YyZHj2Ab9';
 
-export default function SiteFooter() {
+export default function SiteFooter({
+  tier = 'full'
+}: SiteFooterProps) {
   const siteConfig = getSiteConfig();
 
   return (
@@ -52,17 +58,24 @@ export default function SiteFooter() {
 
         {/* Nav links */}
         <nav className={styles.nav} aria-label="Footer">
-          {siteConfig.navigation.map((item) => (
-            <Link key={item.name} href={item.href} className={styles.navLink}>
-              {item.name}
-            </Link>
-          ))}
+          {siteConfig.navigation.map((item) => {
+            if (tier === 'lite' && item.name === 'Plan')
+              return
+            
+            return (
+              <Link key={item.name} href={item.href} className={styles.navLink}>
+                {item.name}
+              </Link>
+            )
+          })}
         </nav>
 
         {/* CTA */}
-        <Button href={SLACK_CHANNEL_URL} variant="outline">
-          View slack channel
-        </Button>
+        {tier !== 'lite' && (
+          <Button href={SLACK_CHANNEL_URL} variant="outline">
+            View slack channel
+          </Button>
+        )}
       </div>
     </footer>
   );

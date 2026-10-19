@@ -306,14 +306,16 @@ export default async function ExperiencesPage() {
       <ExperienceSection id="activations" title="Activations" items={ACTIVATIONS} />
       <ExperienceSection id="workshops" title="Workshops" items={workshops} />
       <ExperienceSection id="spaces" title="Spaces" items={SPACES} />
-      <CtaWell
-        heading="Plan your visit to the AI Centre"
-        body="Follow our three simple steps to plan your visit with us."
-        buttonLabel="Plan your visit"
-        href="/plan-engagement"
-        className={styles.cta}
-      />
-      <SiteFooter />
+      {tier !== 'lite' && (
+        <CtaWell
+          heading="Plan your visit to the AI Centre"
+          body="Follow our three simple steps to plan your visit with us."
+          buttonLabel="Plan your visit"
+          href="/plan-engagement"
+          className={styles.cta}
+        />
+      )}
+      <SiteFooter tier={tier} />
     </main>
   );
 }
