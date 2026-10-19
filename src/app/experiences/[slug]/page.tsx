@@ -213,7 +213,7 @@ export default function ExperienceDetailPage({ params }: ExperienceDetailPagePro
                     rel="noopener noreferrer"
                     className={styles.slackLink}
                   >
-                    #ai-centre-uk
+                    #ai-centre
                   </a>
                 </div>
 

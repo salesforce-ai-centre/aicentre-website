@@ -2,7 +2,7 @@
   "siteName": "AI Centre",
   "siteDescription": "Engagement Portal - Comprehensive AI experiences for Salesforce account teams",
   "contactInfo": {
-    "slackChannel": "#ai-centre-uk",
+    "slackChannel": "#ai-centre",
     "slackDescription": "Book customer engagements via Slack",
     "supportDescription": "Account team support • Customer experience planning"
   },

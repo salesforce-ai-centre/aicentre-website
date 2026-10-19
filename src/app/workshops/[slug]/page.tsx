@@ -158,7 +158,7 @@ export default function WorkshopDetailPage({ params }: WorkshopDetailPageProps) 
                     rel="noopener noreferrer"
                     className={styles.slackLink}
                   >
-                    #ai-centre-uk
+                    #ai-centre
                   </a>
                 </div>
 

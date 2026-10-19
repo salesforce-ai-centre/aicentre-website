@@ -61,7 +61,7 @@ const AccessDenied = () => {
                 rel="noopener noreferrer"
                 className={styles.slackLink}
               >
-                #ai-centre-uk
+                #ai-centre
               </Link>{' '}
               on Slack to get access.
             </p>
