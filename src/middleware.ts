@@ -10,10 +10,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.rewrite(new URL('/maintenance', request.url));
   }
 
-  if (isDevEnvironment()) {
-    return NextResponse.next();
-  }
-
   // Check for signed URL authentication
   const url = request.nextUrl;
   const timestamp = url.searchParams.get('ts');
@@ -70,6 +66,12 @@ export async function middleware(request: NextRequest) {
       if (isExpiredShareLink) dest.searchParams.set('reason', 'expired');
       return NextResponse.redirect(dest);
     }
+  }
+
+  // No cookie and no signed link params — allow through in dev/staging so
+  // local work and staging previews aren't blocked by the access gate.
+  if (isDevEnvironment()) {
+    return NextResponse.next();
   }
 
   // If no valid authentication, deny access
