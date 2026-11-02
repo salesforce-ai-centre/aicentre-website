@@ -5,11 +5,15 @@ import { isDevEnvironment } from '@/lib/env';
 
 /**
  * Signed-URL generation. This endpoint mints access links, so it MUST require
- * a full-tier session — otherwise anyone could generate access to the site.
- * (It sits under /api, which is excluded from the middleware matcher, so the
- * guard has to live here.)
+ * either a full-tier session or a trusted server-to-server caller —
+ * otherwise anyone could generate access to the site. (It sits under /api,
+ * which is excluded from the middleware matcher, so the guard has to live
+ * here.)
  *
- * - Unauthenticated or lite-tier callers → 403.
+ * - A valid `x-api-key` (matching APEX_API_KEY) authorizes server-to-server
+ *   callers with no browser session, e.g. the Salesforce Apex
+ *   generateOfferingsLink callout.
+ * - Otherwise, unauthenticated or lite-tier callers → 403.
  * - In development, middleware skips auth (no cookie), so we allow it locally
  *   to keep the dev flow working; production always requires full tier.
  *
@@ -17,6 +21,10 @@ import { isDevEnvironment } from '@/lib/env';
  */
 async function requireFullTier(request: NextRequest): Promise<NextResponse | null> {
   if (isDevEnvironment()) return null;
+
+  const apiKey = process.env.APEX_API_KEY;
+  if (apiKey && request.headers.get('x-api-key') === apiKey) return null;
+
   // Verify the SIGNED scope cookie (rejects tampered lite→full escalation).
   const tier = await hmacAuth.verifyScopeCookie(request.cookies.get(AUTH_COOKIE)?.value);
   if (tier !== 'full') {
