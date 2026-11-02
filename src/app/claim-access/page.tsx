@@ -17,7 +17,7 @@
 
 import { Suspense, useState, type FormEvent } from 'react';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Ban } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { getSiteConfig } from '@/lib/content';
@@ -25,7 +25,6 @@ import AgentAstro from '../../../public/images/AgentAstroWelcome.png';
 import styles from './claim-access.module.css';
 
 const ClaimAccess = () => {
-  const router = useRouter();
   const params = useSearchParams();
   const siteConfig = getSiteConfig();
   const [email, setEmail] = useState('');
@@ -65,8 +64,11 @@ const ClaimAccess = () => {
       });
 
       if (res.ok) {
-        // Cookie is set; go to the lite home.
-        router.replace('/');
+        // Cookie is set; go to the lite home. A hard navigation (not
+        // router.replace) is required so the browser re-requests '/' fresh —
+        // a soft client navigation can otherwise serve an already-cached RSC
+        // payload rendered before the cookie existed, showing full tier.
+        window.location.href = '/';
         return;
       }
 
