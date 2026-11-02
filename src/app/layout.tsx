@@ -7,6 +7,7 @@ import SidebarAwareLayout from '@/components/SidebarAwareLayout'
 import { AccessTierProvider } from '@/contexts/AccessTierContext'
 import { getServerAccessTier } from '@/lib/auth-session'
 import { isDevEnvironment } from '@/lib/env'
+import DevTierToggle from '@/components/DevTierToggle'
 import Script from 'next/script'
 
 const inter = Inter({
@@ -95,6 +96,7 @@ export default async function RootLayout({
               {children}
             </SidebarAwareLayout>
           </ChatProvider>
+          {isDevEnvironment() && <DevTierToggle />}
         </AccessTierProvider>
       </body>
     </html>

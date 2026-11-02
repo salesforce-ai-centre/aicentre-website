@@ -27,7 +27,7 @@ const ACTIVATIONS: ExperienceCardData[] = [
   // Guided
   {
     id: 'f1-data-driven-experience',
-    title: 'F1 Data Driven Experience',
+    title: 'Data Driven Experience',
     description:
       'An interactive racing activation where telemetry from a competitive driving experience is fed into Data 360 and turned into a personalised, Agentforce-generated pit crew debrief.',
     image: '/images/Experiences/activations/activation-f1.jpg',
@@ -147,7 +147,7 @@ const WORKSHOPS: ExperienceCardData[] = [
     isNew: true,
     description:
       'A modular, implementation-focused workshop that helps customers move from AI strategy into the practical realities of delivering, scaling, and governing AI agents in the enterprise.',
-    image: '/images/Experiences/placeholder.png',
+    image: '/images/Experiences/workshops/workshop-agent-flight.jpeg',
   },
   {
     id: 'prompt-builder',
@@ -191,6 +191,13 @@ const WORKSHOPS: ExperienceCardData[] = [
       'A highly interactive, facilitated discussion format that turns large-group conversations into open dialogue where everyone has a voice.',
     image: '/images/Experiences/workshops/workshop-round-table-roulette.png',
   },
+  {
+    id: 'agent-bar',
+    title: 'Agent Bar',
+    description:
+      'A bookable, one-to-one working session where customers bring their Agentforce challenges and work through them with an expert.',
+    image: '/images/Experiences/workshops/workshop-agent-bar.jpg'
+  }
 ];
 
 // Lite (client-safe) sessions see generic stock photography instead of the
@@ -231,7 +238,7 @@ const SPACES: ExperienceCardData[] = [
     id: 'knightsbridge',
     title: 'Knightsbridge',
     description:
-      'A smaller meeting room suited to groups of 10–25. It can be combined with Kensington to form one larger space seating up to 72 theatre-style.',
+      'A smaller meeting room suited to groups of 10–25. It can be combined with Kensington to form one larger space seating up to 65 theatre-style.',
     image: '/images/Experiences/spaces/space-knightsbridge.jpg',
   },
   {
@@ -273,7 +280,7 @@ const SPACES: ExperienceCardData[] = [
     id: 'the-concourse',
     title: 'The Concourse',
     description:
-      'The area where the F1 Data Driven Experience and other guided immersive experiences take place.',
+      'The area where the Data Driven Experience and other guided immersive experiences take place.',
     image: '/images/Experiences/spaces/space-concourse1.jpg',
   },
   {
