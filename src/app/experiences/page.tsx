@@ -117,7 +117,7 @@ const ACTIVATIONS: ExperienceCardData[] = [
   },
   {
     id: 'history-of-ai-continuum',
-    title: 'History of AI Continuum',
+    title: 'AI Continuum',
     description:
       "A self-guided walkthrough tracing AI's evolution from early concepts to today's generative AI, including Salesforce's own research journey.",
     image: '/images/Experiences/activations/activation-timeline1.jpg',

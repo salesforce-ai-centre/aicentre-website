@@ -233,6 +233,12 @@ export default function Carousel({
     [snapAlign],
   );
 
+  const scrollToStart = useCallback((smooth: boolean) => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollTo({ left: 0, behavior: smooth && !prefersReducedMotion() ? 'smooth' : 'auto' });
+  }, []);
+
   // Dots jump to a target page. To keep the loop robust we ALWAYS land in the
   // middle copy: if we're not already in it, jump there instantly first (no
   // animation, invisible because the item content is identical), then smooth-
@@ -259,16 +265,25 @@ export default function Carousel({
 
     const target = itemRefs.current[targetRendered];
     if (!target) return;
+    // Page 0 (non-loop) always means "the very start of the track" — go
+    // straight to scrollLeft 0 rather than the first item's offsetLeft.
+    // A multi-item jump back to page 0 crosses several scroll-snap points,
+    // and with scroll-snap-type: mandatory the browser can intercept the
+    // smooth scroll and settle on an intermediate snap point instead of
+    // reaching the true start.
+    const toAbsoluteStart = !loop && page === 0;
 
     programmatic.current = true;
     if (programmaticTimer.current) clearTimeout(programmaticTimer.current);
     // requestAnimationFrame so the instant realign above is applied first.
-    requestAnimationFrame(() => scrollElementIntoPosition(target, true));
+    requestAnimationFrame(() =>
+      toAbsoluteStart ? scrollToStart(true) : scrollElementIntoPosition(target, true),
+    );
     // Release the guard after the smooth scroll has settled.
     programmaticTimer.current = setTimeout(() => {
       programmatic.current = false;
     }, 600);
-  }, [baseCount, itemsPerPage, loop, currentRenderedIndex, scrollElementIntoPosition]);
+  }, [baseCount, itemsPerPage, loop, currentRenderedIndex, scrollElementIntoPosition, scrollToStart]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'ArrowRight') {
