@@ -1,0 +1,7 @@
+/* A standalone `card` block (not inside a carousel) has no surrounding
+   grid/flex context to size it, so it needs its own width cap — elsewhere
+   in the site, ContentCard/TeamMemberCard/TestimonialCard are always used
+   inside a Carousel item, which constrains width for us. */
+.cardBlock {
+  max-width: 22rem;
+}

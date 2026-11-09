@@ -11,9 +11,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Carousel from '@/components/ui/Carousel';
 import SectionHeading from '@/components/ui/SectionHeading';
+import TeamMemberCard from '@/components/ui/TeamMemberCard';
 import { getTeamMembers } from '@/lib/content';
 import type { TeamMember } from '@/types/content';
 import styles from './MeetTheTeam.module.css';
@@ -37,24 +37,7 @@ export default function MeetTheTeam() {
           itemClassName={styles.item}
         >
           {team.map((member) => (
-            <div key={member.id} className={styles.card}>
-              {/* Photo fills the card; the bottom fades smoothly into white. */}
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={member.imageUrl}
-                  alt={member.name}
-                  fill
-                  className={styles.image}
-                  sizes="(max-width: 640px) 70vw, (max-width: 1024px) 33vw, 25vw"
-                />
-                <div className={styles.fade} />
-              </div>
-              {/* Name/role sit over the faded lower area of the photo. */}
-              <div className={styles.text}>
-                <p className={styles.name}>{member.name}</p>
-                <p className={styles.role}>{member.role}</p>
-              </div>
-            </div>
+            <TeamMemberCard key={member.id} member={member} />
           ))}
         </Carousel>
       </div>

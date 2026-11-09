@@ -13,6 +13,7 @@
 
 import { useEffect, useState } from 'react';
 import Carousel from '@/components/ui/Carousel';
+import TestimonialCard from '@/components/ui/TestimonialCard';
 import { getTestimonials } from '@/lib/content';
 import type { Testimonial } from '@/types/content';
 import styles from './Testimonials.module.css';
@@ -36,26 +37,7 @@ export default function Testimonials() {
           itemClassName={styles.item}
         >
           {testimonials.map((t) => (
-            <figure key={t.id} className={styles.figure}>
-              <div className={styles.bubble}>
-                <span aria-hidden className={styles.quoteMark}>
-                  &ldquo;
-                </span>
-                <div className={styles.body}>
-                  <blockquote className={styles.quote}>
-                    {t.quote}
-                  </blockquote>
-                  <figcaption className={styles.attribution}>
-                    {t.attribution}
-                  </figcaption>
-                </div>
-              </div>
-              <div aria-hidden className={styles.tail}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
-                  <path d="M96 71L0 0H96V71Z" fill="white"/>
-                </svg>
-              </div>
-            </figure>
+            <TestimonialCard key={t.id} testimonial={t} />
           ))}
         </Carousel>
       </div>
