@@ -6,6 +6,8 @@ import siteConfigContent from '../../content/site-config.json';
 import teamMembersContent from '../../content/team-members.json';
 import spacesContent from '../../content/spaces.json';
 import testimonialsContent from '../../content/testimonials.json';
+import galleryContent from '../../content/gallery.json';
+import galleryLiteContent from '../../content/gallery-lite.json';
 import {
   Workshop,
   Experience,
@@ -13,7 +15,8 @@ import {
   SiteConfig,
   TeamMember,
   Space,
-  Testimonial
+  Testimonial,
+  GalleryImage
 } from '@/types/content';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
@@ -54,8 +57,32 @@ export function getTeamMembers(): Promise<TeamMember[]> {
   );
 }
 
-export function getTestimonials(): Testimonial[] {
-  return testimonialsContent as Testimonial[];
+export function getTestimonials(usePublic = false): Promise<Testimonial[]> {
+  return fetchWithFallback<Testimonial[]>(
+    `${usePublic ? BASE_URL : ''}/api/testimonials`,
+    testimonialsContent as Testimonial[],
+    (data): data is Testimonial[] => Array.isArray(data) && data.length > 0
+  );
+}
+
+export async function getGalleryImages(variant: 'full' | 'lite', usePublic = false): Promise<string[]> {
+  const fallbackImages = (variant === 'lite' ? galleryLiteContent.images : galleryContent.images) as string[];
+  const fallback: GalleryImage[] = fallbackImages.map((image, index) => ({
+    id: `${variant}-${index}`,
+    image,
+    variant,
+  }));
+
+  const images = await fetchWithFallback<GalleryImage[]>(
+    `${usePublic ? BASE_URL : ''}/api/gallery`,
+    fallback,
+    (data): data is GalleryImage[] => Array.isArray(data) && data.length > 0
+  );
+
+  return images
+    .filter((image) => image.variant === variant)
+    .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+    .map((image) => image.image);
 }
 
 export function getSpaces(usePublic = false): Promise<Space[]> {

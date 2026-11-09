@@ -11,12 +11,19 @@
 
 'use client';
 
+import { useEffect, useState } from 'react';
 import Carousel from '@/components/ui/Carousel';
 import { getTestimonials } from '@/lib/content';
+import type { Testimonial } from '@/types/content';
 import styles from './Testimonials.module.css';
 
 export default function Testimonials() {
-  const testimonials = getTestimonials();
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+
+  useEffect(() => {
+    getTestimonials().then(setTestimonials);
+  }, []);
+
   if (testimonials.length === 0) return null;
 
   return (

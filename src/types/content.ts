@@ -114,6 +114,15 @@ export interface Testimonial {
   id: string;
   quote: string;
   attribution: string;
+  status?: 'Active' | 'Inactive';
+}
+
+export interface GalleryImage {
+  id: string;
+  image: string;
+  variant: 'full' | 'lite';
+  sortOrder?: number;
+  status?: 'Active' | 'Inactive';
 }
 
 export interface Space {
