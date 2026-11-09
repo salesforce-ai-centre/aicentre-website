@@ -73,13 +73,13 @@ export async function getGalleryImages(variant: 'full' | 'lite', usePublic = fal
     variant,
   }));
 
-  const images = await fetchWithFallback<GalleryImage[]>(
-    `${usePublic ? BASE_URL : ''}/api/gallery`,
-    fallback,
-    (data): data is GalleryImage[] => Array.isArray(data) && data.length > 0
-  );
+  // const images = await fetchWithFallback<GalleryImage[]>(
+  //   `${usePublic ? BASE_URL : ''}/api/gallery`,
+  //   fallback,
+  //   (data): data is GalleryImage[] => Array.isArray(data) && data.length > 0
+  // );
 
-  return images
+  return fallback
     .filter((image) => image.variant === variant)
     .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
     .map((image) => image.image);
