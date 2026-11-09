@@ -18,19 +18,19 @@ import {
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
 
-export async function getWorkshops(): Promise<Workshop[]> {
+export async function getWorkshops(usePublic = false): Promise<Workshop[]> {
   return fetchWithFallback<Workshop[]>(
-    '/api/workshops',
+    `${usePublic ? BASE_URL : ''}/api/workshops`,
     workshopsContent as Workshop[],
-    (data): data is Workshop[] => Array.isArray(data)
+    (data): data is Workshop[] => Array.isArray(data) && data.length > 0
   );
 }
 
-export async function getExperiences(): Promise<Experience[]> {
+export async function getExperiences(usePublic = false): Promise<Experience[]> {
   return fetchWithFallback<Experience[]>(
-    '/api/experiences',
+    `${usePublic ? BASE_URL : ''}/api/experiences`,
     experiencesContent as Experience[],
-    (data): data is Experience[] => Array.isArray(data)
+    (data): data is Experience[] => Array.isArray(data) && data.length > 0
   );
 }
 
@@ -38,7 +38,7 @@ export async function getKeynotes(usePublic = false): Promise<Keynote[]> {
   return fetchWithFallback<Keynote[]>(
     `${usePublic ? BASE_URL : ''}/api/keynotes`,
     keynotesContent as Keynote[],
-    (data): data is Keynote[] => Array.isArray(data)
+    (data): data is Keynote[] => Array.isArray(data) && data.length > 0
   );
 }
 
@@ -46,19 +46,23 @@ export function getSiteConfig(): SiteConfig {
   return siteConfigContent as SiteConfig;
 }
 
-export function getTeamMembers(): TeamMember[] {
-  return teamMembersContent as TeamMember[];
+export function getTeamMembers(): Promise<TeamMember[]> {
+  return fetchWithFallback<TeamMember[]>(
+    '/api/team_members',
+    teamMembersContent as TeamMember[],
+    (data): data is TeamMember[] => Array.isArray(data) && data.length > 0
+  );
 }
 
 export function getTestimonials(): Testimonial[] {
   return testimonialsContent as Testimonial[];
 }
 
-export function getSpaces(): Promise<Space[]> {
+export function getSpaces(usePublic = false): Promise<Space[]> {
   return fetchWithFallback<Space[]>(
-    `/api/spaces`,
+    `${usePublic ? BASE_URL : ''}/api/spaces`,
     spacesContent as Space[],
-    (data): data is Space[] => Array.isArray(data)
+    (data): data is Space[] => Array.isArray(data) && data.length > 0
   );
 }
 
@@ -68,7 +72,7 @@ async function fetchWithFallback<T>(
   isValid: (data: any) => data is T
 ): Promise<T> {
   try {
-    const response = await fetch(apiPath);
+    const response = await fetch(apiPath, { cache: 'no-store' });
     if (!response.ok) {
       console.error(`Failed to fetch from ${apiPath}:`, response.statusText);
       return fallback;

@@ -439,7 +439,9 @@ export default function AgendaBuilderPage() {
           }
         } else if (slot.filledType === 'experience') {
           const experience = slot.filled as Experience;
-          slackText += `   _${experience.type.charAt(0).toUpperCase() + experience.type.slice(1)} Experience_\n`;
+          if (experience.type) {
+            slackText += `   _${experience.type.charAt(0).toUpperCase() + experience.type.slice(1)} Experience_\n`;
+          }
           if (experience.tags && experience.tags.length > 0) {
             slackText += `   _Tags: ${experience.tags.slice(0, 3).join(', ')}_\n`;
           }

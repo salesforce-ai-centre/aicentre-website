@@ -10,14 +10,21 @@
 
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Carousel from '@/components/ui/Carousel';
 import SectionHeading from '@/components/ui/SectionHeading';
 import { getTeamMembers } from '@/lib/content';
+import type { TeamMember } from '@/types/content';
 import styles from './MeetTheTeam.module.css';
 
 export default function MeetTheTeam() {
-  const team = getTeamMembers();
+  const [team, setTeam] = useState<TeamMember[]>([]);
+
+  useEffect(() => {
+    getTeamMembers().then(setTeam);
+  }, []);
+
   if (team.length === 0) return null;
 
   return (

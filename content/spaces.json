@@ -1,20 +1,68 @@
 [
   {
-    "id": "knightsbridge",
-    "name": "Knightsbridge",
-    "capacity": "Seats up to xx people and is perfect for...",
-    "imageUrl": ""
+    "id": "exhibition-road",
+    "name": "Exhibition Road",
+    "description": "The immersive walkthrough space, featuring interactive activations like the History of AI wall, Customer Showcase, Lego City, and more.",
+    "imageUrl": "/images/Experiences/spaces/space-exhibition-road.jpg"
   },
   {
     "id": "kensington",
     "name": "Kensington",
-    "capacity": "Seats up to xx people and is perfect for...",
-    "imageUrl": ""
+    "description": "A flexible meeting room fitting 16–39 people (24 workshop-style, 39 theatre-style). It can be combined with Knightsbridge to form one larger space seating up to 72 theatre-style.",
+    "imageUrl": "/images/Experiences/spaces/space-kensington.jpg"
+  },
+  {
+    "id": "knightsbridge",
+    "name": "Knightsbridge",
+    "description": "A smaller meeting room suited to groups of 10–25. It can be combined with Kensington to form one larger space seating up to 65 theatre-style.",
+    "imageUrl": "/images/Experiences/spaces/space-knightsbridge.jpg"
   },
   {
     "id": "richmond",
     "name": "Richmond",
-    "capacity": "Seats up to xx people and is perfect for...",
-    "imageUrl": ""
+    "description": "A boardroom-style meeting room designed for smaller, focused sessions, seating up to 8 people.",
+    "imageUrl": "/images/Experiences/spaces/space-richmond.jpg"
+  },
+  {
+    "id": "the-studio",
+    "name": "The Studio",
+    "description": "A media production space for recording customer conversations, enablement content, and other media.",
+    "imageUrl": "/images/Experiences/spaces/space-the-studio.jpg"
+  },
+  {
+    "id": "the-exchange",
+    "name": "The Exchange",
+    "description": "The AI Centre's social lounge, this is the go-to spot for informal chats and mingling between sessions. It's also home to the main kitchen, stocked with snacks and drinks, making it a natural gathering point throughout the day.",
+    "imageUrl": "/images/Experiences/spaces/space-exchange1.jpg"
+  },
+  {
+    "id": "greenwich",
+    "name": "Greenwich",
+    "description": "A large, flexible high-capacity space for townhalls and workshops: up to 85 theatre-style, 64 classroom, or 40 workshop-style.",
+    "imageUrl": "/images/Experiences/spaces/space-greenwich1.jpg"
+  },
+  {
+    "id": "primrose-hill",
+    "name": "Primrose Hill",
+    "description": "Tiered seating built for short, high-impact presentations, live demos, or storytelling, with a dedicated townhall zone holding up to 70.",
+    "imageUrl": "/images/Experiences/spaces/space-primrose-hill.jpg"
+  },
+  {
+    "id": "the-concourse",
+    "name": "The Concourse",
+    "description": "The area where the Data Driven Experience and other guided immersive experiences take place.",
+    "imageUrl": "/images/Experiences/spaces/space-concourse1.jpg"
+  },
+  {
+    "id": "bloomsbury",
+    "name": "Bloomsbury",
+    "description": "A large, flexible high-capacity space for townhalls and workshops: up to 85 theatre-style, 64 classroom, or 40 workshop-style — for internal meetings only.",
+    "imageUrl": "/images/Experiences/spaces/space-bloomsbury.jpg"
+  },
+  {
+    "id": "camden",
+    "name": "Camden",
+    "description": "A smaller meeting room suited to groups of 10–25 on floor 2 — for internal meetings only.",
+    "imageUrl": "/images/Experiences/spaces/space-camden.jpg"
   }
 ]

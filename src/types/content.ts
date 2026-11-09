@@ -6,9 +6,11 @@ export interface Workshop {
   tags: string[];
   audienceSize: string;
   duration: string;
-  category: 'hands-on' | 'ideation' | 'business' | 'technical';
+  category?: 'hands-on' | 'ideation' | 'business' | 'technical';
   image?: string;
+  imageLite?: string;
   featured?: boolean;
+  isNew?: boolean;
   whatYoullLearn?: string[];
   agendaId?: string;
   sampleAgenda?: string;
@@ -19,7 +21,7 @@ export interface Experience {
   id: string;
   title: string;
   description: string;
-  type: 'demo' | 'interactive' | 'immersive';
+  type?: 'demo' | 'interactive' | 'immersive';
   duration: string;
   audienceSize: string;
   tags: string[];
@@ -29,6 +31,7 @@ export interface Experience {
   isHosted?: boolean;
   /** Delivery badge shown on the Experiences page card (Figma node 28:78). */
   badge?: 'Guided' | 'Self Serve';
+  isComingSoon?: boolean;
 }
 
 

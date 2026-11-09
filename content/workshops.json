@@ -2,66 +2,102 @@
   {
     "id": "agent-challenge-day",
     "title": "Agent Challenge Day",
-    "description": "Intensive hands-on challenge where your customers build and deploy their first AI agent. Perfect for technical teams ready to dive deep into Agentforce capabilities.",
-    "tags": ["Hands-on", "Technical Users", "Ideation"],
-    "audienceSize": "12-25 participants",
-    "duration": "Full day",
-    "category": "hands-on",
-    "featured": true
+    "description": "A human-centred workshop focused on identifying, designing and pitching Agentforce use cases aligned to customer business challenges.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-agentforce-challenge-day1.jpg",
+    "imageLite": "/images/Experiences/LiteWorkshops/lite-workshop-01.jpeg"
   },
   {
-    "id": "agentforce-hands-on-workshop",
-    "title": "Agentforce Hands-on Workshop",
-    "description": "Comprehensive workshop for customer teams covering agent design, implementation, and deployment strategies with real-world use cases.",
-    "tags": ["Hands-on", "Technical Users"],
-    "audienceSize": "15-30 participants",
-    "duration": "Half day",
-    "category": "hands-on"
+    "id": "becoming-an-agentic-enterprise",
+    "title": "Becoming an Agentic Enterprise",
+    "description": "A strategic session exploring how organisations can move from AI ideation to enterprise-wide implementation.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-becoming-an-agentic-enterprise.jpeg",
+    "imageLite": "/images/Experiences/LiteWorkshops/lite-workshop-02.jpeg",
+    "isNew": true
+  },
+  {
+    "id": "agent-flight",
+    "title": "Agent Flight",
+    "description": "A modular, implementation-focused workshop that helps customers move from AI strategy into the practical realities of delivering, scaling, and governing AI agents in the enterprise.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-agent-flight.jpeg",
+    "imageLite": "/images/Experiences/LiteWorkshops/lite-workshop-03.jpeg",
+    "isNew": true
+  },
+  {
+    "id": "prompt-builder",
+    "title": "Prompt Builder Workshop",
+    "description": "A hands-on workshop designed to develop prompt engineering skills and build practical solutions using Prompt Builder.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-prompt-builder.jpg",
+    "imageLite": "/images/Experiences/LiteWorkshops/lite-workshop-04.jpeg"
   },
   {
     "id": "agentforce-ideation",
     "title": "Agentforce Ideation",
-    "description": "Future-focused workshop using proven ideation frameworks to help customers envision their AI-powered business transformation.",
-    "tags": ["Ideation", "Business Users", "Executives"],
-    "audienceSize": "10-20 participants",
-    "duration": "Half day",
-    "category": "ideation",
-    "featured": true
+    "description": "A collaborative workshop that helps organisations identify, prioritise, and shape high-value Agentforce use cases aligned to real business problems.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-agentforce-ideation.jpg",
+    "imageLite": "/images/Experiences/LiteWorkshops/lite-workshop-05.jpeg"
   },
   {
-    "id": "agentforce-now",
-    "title": "Agentforce Now",
-    "description": "Quick-start program to help customers get their first agent up and running in record time with immediate business impact.",
-    "tags": ["Business Users", "Hands-on"],
-    "audienceSize": "20-35 participants",
-    "duration": "2 hours",
-    "category": "business"
+    "id": "agentforce-hands-on",
+    "title": "Agentforce Hands-on Workshop",
+    "description": "A hands-on technical workshop that enables teams to design, build, and test AI agents using Agentforce capabilities, including instructions, actions, and evaluation.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-agentforce-hands-on.jpg",
+    "imageLite": "/images/Experiences/LiteWorkshops/lite-workshop-06.jpeg"
   },
   {
-    "id": "data-cloud-ideation",
-    "title": "Data Cloud Ideation",
-    "description": "Help customers explore how to leverage their data assets to power intelligent AI experiences across their organization.",
-    "tags": ["Ideation", "Business Users"],
-    "audienceSize": "15-25 participants",
-    "duration": "Half day",
-    "category": "ideation"
+    "id": "data360-ideation",
+    "title": "Data 360 Ideation",
+    "description": "A collaborative workshop focused on identifying high-value data use cases and aligning them to customer priorities.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-data360-ideation.jpg",
+    "imageLite": "/images/Experiences/LiteWorkshops/lite-workshop-07.jpeg"
   },
   {
-    "id": "data-cloud-hands-on",
-    "title": "Data Cloud Hands-on Workshop",
-    "description": "Technical deep-dive for customer teams into data preparation, integration, and optimization for AI and agent deployments.",
-    "tags": ["Hands-on", "Technical Users"],
-    "audienceSize": "12-20 participants",
-    "duration": "Full day",
-    "category": "technical"
+    "id": "data-readiness",
+    "title": "Data Readiness",
+    "description": "A workshop focused on preparing data foundations required for successful AI and Agentforce deployments.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-data-readiness.jpg",
+    "imageLite": "/images/Experiences/LiteWorkshops/lite-workshop-08.jpeg"
   },
   {
-    "id": "prompt-builder-workshop",
-    "title": "Prompt Builder Workshop",
-    "description": "Help customers master the art and science of prompt engineering to create more effective and reliable AI interactions.",
-    "tags": ["Hands-on", "Technical Users"],
-    "audienceSize": "18-30 participants",
-    "duration": "Half day",
-    "category": "technical"
+    "id": "roundtable-roulette",
+    "title": "Roundtable Roulette",
+    "description": "A highly interactive, facilitated discussion format that turns large-group conversations into open dialogue where everyone has a voice.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-round-table-roulette.png",
+    "imageLite": "/images/Experiences/LiteWorkshops/lite-workshop-09.jpeg"
+  },
+  {
+    "id": "agent-bar",
+    "title": "Agent Bar",
+    "description": "A bookable, one-to-one working session where customers bring their Agentforce challenges and work through them with an expert.",
+    "tags": [],
+    "audienceSize": "",
+    "duration": "",
+    "image": "/images/Experiences/workshops/workshop-agent-bar.jpg"
   }
 ]

@@ -1,6 +1,6 @@
 import { getSalesforceAccessToken, getSalesforceDomainUrl } from '@/lib/salesforce-auth';
 
-/** Salesforce REST API version used for all queryAll calls. */
+/** Salesforce REST API version used for all query calls. */
 const SF_API_VERSION = 'v64.0';
 
 interface QueryOptions {
@@ -21,7 +21,7 @@ async function fetchSalesforceRecords(url: string): Promise<any[]> {
     } 
   };
 
-  const response = await fetch(url, options);
+  const response = await fetch(url, { ...options, cache: 'no-store' });
   if (!response.ok) {
     const errorText = await response.text();
     console.error('Salesforce request failed:', errorText);
@@ -41,7 +41,7 @@ function buildQueryUrl({
   parentId = "",
   parentField = "" 
 }: QueryOptions): string {
-  const baseUrl = `${getSalesforceDomainUrl()}/services/data/${SF_API_VERSION}/queryAll?q=`;
+  const baseUrl = `${getSalesforceDomainUrl()}/services/data/${SF_API_VERSION}/query?q=`;
   const fields = "SELECT+FIELDS(ALL)";
   const fromClause = `FROM+${kind}`;
   

@@ -15,5 +15,5 @@ export const GET = createSalesforceRoute<Space>({
   label: 'spaces',
   fetcher: () => getSortedRecords("Space__c", 20, false, "ORDER+BY+CreatedDate+ASC"),
   transform: transformSpace,
-  postProcess: (spaces) => spaces.filter((space) => space.status === 'Active'),
+  postProcess: (spaces) => spaces.filter((space) => space.status === 'Active' && !!space.imageUrl),
 });
