@@ -3,7 +3,11 @@ import { hmacAuth } from './lib/hmac-auth';
 import { AUTH_COOKIE, isLitePathAllowed } from './lib/auth-session';
 import { isDevEnvironment } from './lib/env';
 
-// 	https://ai-centre-uk.my.salesforce-sites.com/services/apexrest/generateOfferingsLink/workshop
+const SIGNED_LANDING_PATHS = new Set(['experiences']);
+
+function landingUrl(request: NextRequest, path: string): URL {
+  return new URL(SIGNED_LANDING_PATHS.has(path) ? `/${path}` : '/', request.url);
+}
 
 export async function middleware(request: NextRequest) {
   if (process.env.MAINTENANCE_MODE === 'true') {
@@ -47,7 +51,7 @@ export async function middleware(request: NextRequest) {
       // Cookie carries a SIGNED scope so it can't be edited to escalate lite→full.
       const cookieValue = await hmacAuth.signScopeCookie(tier);
 
-      const response = NextResponse.redirect(new URL('/', request.url));
+      const response = NextResponse.redirect(landingUrl(request, path));
       response.cookies.set('aicentre-auth', cookieValue, {
         httpOnly: true,
         secure: !isDevEnvironment(),
