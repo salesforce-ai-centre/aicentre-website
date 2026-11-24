@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
   const authCookie = request.cookies.get(AUTH_COOKIE);
   if (authCookie) {
     if (timestamp || signature)
-      return NextResponse.redirect(new URL('/', request.url));
+      return NextResponse.redirect(landingUrl(request, url.pathname.substring(1)));;
 
     // Enforce the lite tier: a client session may only reach lite-visible
     // routes; any full-only route bounces back to the lite home.
